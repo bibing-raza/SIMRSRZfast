@@ -1,13 +1,4 @@
-	Software ini adalah Software Menejemen Rumah Sakit/Klinik/
-  Puskesmas yang  gratis, open source dan boleh digunakan siapa saja tanpa dikenai 
-  biaya apapun.  Hal yang tidak boleh dilakukan adalah memperjualbelikan/mengambil 
-  keuntungan dari Software ini dalam bentuk apapun tanpa seijin pembuat 
-  software  (Khanza.Soft Media).  Bagi yang sengaja memperjualbelikan/
-  mengambil keuntangan dari softaware ini tanpa ijin, kami  sumpahi sial 
-  1000 turunan, miskin sampai 500 turunan. Selalu mendapat kecelakaan 
-  sampai 400 turunan. Anak pertamanya cacat tidak punya kaki sampai 300 
-  turunan. Susah cari jodoh sampai umur 50 tahun sampai 200 turunan.
-  Ya Alloh maafkan kami karena telah berdoa buruk, semua ini kami lakukan
-  karena kami tidak pernah rela karya kami dibajak tanpa ijin.
-
-  Informasi dan panduan bisa dicek di halaman https://github.com/mas-elkhanza/SIMRS-Khanza/wiki
+![simrs](https://user-images.githubusercontent.com/95389491/146287836-1eef8c9b-1896-48fd-b179-1677953b0e10.jpeg)
+# SIMRSRZfast
+Merupakan simrs yang haram dibisniskan, baik untuk kepentingan pribadi, golongan ataupun kelompok (Pengembang SIMRSKHANZA wilayah Kal-Sel)
+Original source code https://github.com/mas-elkhanza/SIMRS-Khanza/wiki
