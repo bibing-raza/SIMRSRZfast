@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl">
+  <name>SIK_TEST</name>
+  <driver>com.mysql.jdbc.Driver</driver>
+  <username>sirsraza</username>
+  <password>mNWtACEbNP</password>
+  <url>jdbc:mysql://10.10.1.3/sik_test</url>
+  <database></database>
+  <savePassword>true</savePassword>
+  <serverAddress></serverAddress>
+</jdbcDataAdapter>
