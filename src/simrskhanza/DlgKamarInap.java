@@ -11928,8 +11928,37 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Batal pasien pulang hrs. dicek transaksinya dulu, kordinasikan lagi dg. petugas terkait...!!!");
-                TCari.requestFocus();
+                x = JOptionPane.showConfirmDialog(null, "Apakah anda yakin akan membatalkan transaksi pasien pulang ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                if (x == JOptionPane.YES_OPTION) {
+                    i = 0;
+                    i = Sequel.cariInteger("select count(billing.no_rawat) from billing where billing.no_rawat='" + norawat.getText() + "'");
+                    if (i > 0) {
+                        JOptionPane.showMessageDialog(null, "Notanya sudah tersimpan dikasir, proses batal pasien pulang hrs. dicek transaksinya dulu,..!!!");
+                        tbKamIn.requestFocus();
+                    } else {
+                        try {
+                            if ((Sequel.cariInteger("select count(1) from pasien_mati where no_rkm_medis = '" + TNoRM.getText() + "'")) > 0) {
+                                Sequel.meghapus("pasien_mati", "no_rkm_medis", TNoRM.getText());
+                            }
+
+                            if ((Sequel.cariInteger("select count(1) from ranap_aps where no_rawat = '" + norawat.getText() + "'")) > 0) {
+                                Sequel.meghapus("ranap_aps", "no_rawat", norawat.getText());
+                            }
+
+                            Sequel.queryu("update kamar_inap set tgl_keluar = '0000-00-00', jam_keluar = '00:00:00', lama = '0', ttl_biaya = '0', stts_pulang = '-' "
+                                    + "where no_rawat = '" + norawat.getText() + "' and stts_pulang not in ('-','Pindah Kamar')");
+
+                            //update tanggal pulang didata bridging sep
+                            if (cekPXbpjs >= 1) {
+                                Sequel.mengedit("bridging_sep", "no_rawat='" + norawat.getText() + "' and jnspelayanan='1'", "tglpulang='0000-00-00 00:00:00'");
+                            }
+                            JOptionPane.showMessageDialog(rootPane, "Proses pembatalan pulang telah berhasil dilakukan...!!");
+                            tampil();
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(null, "Ada kesalahan query = " + e);
+                        }
+                    }
+                }
             }
         }
     }//GEN-LAST:event_MnBatalPulangActionPerformed

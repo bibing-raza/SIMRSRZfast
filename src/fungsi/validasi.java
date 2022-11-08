@@ -622,27 +622,40 @@ public final class validasi {
         try {
             try (Statement stm = connect.createStatement()) {
                 Map<String, Object> parameters = new HashMap<>();
-
+                ps = connect.prepareStatement(qry);
                 try {
 
+//                    String namafile = "./" + reportDirName + "/" + reportName;
+//                    File reportfile = new File(namafile);
+//
+//                    JRDesignQuery newQuery = new JRDesignQuery();
+//                    newQuery.setText(qry);
+//                    JasperDesign jasperDesign = JRXmlLoader.load(reportfile);
+//                    jasperDesign.setQuery(newQuery);
+//
+//                    JasperReport JRpt = JasperCompileManager.compileReport(jasperDesign);
+//                    JasperPrint jasperPrint = JasperFillManager.fillReport(JRpt, parameters, connect);
+//
+//                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+//                    jasperViewer.setTitle(judul);
+//                    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+//                    jasperViewer.setSize(screen.width - 50, screen.height - 50);
+//                    jasperViewer.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+//                    jasperViewer.setLocationRelativeTo(null);
+//                    jasperViewer.setVisible(true);
                     String namafile = "./" + reportDirName + "/" + reportName;
-                    File reportfile = new File(namafile);
+                rs = ps.executeQuery();
+                JRResultSetDataSource rsdt = new JRResultSetDataSource(rs);
 
-                    JRDesignQuery newQuery = new JRDesignQuery();
-                    newQuery.setText(qry);
-                    JasperDesign jasperDesign = JRXmlLoader.load(reportfile);
-                    jasperDesign.setQuery(newQuery);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters, rsdt);
 
-                    JasperReport JRpt = JasperCompileManager.compileReport(jasperDesign);
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(JRpt, parameters, connect);
-
-                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-                    jasperViewer.setTitle(judul);
-                    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-                    jasperViewer.setSize(screen.width - 50, screen.height - 50);
-                    jasperViewer.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
-                    jasperViewer.setLocationRelativeTo(null);
-                    jasperViewer.setVisible(true);
+                JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                jasperViewer.setTitle(judul);
+                Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+                jasperViewer.setSize(screen.width - 50, screen.height - 50);
+                jasperViewer.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+                jasperViewer.setLocationRelativeTo(null);
+                jasperViewer.setVisible(true);
                 } catch (Exception rptexcpt) {
                     System.out.println("Report Can't view because : " + rptexcpt);
                     JOptionPane.showMessageDialog(null, "Report Can't view because : " + rptexcpt);
@@ -682,27 +695,40 @@ public final class validasi {
         try {
             try (Statement stm = connect.createStatement()) {
                 Map<String, Object> parameters = new HashMap<>();
-
+                ps = connect.prepareStatement(qry);
                 try {
 
+//                    String namafile = "./" + reportDirName + "/" + reportName;
+//                    File reportfile = new File(namafile);
+//
+//                    JRDesignQuery newQuery = new JRDesignQuery();
+//                    newQuery.setText(qry);
+//                    JasperDesign jasperDesign = JRXmlLoader.load(reportfile);
+//                    jasperDesign.setQuery(newQuery);
+//
+//                    JasperReport JRpt = JasperCompileManager.compileReport(jasperDesign);
+//                    JasperPrint jasperPrint = JasperFillManager.fillReport(JRpt, parameters, connect);
+//
+//                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+//                    jasperViewer.setTitle(judul);
+//                    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+//                    jasperViewer.setSize(screen.width - 50, screen.height - 50);
+//                    jasperViewer.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+//                    jasperViewer.setLocationRelativeTo(null);
+//                    jasperViewer.setVisible(true);
                     String namafile = "./" + reportDirName + "/" + reportName;
-                    File reportfile = new File(namafile);
+                rs = ps.executeQuery();
+                JRResultSetDataSource rsdt = new JRResultSetDataSource(rs);
 
-                    JRDesignQuery newQuery = new JRDesignQuery();
-                    newQuery.setText(qry);
-                    JasperDesign jasperDesign = JRXmlLoader.load(reportfile);
-                    jasperDesign.setQuery(newQuery);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters, rsdt);
 
-                    JasperReport JRpt = JasperCompileManager.compileReport(jasperDesign);
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(JRpt, parameters, connect);
-
-                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-                    jasperViewer.setTitle(judul);
-                    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-                    jasperViewer.setSize(screen.width - 50, screen.height - 50);
-                    jasperViewer.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
-                    jasperViewer.setLocationRelativeTo(null);
-                    jasperViewer.setVisible(true);
+                JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                jasperViewer.setTitle(judul);
+                Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+                jasperViewer.setSize(screen.width - 50, screen.height - 50);
+                jasperViewer.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+                jasperViewer.setLocationRelativeTo(null);
+                jasperViewer.setVisible(true);
                 } catch (Exception rptexcpt) {
                     System.out.println("Report Can't view because : " + rptexcpt);
                     JOptionPane.showMessageDialog(null, "Report Can't view because : " + rptexcpt);
@@ -819,6 +845,58 @@ public final class validasi {
     }
 
     public void MyReport2(String reportName, String reportDirName, String judul, String qry, Map parameters) {
+//        Properties systemProp = System.getProperties();
+//
+//        // Ambil current dir
+//        String currentDir = systemProp.getProperty("user.dir");
+//
+//        File dir = new File(currentDir);
+//
+//        File fileRpt;
+//        String fullPath = "";
+//        if (dir.isDirectory()) {
+//            String[] isiDir = dir.list();
+//            for (String iDir : isiDir) {
+//                fileRpt = new File(currentDir + File.separatorChar + iDir + File.separatorChar + reportDirName + File.separatorChar + reportName);
+//                if (fileRpt.isFile()) { // Cek apakah file RptMaster.jasper ada
+//                    fullPath = fileRpt.toString();
+//                    System.out.println("Found Report File at : " + fullPath);
+//                } // end if
+//            } // end for i
+//        } // end if
+//
+//        // Ambil Direktori tempat file RptMaster.jasper berada
+//        String[] subRptDir = fullPath.split(reportName);
+//        String reportDir = subRptDir[0];
+//
+//        try {
+//            try {
+//                String namafile = "./" + reportDirName + "/" + reportName;
+//                File reportfile = new File(namafile);
+//
+//                JRDesignQuery newQuery = new JRDesignQuery();
+//                newQuery.setText(qry);
+//                JasperDesign jasperDesign = JRXmlLoader.load(reportfile);
+//                jasperDesign.setQuery(newQuery);
+//
+//                JasperReport JRpt = JasperCompileManager.compileReport(jasperDesign);
+//                JasperPrint jasperPrint = JasperFillManager.fillReport(JRpt, parameters, connect);
+//
+//                JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+//                jasperViewer.setTitle(judul);
+//                Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+//                jasperViewer.setSize(screen.width - 50, screen.height - 50);
+//                jasperViewer.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+//                jasperViewer.setLocationRelativeTo(null);
+//                jasperViewer.setVisible(true);
+//            } catch (Exception rptexcpt) {
+//                System.out.println("Report Can't view because : " + rptexcpt);
+//                JOptionPane.showMessageDialog(null, "Report Can't view because : " + rptexcpt);
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+
         Properties systemProp = System.getProperties();
 
         // Ambil current dir
@@ -839,22 +917,14 @@ public final class validasi {
             } // end for i
         } // end if
 
-        // Ambil Direktori tempat file RptMaster.jasper berada
-        String[] subRptDir = fullPath.split(reportName);
-        String reportDir = subRptDir[0];
-
         try {
+            ps = connect.prepareStatement(qry);
             try {
                 String namafile = "./" + reportDirName + "/" + reportName;
-                File reportfile = new File(namafile);
+                rs = ps.executeQuery();
+                JRResultSetDataSource rsdt = new JRResultSetDataSource(rs);
 
-                JRDesignQuery newQuery = new JRDesignQuery();
-                newQuery.setText(qry);
-                JasperDesign jasperDesign = JRXmlLoader.load(reportfile);
-                jasperDesign.setQuery(newQuery);
-
-                JasperReport JRpt = JasperCompileManager.compileReport(jasperDesign);
-                JasperPrint jasperPrint = JasperFillManager.fillReport(JRpt, parameters, connect);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters, rsdt);
 
                 JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
                 jasperViewer.setTitle(judul);
@@ -866,6 +936,13 @@ public final class validasi {
             } catch (Exception rptexcpt) {
                 System.out.println("Report Can't view because : " + rptexcpt);
                 JOptionPane.showMessageDialog(null, "Report Can't view because : " + rptexcpt);
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -1505,6 +1582,56 @@ public final class validasi {
     }
 
     public void MyReportqry(String reportName, String reportDirName, String judul, String qry, Map parameters) {
+//        Properties systemProp = System.getProperties();
+//
+//        // Ambil current dir
+//        String currentDir = systemProp.getProperty("user.dir");
+//
+//        File dir = new File(currentDir);
+//
+//        File fileRpt;
+//        String fullPath = "";
+//        if (dir.isDirectory()) {
+//            String[] isiDir = dir.list();
+//            for (String iDir : isiDir) {
+//                fileRpt = new File(currentDir + File.separatorChar + iDir + File.separatorChar + reportDirName + File.separatorChar + reportName);
+//                if (fileRpt.isFile()) { // Cek apakah file RptMaster.jasper ada
+//                    fullPath = fileRpt.toString();
+//                    System.out.println("Found Report File at : " + fullPath);
+//                } // end if
+//            } // end for i
+//        } // end if
+//
+//        try {
+//            ps = connect.prepareStatement(qry);
+//            try {
+//                String namafile = "./" + reportDirName + "/" + reportName;
+//                rs = ps.executeQuery();
+//                JRResultSetDataSource rsdt = new JRResultSetDataSource(rs);
+//
+//                JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters, rsdt);
+//
+//                JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+//                jasperViewer.setTitle(judul);
+//                Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+//                jasperViewer.setSize(screen.width - 50, screen.height - 50);
+//                jasperViewer.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+//                jasperViewer.setLocationRelativeTo(null);
+//                jasperViewer.setVisible(true);
+//            } catch (Exception rptexcpt) {
+//                System.out.println("Report Can't view because : " + rptexcpt);
+//                JOptionPane.showMessageDialog(null, "Report Can't view because : " + rptexcpt);
+//            } finally {
+//                if (rs != null) {
+//                    rs.close();
+//                }
+//                if (ps != null) {
+//                    ps.close();
+//                }
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
         Properties systemProp = System.getProperties();
 
         // Ambil current dir

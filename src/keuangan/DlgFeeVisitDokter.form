@@ -315,7 +315,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="22">
+                  <StringArray count="23">
                     <StringItem index="0" value="SEMUA RUANG"/>
                     <StringItem index="1" value="ZAAL"/>
                     <StringItem index="2" value="RKPD"/>
@@ -338,6 +338,7 @@
                     <StringItem index="19" value="ISOLASI COVID19"/>
                     <StringItem index="20" value="ISOLASI BAYI COVID19"/>
                     <StringItem index="21" value="COVID19"/>
+                    <StringItem index="22" value="BAYI-SEHAT &amp; NICU"/>
                   </StringArray>
                 </Property>
                 <Property name="name" type="java.lang.String" value="cmbRuangan" noResource="true"/>
@@ -348,7 +349,6 @@
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbRuanganMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbRuanganActionPerformed"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cmbRuanganKeyPressed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

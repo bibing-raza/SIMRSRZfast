@@ -43,7 +43,7 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
             jasa = 0, ttljasa = 0, uangrs = 0, ttluangrs = 0, tarifvisit = 0, tarifbyphone;
     private PreparedStatement ps, ps1, ps2, pskamar, psvisit, psvisit1, psbyphone, psrekap, psrekap1, psrekap2, psrekap3, psrekap4, psrekap5;
     private ResultSet rs, rs1, rs2, rskamar, rsvisit, rsvisit1, rsbyphone, rsrekap, rsrekap1, rsrekap2, rsrekap3, rsrekap4, rsrekap5;
-    private String sjmlvisit = "", sjmlbyphone = "", svisit = "", sbyphone = "", sbruto = "", gedung = "",
+    private String sjmlvisit = "", sjmlbyphone = "", svisit = "", sbyphone = "", sbruto = "", gedung = "", 
             sjasa = "", suangrs = "", starifvisit = "", starifbyphone = "", ruangDipilih = "", dialog_simpan = "";
 
     /** Creates new form DlgProgramStudi
@@ -818,7 +818,7 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         jLabel8.setBounds(0, 40, 95, 23);
 
         cmbRuangan.setForeground(new java.awt.Color(0, 0, 0));
-        cmbRuangan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SEMUA RUANG", "ZAAL", "RKPD", "PARU", "JANTUNG", "AS-SAMI", "AS-SAMI/UMUM", "ANAK", "BEDAH", "INTERNIST", "ICU/ICCU", "NICU", "OBGYN", "VIP", "SVIP", "BAYI-SEHAT", "AR-RAUDAH", "SYARAF", "MATA-THT-KK", "ISOLASI COVID19", "ISOLASI BAYI COVID19", "COVID19" }));
+        cmbRuangan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SEMUA RUANG", "ZAAL", "RKPD", "PARU", "JANTUNG", "AS-SAMI", "AS-SAMI/UMUM", "ANAK", "BEDAH", "INTERNIST", "ICU/ICCU", "NICU", "OBGYN", "VIP", "SVIP", "BAYI-SEHAT", "AR-RAUDAH", "SYARAF", "MATA-THT-KK", "ISOLASI COVID19", "ISOLASI BAYI COVID19", "COVID19", "BAYI-SEHAT & NICU" }));
         cmbRuangan.setName("cmbRuangan"); // NOI18N
         cmbRuangan.setPreferredSize(new java.awt.Dimension(120, 20));
         cmbRuangan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -829,11 +829,6 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         cmbRuangan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbRuanganActionPerformed(evt);
-            }
-        });
-        cmbRuangan.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cmbRuanganKeyPressed(evt);
             }
         });
         panelisi4.add(cmbRuangan);
@@ -1548,36 +1543,24 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
 
     private void cmbRuanganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbRuanganMouseClicked
         cmbRuangan.setEditable(false);
-        ruangDipilih = "";
-
-        if (cmbRuangan.getSelectedItem().equals("RKPD")) {
-            ruangDipilih = "AR-RAZAQ";
-        } else if (cmbRuangan.getSelectedItem().equals("ZAAL")) {
-            ruangDipilih = "ZAAL";
-        } else if (cmbRuangan.getSelectedItem().equals("AS-SAMI/UMUM")) {
-            ruangDipilih = "AS-SAMI/GENERAL";
-        } else {
-            ruangDipilih = cmbRuangan.getSelectedItem().toString();
-        }
+        cmbRuanganActionPerformed(null);
     }//GEN-LAST:event_cmbRuanganMouseClicked
 
     private void cmbRuanganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRuanganActionPerformed
         ruangDipilih = "";
 
-        if (cmbRuangan.getSelectedItem().equals("RKPD")) {
-            ruangDipilih = "AR-RAZAQ";
+        if (cmbRuangan.getSelectedItem().equals("RKPD")) {            
+            ruangDipilih = "b.nm_bangsal like '%AR-RAZAQ%'";
         } else if (cmbRuangan.getSelectedItem().equals("ZAAL")) {
-            ruangDipilih = "ZAAL";
+            ruangDipilih = "b.nm_bangsal like '%ZAAL%'";
         } else if (cmbRuangan.getSelectedItem().equals("AS-SAMI/UMUM")) {
-            ruangDipilih = "AS-SAMI/GENERAL";
+            ruangDipilih = "b.nm_bangsal like '%AS-SAMI/GENERAL%'";
+        } else if (cmbRuangan.getSelectedItem().equals("BAYI-SEHAT & NICU")) {
+            ruangDipilih = "(b.nm_bangsal like '%bayi-sehat%' or b.nm_bangsal like '%nicu%')";
         } else {
-            ruangDipilih = cmbRuangan.getSelectedItem().toString();
+            ruangDipilih = "b.nm_bangsal like '%" + cmbRuangan.getSelectedItem().toString() + "%'";
         }
     }//GEN-LAST:event_cmbRuanganActionPerformed
-
-    private void cmbRuanganKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbRuanganKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbRuanganKeyPressed
 
     private void BtnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBatalActionPerformed
         empttext();
@@ -1732,56 +1715,52 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void prosesCari(){
         Valid.tabelKosong(tabMode);    
         try {
-            psvisit = koneksi.prepareStatement("SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
-                    + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
-                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
-                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter like ? and rp.no_rkm_medis like ? or "                            
-                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
-                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter like ? and p.nm_pasien like ? or "                                    
-                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
-                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter like ? and ji.nm_perawatan like ? "
-                    + "ORDER BY d.nm_dokter, rd.tgl_perawatan");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                psvisit = koneksi.prepareStatement("SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                        + "pj.png_jawab like ? and rd.kd_dokter like ? and rp.no_rkm_medis like ? or "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                        + "pj.png_jawab like ? and rd.kd_dokter like ? and p.nm_pasien like ? or "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                        + "pj.png_jawab like ? and rd.kd_dokter like ? and ji.nm_perawatan like ? "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan");
+            } else {
+                psvisit = koneksi.prepareStatement("SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and " + ruangDipilih + " and "
+                        + "pj.png_jawab like ? and rd.kd_dokter like ? and rp.no_rkm_medis like ? or "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and " + ruangDipilih + " and "
+                        + "pj.png_jawab like ? and rd.kd_dokter like ? and p.nm_pasien like ? or "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and " + ruangDipilih + " and "
+                        + "pj.png_jawab like ? and rd.kd_dokter like ? and ji.nm_perawatan like ? "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan");
+            }
 
-            try {       
-                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
-                    psvisit.setString(1, "%%");
-                    psvisit.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit.setString(3, "%" + kddokter.getText().trim() + "%");
-                    psvisit.setString(4, "%" + TCari.getText().trim() + "%");
-                    psvisit.setString(5, "%%");
-                    psvisit.setString(6, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit.setString(7, "%" + kddokter.getText().trim() + "%");
-                    psvisit.setString(8, "%" + TCari.getText().trim() + "%");
-                    psvisit.setString(9, "%%");
-                    psvisit.setString(10, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit.setString(11, "%" + kddokter.getText().trim() + "%");
-                    psvisit.setString(12, "%" + TCari.getText().trim() + "%");
-                } else {
-                    psvisit.setString(1, "%" + ruangDipilih + "%");
-                    psvisit.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit.setString(3, "%" + kddokter.getText().trim() + "%");
-                    psvisit.setString(4, "%" + TCari.getText().trim() + "%");
-                    psvisit.setString(5, "%" + ruangDipilih + "%");
-                    psvisit.setString(6, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit.setString(7, "%" + kddokter.getText().trim() + "%");
-                    psvisit.setString(8, "%" + TCari.getText().trim() + "%");
-                    psvisit.setString(9, "%" + ruangDipilih + "%");
-                    psvisit.setString(10, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit.setString(11, "%" + kddokter.getText().trim() + "%");
-                    psvisit.setString(12, "%" + TCari.getText().trim() + "%");
-                }
-                
+            try {
+                psvisit.setString(1, "%" + nmpenjab.getText().trim() + "%");
+                psvisit.setString(2, "%" + kddokter.getText().trim() + "%");
+                psvisit.setString(3, "%" + TCari.getText().trim() + "%");
+                psvisit.setString(4, "%" + nmpenjab.getText().trim() + "%");
+                psvisit.setString(5, "%" + kddokter.getText().trim() + "%");
+                psvisit.setString(6, "%" + TCari.getText().trim() + "%");
+                psvisit.setString(7, "%" + nmpenjab.getText().trim() + "%");
+                psvisit.setString(8, "%" + kddokter.getText().trim() + "%");
+                psvisit.setString(9, "%" + TCari.getText().trim() + "%");
                 rsvisit = psvisit.executeQuery();
                 while (rsvisit.next()) {
                     tabMode.addRow(new Object[]{
@@ -1874,56 +1853,53 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void prosesCari1(){
         Valid.tabelKosong(tabMode1);    
         try {
-            psvisit1 = koneksi.prepareStatement("SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
-                    + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
-                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
-                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and rp.no_rkm_medis like ? or "                            
-                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
-                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and p.nm_pasien like ? or "                                    
-                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
-                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and ji.nm_perawatan like ? "
-                    + "ORDER BY d.nm_dokter, rd.tgl_perawatan");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                psvisit1 = koneksi.prepareStatement("SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                        + "pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and rp.no_rkm_medis like ? or "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                        + "pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and p.nm_pasien like ? or "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                        + "pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and ji.nm_perawatan like ? "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan");
+            } else {
+                psvisit1 = koneksi.prepareStatement("SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and " + ruangDipilih + " and "
+                        + "pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and rp.no_rkm_medis like ? or "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and " + ruangDipilih + " and "
+                        + "pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and p.nm_pasien like ? or "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and " + ruangDipilih + " and "
+                        + "pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and ji.nm_perawatan like ? "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan");
+            }
 
-            try {       
-                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
-                    psvisit1.setString(1, "%%");
-                    psvisit1.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit1.setString(3, "%" + kddokter.getText().trim() + "%");
-                    psvisit1.setString(4, "%" + TCari.getText().trim() + "%");                    
-                    psvisit1.setString(5, "%%");
-                    psvisit1.setString(6, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit1.setString(7, "%" + kddokter.getText().trim() + "%");
-                    psvisit1.setString(8, "%" + TCari.getText().trim() + "%");                    
-                    psvisit1.setString(9, "%%");
-                    psvisit1.setString(10, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit1.setString(11, "%" + kddokter.getText().trim() + "%");
-                    psvisit1.setString(12, "%" + TCari.getText().trim() + "%");
-                } else {
-                    psvisit1.setString(1, "%" + ruangDipilih + "%");
-                    psvisit1.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit1.setString(3, "%" + kddokter.getText().trim() + "%");
-                    psvisit1.setString(4, "%" + TCari.getText().trim() + "%");                    
-                    psvisit1.setString(5, "%" + ruangDipilih + "%");
-                    psvisit1.setString(6, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit1.setString(7, "%" + kddokter.getText().trim() + "%");
-                    psvisit1.setString(8, "%" + TCari.getText().trim() + "%");                    
-                    psvisit1.setString(9, "%" + ruangDipilih + "%");
-                    psvisit1.setString(10, "%" + nmpenjab.getText().trim() + "%");
-                    psvisit1.setString(11, "%" + kddokter.getText().trim() + "%");
-                    psvisit1.setString(12, "%" + TCari.getText().trim() + "%");
-                }
-                
+            try {
+                psvisit1.setString(1, "%" + nmpenjab.getText().trim() + "%");
+                psvisit1.setString(2, "%" + kddokter.getText().trim() + "%");
+                psvisit1.setString(3, "%" + TCari.getText().trim() + "%");
+                psvisit1.setString(4, "%" + nmpenjab.getText().trim() + "%");
+                psvisit1.setString(5, "%" + kddokter.getText().trim() + "%");
+                psvisit1.setString(6, "%" + TCari.getText().trim() + "%");
+                psvisit1.setString(7, "%" + nmpenjab.getText().trim() + "%");
+                psvisit1.setString(8, "%" + kddokter.getText().trim() + "%");
+                psvisit1.setString(9, "%" + TCari.getText().trim() + "%");
+
                 rsvisit1 = psvisit1.executeQuery();
                 while (rsvisit1.next()) {
                     tabMode1.addRow(new Object[]{
@@ -1956,39 +1932,58 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void rekapVisit(){
         Valid.tabelKosong(tabMode2);    
         try {
-            psrekap = koneksi.prepareStatement("select a.nm_dokter, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
-                    + "and b.nm_bangsal like ? and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                psrekap = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            } else {
+                psrekap = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and " + ruangDipilih + " and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            }
 
-            try {       
-                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
-                    psrekap.setString(1, "%%");
-                    psrekap.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                } else {
-                    psrekap.setString(1, "%" + ruangDipilih + "%");
-                    psrekap.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                }
-                
+            try {
+                psrekap.setString(1, "%" + nmpenjab.getText().trim() + "%");
                 rsrekap = psrekap.executeQuery();
                 x = 1;
                 while (rsrekap.next()) {
@@ -2028,40 +2023,60 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void rekapVisitNormal1(){
         Valid.tabelKosong(tabMode4);    
         try {
-            psrekap2 = koneksi.prepareStatement("select a.nm_dokter, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
-                    + "and b.nm_bangsal like ? and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                psrekap2 = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            } else {
+                psrekap2 = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and " + ruangDipilih + " and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            }
 
-            try {       
-                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
-                    psrekap2.setString(1, "%%");
-                    psrekap2.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                } else {
-                    psrekap2.setString(1, "%" + ruangDipilih + "%");
-                    psrekap2.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                }
-                
+            try {
+                psrekap2.setString(1, "%" + nmpenjab.getText().trim() + "%");
                 rsrekap2 = psrekap2.executeQuery();
                 x = 1;
                 while (rsrekap2.next()) {
@@ -2101,40 +2116,60 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void rekapVisitLibur1(){
         Valid.tabelKosong(tabMode5);    
         try {
-            psrekap3 = koneksi.prepareStatement("select a.nm_dokter, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
-                    + "and b.nm_bangsal like ? and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                psrekap3 = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            } else {
+                psrekap3 = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and " + ruangDipilih + " and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            }
 
-            try {       
-                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
-                    psrekap3.setString(1, "%%");
-                    psrekap3.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                } else {
-                    psrekap3.setString(1, "%" + ruangDipilih + "%");
-                    psrekap3.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                }
-                
+            try {
+                psrekap3.setString(1, "%" + nmpenjab.getText().trim() + "%");
                 rsrekap3 = psrekap3.executeQuery();
                 x = 1;
                 while (rsrekap3.next()) {
@@ -2174,39 +2209,58 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void rekapVisit1(){
         Valid.tabelKosong(tabMode3);    
         try {
-            psrekap1 = koneksi.prepareStatement("select a.nm_dokter, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
-                    + "and b.nm_bangsal like ? and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                psrekap1 = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            } else {
+                psrekap1 = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and " + ruangDipilih + " and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            }
 
-            try {       
-                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
-                    psrekap1.setString(1, "%%");
-                    psrekap1.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                } else {
-                    psrekap1.setString(1, "%" + ruangDipilih + "%");
-                    psrekap1.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                }
-                
+            try {
+                psrekap1.setString(1, "%" + nmpenjab.getText().trim() + "%");
                 rsrekap1 = psrekap1.executeQuery();
                 x = 1;
                 while (rsrekap1.next()) {
@@ -2246,40 +2300,60 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void rekapVisitNormal2(){
         Valid.tabelKosong(tabMode6);    
         try {
-            psrekap4 = koneksi.prepareStatement("select a.nm_dokter, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
-                    + "and b.nm_bangsal like ? and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                psrekap4 = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            } else {
+                psrekap4 = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and " + ruangDipilih + " and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            }
 
-            try {       
-                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
-                    psrekap4.setString(1, "%%");
-                    psrekap4.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                } else {
-                    psrekap4.setString(1, "%" + ruangDipilih + "%");
-                    psrekap4.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                }
-                
+            try {
+                psrekap4.setString(1, "%" + nmpenjab.getText().trim() + "%");
                 rsrekap4 = psrekap4.executeQuery();
                 x = 1;
                 while (rsrekap4.next()) {
@@ -2319,40 +2393,60 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void rekapVisitLibur2(){
         Valid.tabelKosong(tabMode7);    
         try {
-            psrekap5 = koneksi.prepareStatement("select a.nm_dokter, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
-                    + "and b.nm_bangsal like ? and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                psrekap5 = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            } else {
+                psrekap5 = koneksi.prepareStatement("select a.nm_dokter, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and " + ruangDipilih + " and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+            }
 
-            try {       
-                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
-                    psrekap5.setString(1, "%%");
-                    psrekap5.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                } else {
-                    psrekap5.setString(1, "%" + ruangDipilih + "%");
-                    psrekap5.setString(2, "%" + nmpenjab.getText().trim() + "%");
-                }
-                
+            try {
+                psrekap5.setString(1, "%" + nmpenjab.getText().trim() + "%");
                 rsrekap5 = psrekap5.executeQuery();
                 x = 1;
                 while (rsrekap5.next()) {
@@ -2415,39 +2509,22 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             param.put("judul", "Detail Visite Semua Hari Perawatan Dokter Yang Menangani");
             if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
                 param.put("ruangan", "SEMUA RUANG PERAWATAN");
-                Valid.MyReport("rptDetailVisitInap.jasper", "report", "::[ Laporan Rincian Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
-                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
-                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
-                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
-                        + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
-                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
             } else {
                 param.put("ruangan", "RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
-                Valid.MyReport("rptDetailVisitInap.jasper", "report", "::[ Laporan Rincian Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
-                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
-                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
-                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
-                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
-                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
             }
+
+            Valid.MyReport("rptDetailVisitInap.jasper", "report", "::[ Laporan Rincian Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                    "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                    + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                    + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
+                    + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            
         } else if (cmbPrin.getSelectedIndex() == 8) {
             param.put("judul", "Detail Visite Hari Normal Dokter Yang Menangani");
             if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
@@ -2456,13 +2533,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                         + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                         + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
                         + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
@@ -2473,17 +2546,13 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                         + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                         + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
-                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
-                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter not in ('-','--') and " + ruangDipilih + " and pj.png_jawab like '%" + nmpenjab.getText() + "%' and "
+                        + "rd.kd_dokter like '%" + kddokter.getText() + "%' ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
             } 
         } else if (cmbPrin.getSelectedIndex() == 12) {
             param.put("judul", "Detail Visite Hari Libur Dokter Yang Menangani");
@@ -2493,13 +2562,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                         + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                         + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
                         + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
@@ -2510,17 +2575,13 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                         + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                         + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
-                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
-                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter not in ('-','--') and " + ruangDipilih + " and pj.png_jawab like '%" + nmpenjab.getText() + "%' and "
+                        + "rd.kd_dokter like '%" + kddokter.getText() + "%' ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
             } 
         }
 
@@ -2547,14 +2608,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 Valid.MyReport("rptDetailVisitInap1.jasper", "report", "::[ Laporan Rincian Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
                         "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                         + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                         + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
                         + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
@@ -2564,18 +2621,14 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 Valid.MyReport("rptDetailVisitInap1.jasper", "report", "::[ Laporan Rincian Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
                         "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                         + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                         + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
-                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
-                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and "
+                        + "rd.kd_dokter_mewakili not in ('-','--') and " + ruangDipilih + " and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
             }
         } else if (cmbPrin.getSelectedIndex() == 9) {
             param.put("judul", "Detail Visite Hari Normal Dokter Umum/Yang Mewakili");
@@ -2585,13 +2638,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                         + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                         + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
                         + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
@@ -2602,17 +2651,13 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                         + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                         + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
-                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
-                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and "
+                        + "rd.kd_dokter_mewakili not in ('-','--') and " + ruangDipilih + " and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
             }
         } else if (cmbPrin.getSelectedIndex() == 13) {
             param.put("judul", "Detail Visite Hari Libur Dokter Umum/Yang Mewakili");
@@ -2622,13 +2667,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                         + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                         + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
                         + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
@@ -2639,17 +2680,13 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                         + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                         + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
-                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
-                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and "
+                        + "rd.kd_dokter_mewakili not in ('-','--') and " + ruangDipilih + " and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
             }
         }
 
@@ -2689,16 +2726,11 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
                         + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
-                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -2719,19 +2751,13 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
                         + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
-                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
                 param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER YANG MENANGANI");
                 param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
@@ -2750,16 +2776,11 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
                         + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
-                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -2780,19 +2801,13 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
                         + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
-                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             }
         } else if (cmbPrin.getSelectedIndex() == 10) {
             param.put("judul", "Rekap Visite Hari Normal Dokter Yang Menangani");
@@ -2816,14 +2831,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -2846,16 +2857,12 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan not like '%libur%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
                         + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
                 param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER YANG MENANGANI");
@@ -2877,14 +2884,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -2907,17 +2910,12 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan not like '%libur%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             }
         } else if (cmbPrin.getSelectedIndex() == 14) {
             param.put("judul", "Rekap Visite Hari Libur Dokter Yang Menangani");
@@ -2941,14 +2939,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -2971,17 +2965,12 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%libur%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
                 param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER YANG MENANGANI");
                 param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
@@ -3002,14 +2991,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -3032,17 +3017,12 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%libur%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             }
         }
         
@@ -3086,14 +3066,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
                         + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -3116,17 +3092,12 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
                         + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
                 param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER UMUM/YANG MEWAKILI");
                 param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
@@ -3147,14 +3118,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
                         + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -3177,17 +3144,12 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
                         + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             }
         } else if (cmbPrin.getSelectedIndex() == 11) {
             param.put("judul", "Rekap Visite Hari Normal Dokter Umum/Yang Mewakili");
@@ -3211,14 +3173,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -3241,17 +3199,12 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan not like '%libur%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
                 param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER UMUM/YANG MEWAKILI");
                 param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
@@ -3272,14 +3225,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -3302,17 +3251,12 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan not like '%libur%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             }
         } else if (cmbPrin.getSelectedIndex() == 15) {
             param.put("judul", "Rekap Visite Hari Libur Dokter Umum/Yang Mewakili");
@@ -3336,14 +3280,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -3366,17 +3306,12 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%libur%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
                 param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER UMUM/YANG MEWAKILI");
                 param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
@@ -3397,14 +3332,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                         + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
                         + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
@@ -3427,17 +3358,12 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
                         + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
                         + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
-                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%libur%' and ji.status='1' "
-                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and " + ruangDipilih + " and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') "
+                        + "and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
             }
         }
         this.setCursor(Cursor.getDefaultCursor());
@@ -3457,9 +3383,8 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     + "INNER JOIN kamar_inap ki on ki.no_rawat=dr.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
                     + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN rawat_inap_dr rid on rid.no_rawat=ki.no_rawat "
                     + "INNER JOIN reg_periksa rp on rp.no_rawat=ki.no_rawat INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "INNER JOIN dokter d1 on d1.kd_dokter=rid.kd_dokter_mewakili INNER JOIN dokter d2 on d2.kd_dokter=dr.kd_dokter "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "WHERE rid.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "INNER JOIN dokter d1 on d1.kd_dokter=rid.kd_dokter_mewakili INNER JOIN dokter d2 on d2.kd_dokter=dr.kd_dokter INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis WHERE "
+                    + "rid.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
                     + "and ki.stts_pulang not in ('-','pindah kamar') and d1.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
                     + "ORDER BY d1.nm_dokter, p.nm_pasien, rid.tgl_perawatan", dialog_simpan);
 
@@ -3472,10 +3397,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     + "INNER JOIN kamar_inap ki on ki.no_rawat=dr.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
                     + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN rawat_inap_dr rid on rid.no_rawat=ki.no_rawat "
                     + "INNER JOIN reg_periksa rp on rp.no_rawat=ki.no_rawat INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "INNER JOIN dokter d1 on d1.kd_dokter=rid.kd_dokter_mewakili INNER JOIN dokter d2 on d2.kd_dokter=dr.kd_dokter "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "WHERE rid.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ki.stts_pulang not in ('-','pindah kamar') and d1.kd_dokter not in ('-','--') "
+                    + "INNER JOIN dokter d1 on d1.kd_dokter=rid.kd_dokter_mewakili INNER JOIN dokter d2 on d2.kd_dokter=dr.kd_dokter INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis WHERE "
+                    + "rid.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "and " + ruangDipilih + " and ki.stts_pulang not in ('-','pindah kamar') and d1.kd_dokter not in ('-','--') "
                     + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' ORDER BY d1.nm_dokter, p.nm_pasien, rid.tgl_perawatan", dialog_simpan);
 
             JOptionPane.showMessageDialog(null, "Data telah berhasil diexport menjadi file excel,..!!!");
@@ -3526,27 +3450,30 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void gedungFix() {
         gedung = "";
         if (cmbRuangan.getSelectedItem().equals("JANTUNG")) {
-            gedung = "AS-SAMI";
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%AS-SAMI%'";
         } else if (cmbRuangan.getSelectedItem().equals("AS-SAMI/UMUM")) {
-            gedung = "AS-SAMI";
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%AS-SAMI%'";
         } else if (cmbRuangan.getSelectedItem().equals("ICU/ICCU")) {
-            gedung = "ICU";
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%ICU%'";
         } else if (cmbRuangan.getSelectedItem().equals("NICU")) {
-            gedung = "PERINATOLOGI";
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%PERINATOLOGI%'";
         } else if (cmbRuangan.getSelectedItem().equals("OBGYN")) {
-            gedung = "BERSALIN";
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%BERSALIN%'";
         } else if (cmbRuangan.getSelectedItem().equals("SVIP")) {
-            gedung = "VIP";
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%VIP%'";
         } else if (cmbRuangan.getSelectedItem().equals("SYARAF")) {
-            gedung = "AR-RAUDAH BAWAH";
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%AR-RAUDAH BAWAH%'";
         } else if (cmbRuangan.getSelectedItem().equals("MATA-THT-KK")) {
-            gedung = "AR-RAUDAH BAWAH";
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%AR-RAUDAH BAWAH%'";
         } else if (cmbRuangan.getSelectedItem().equals("ISOLASI COVID19")) {
-            gedung = "AR-RAUDAH BAWAH";
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%AR-RAUDAH BAWAH%'";
         } else if (cmbRuangan.getSelectedItem().equals("COVID19")) {
-            gedung = "AR-RAUDAH BAWAH";
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%AR-RAUDAH BAWAH%'";
+        } else if (cmbRuangan.getSelectedItem().equals("BAYI-SEHAT & NICU")) {
+            gedung = "(if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%PERINATOLOGI%' or "
+                    + "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%BAYI-SEHAT%')";
         } else {
-            gedung = cmbRuangan.getSelectedItem().toString();
+            gedung = "if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%" + cmbRuangan.getSelectedItem().toString() + "%'";
         }
     }
     
@@ -3561,21 +3488,16 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     + "inner join bridging_sep bs on bs.no_rawat=r.no_rawat inner join reg_periksa rp on rp.no_rawat=r.no_rawat "
                     + "inner join kamar_inap ki on ki.no_rawat=r.no_rawat inner join kamar k on k.kd_kamar=ki.kd_kamar inner join bangsal b on b.kd_bangsal=k.kd_bangsal where "
                     + "rp.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 "
-                    + "and if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%" + gedung + "%' and bs.no_sep like ? or "                            
+                    + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 and " + gedung + " and bs.no_sep like ? or "
                     + "rp.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 "
-                    + "and if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%" + gedung + "%' and bs.no_kartu like ? or "                            
+                    + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 and " + gedung + " and bs.no_kartu like ? or "                            
                     + "rp.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 "
-                    + "and if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%" + gedung + "%' and bs.nama_pasien like ? or "                    
+                    + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 and " + gedung + " and bs.nama_pasien like ? or "                    
                     + "rp.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 "
-                    + "and if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%" + gedung + "%' and bs.nomr like ? or "                            
+                    + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 and " + gedung + " and bs.nomr like ? or "                            
                     + "rp.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 "
-                    + "and if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%" + gedung + "%' and d.nm_dokter like ? "                                                      
-                    + "group by bs.no_rawat order by if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)), bs.no_rawat");
+                    + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 and " + gedung + " and d.nm_dokter like ? "                                                      
+                    + "group by bs.no_sep order by if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)), bs.no_sep");
             try {
                 ps.setString(1, "%" + TCari.getText().trim() + "%");
                 ps.setString(2, "%" + TCari.getText().trim() + "%");
@@ -3605,10 +3527,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                                 + "inner join bridging_sep bs on bs.no_rawat=r.no_rawat inner join reg_periksa rp on rp.no_rawat=r.no_rawat "
                                 + "inner join kamar_inap ki on ki.no_rawat=r.no_rawat inner join kamar k on k.kd_kamar=ki.kd_kamar inner join bangsal b on b.kd_bangsal=k.kd_bangsal where "
                                 + "rp.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                                + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 and bs.no_sep='" + rs.getString("no_sep") + "' "
-                                + "and if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)) like '%" + gedung + "%' and r.kd_dokter not in ('-','--') "
-                                + "group by bs.no_rawat, r.kd_dokter order by if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)), "
-                                + "bs.no_rawat, count(r.kd_jenis_prw) desc");
+                                + "and jp.nm_perawatan like '%visit%' and ki.stts_pulang not in ('-','pindah kamar') and bs.jnspelayanan=1 "
+                                + "and bs.no_sep='" + rs.getString("no_sep") + "' and " + gedung + " and r.kd_dokter not in ('-','--') "
+                                + "group by bs.no_sep, r.kd_dokter order by if(b.nm_bangsal like '%peri%','PERINATOLOGI',if(b.nm_bangsal like '%Bayi-Sehat%','BAYI-SEHAT',b.nm_gedung)), "
+                                + "bs.no_sep, count(r.kd_jenis_prw) desc");
                         try {
                             rs1 = ps1.executeQuery();
                             while (rs1.next()) {
