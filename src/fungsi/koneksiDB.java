@@ -295,4 +295,34 @@ public final class koneksiDB {
         }
         return var;
     }
+    
+    public static String NAMAPRINTER1() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = prop.getProperty("NAMAPRINTER1");
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+    
+    public static String NAMAPRINTER2() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = prop.getProperty("NAMAPRINTER2");
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+    
+    public static String NAMAPRINTER3() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = prop.getProperty("NAMAPRINTER3");
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
 }

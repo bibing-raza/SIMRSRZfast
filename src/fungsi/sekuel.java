@@ -63,7 +63,7 @@ public final class sekuel {
     private int angka = 0;
     private static int angka3 = 0;
     private double angka2 = 0;
-    private String dicari = "", output = "", inputan = "", bulan = "", hari = "";
+    private String dicari = "", output = "", inputan = "", bulan = "", hari = "", romawi = "";
     private static String dicari2 = "", output2 = "", inputan2 = "";
     private char enkrip;
     private static char enkrip2;
@@ -2279,6 +2279,82 @@ public void menyimpan3(String table,String value,int i,String[] a,String acuan_f
             System.out.println("Notifikasi : " + e);
         }
         return hari;
+    }
+    
+    public String bulanRomawi(String sql) {
+        romawi = "";
+        try {
+            ps = connect.prepareStatement(sql);
+            try {
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    romawi = rs.getString(1);
+                    if (romawi.equals("January") || romawi.equals("1") || romawi.equals("01")) {
+                        romawi = "I";
+                    }
+                    
+                    if (romawi.equals("February") || romawi.equals("2") || romawi.equals("02")) {
+                        romawi = "II";
+                    }
+                    
+                    if (romawi.equals("March") || romawi.equals("3") || romawi.equals("03")) {
+                        romawi = "III";
+                    }
+                    
+                    if (romawi.equals("April") || romawi.equals("4") || romawi.equals("04")) {
+                        romawi = "IV";
+                    }
+                    
+                    if (romawi.equals("May") || romawi.equals("5") || romawi.equals("05")) {
+                        romawi = "V";
+                    }
+                    
+                    if (romawi.equals("June") || romawi.equals("6") || romawi.equals("06")) {
+                        romawi = "VI";
+                    }
+                    
+                    if (romawi.equals("July") || romawi.equals("7") || romawi.equals("07")) {
+                        romawi = "VII";
+                    }
+                    
+                    if (romawi.equals("August") || romawi.equals("8") || romawi.equals("08")) {
+                        romawi = "VIII";
+                    }
+                    
+                    if (romawi.equals("September") || romawi.equals("9") || romawi.equals("09")) {
+                        romawi = "IX";
+                    }
+                    
+                    if (romawi.equals("October") || romawi.equals("10")) {
+                        romawi = "X";
+                    }
+                    
+                    if (romawi.equals("November") || romawi.equals("11")) {
+                        romawi = "XI";
+                    }
+                    
+                    if (romawi.equals("December") || romawi.equals("12")) {
+                        romawi = "XII";
+                    }
+                } else {
+                    romawi = "";
+                }
+            } catch (Exception e) {
+                romawi = "";
+                System.out.println("Notifikasi : " + e);
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+
+                if (ps != null) {
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notifikasi : " + e);
+        }
+        return romawi;
     }
     
     public void menghapus(String table,String field,String field2,String nilai_field,String nilai_field2) {

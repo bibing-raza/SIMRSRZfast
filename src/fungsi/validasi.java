@@ -1847,14 +1847,12 @@ public final class validasi {
         cell.setCellStyle(cellStyle);
     }
     
-    public void AutoPrintMulti(String reportName, String reportDirName, String judul, String qry, Map parameters) {
+    public void AutoPrintMulti(String reportName, String reportDirName, String judul, String qry, Map parameters, String printernama) {
         Properties systemProp = System.getProperties();
 
         // Ambil current dir
         String currentDir = systemProp.getProperty("user.dir");
-
         File dir = new File(currentDir);
-
         File fileRpt;
         String fullPath = "";
         if (dir.isDirectory()) {
@@ -1871,38 +1869,29 @@ public final class validasi {
         // Ambil Direktori tempat file RptMaster.jasper berada
         String[] subRptDir = fullPath.split(reportName);
         String reportDir = subRptDir[0];
-
         try {
-            try (Statement stm = connect.createStatement()) {
+            ps = connect.prepareStatement(qry);
+            try {
+                String namafile = "./" + reportDirName + "/" + reportName;
+                rs = ps.executeQuery();
+                JRResultSetDataSource rsdt = new JRResultSetDataSource(rs);
 
-                try {
+                JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters, rsdt);
 
-                    String namafile = "./" + reportDirName + "/" + reportName;
-                    File reportfile = new File(namafile);
-
-                    JRDesignQuery newQuery = new JRDesignQuery();
-                    newQuery.setText(qry);
-                    JasperDesign jasperDesign = JRXmlLoader.load(reportfile);
-                    jasperDesign.setQuery(newQuery);
-
-                    JasperReport JRpt = JasperCompileManager.compileReport(jasperDesign);
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(JRpt, parameters, connect);
-
-                    JRExporter exporter = new JRPdfExporter();
-
-                    exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, new FileOutputStream("D:/coba.pdf"));
-                    //The following is the important line
-                    exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, Arrays.asList(jasperPrint, jasperPrint));
-                    exporter.exportReport();
-
-                    //untuk langsung mencetak tanpa print preview
-//                    JasperPrintManager.printReport(jasperPrint, false);
-                    System.out.println("Sukses ");
+                //untuk langsung mencetak tanpa print preview
+                PrintReportToPrinter(jasperPrint, printernama);
+                System.out.println("Sukses ");
 //                    JOptionPane.showMessageDialog(null, "Report Berhasil Dicetak");
 
-                } catch (Exception rptexcpt) {
-                    System.out.println("Report Can't view because : " + rptexcpt);
-//                    JOptionPane.showMessageDialog(null, "Report Can't view because : " + rptexcpt);
+            } catch (Exception rptexcpt) {
+                System.out.println("Report Can't view because : " + rptexcpt);
+                JOptionPane.showMessageDialog(null, "Report Can't view because : " + rptexcpt);
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
                 }
             }
         } catch (Exception e) {

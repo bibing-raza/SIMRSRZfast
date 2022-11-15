@@ -62,4 +62,6 @@
 	<entry key="URLAPIKANKER">http://103.74.143.45/sirsonline/api</entry>
 	<entry key="KODERSKANKER">kode rs kanker dienkrip dulu</entry>
 	<entry key="PASSKANKER">password rs kanker dienkrip dulu</entry>
+	<entry key="NAMAPRINTER1">POS-80C</entry>
+	<entry key="NAMAPRINTER2">EPSON L120 Series</entry>
 </properties>

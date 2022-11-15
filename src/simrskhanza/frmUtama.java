@@ -252,6 +252,7 @@ import grafikanalisa.GrafikStatusRegPerTahun;
 import grafikanalisa.GrafikStatusRegPerTahun2;
 import grafikanalisa.GrafikStatusRegPerTanggal;
 import grafikanalisa.GrafikStatusRegPerTanggal2;
+import inventory.DlgAturanPakai;
 import inventory.DlgDaftarPermintaanResep;
 import inventory.DlgGolongan;
 import inventory.DlgKategori;
@@ -891,6 +892,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnMasterJabatanKomite = new widget.ButtonBig();
         btnRekamPsikologisAnak = new widget.ButtonBig();
         btnRekamPsikologiPerkawinan = new widget.ButtonBig();
+        btnMasterAturanPakai = new widget.ButtonBig();
         tanggal = new widget.Tanggal();
         btnDataPenjualan = new widget.ButtonBig();
         btnInputPenjualan = new widget.ButtonBig();
@@ -5975,6 +5977,19 @@ public class frmUtama extends javax.swing.JFrame {
         });
         Panelmenu.add(btnRekamPsikologiPerkawinan);
 
+        btnMasterAturanPakai.setForeground(new java.awt.Color(0, 0, 0));
+        btnMasterAturanPakai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/1360485030_receipt.png"))); // NOI18N
+        btnMasterAturanPakai.setText("Master Aturan Pakai");
+        btnMasterAturanPakai.setIconTextGap(0);
+        btnMasterAturanPakai.setName("btnMasterAturanPakai"); // NOI18N
+        btnMasterAturanPakai.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnMasterAturanPakai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMasterAturanPakaiActionPerformed(evt);
+            }
+        });
+        Panelmenu.add(btnMasterAturanPakai);
+
         scrollPane2.setViewportView(Panelmenu);
 
         panelMenu.add(scrollPane2, java.awt.BorderLayout.CENTER);
@@ -5983,7 +5998,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12/10/2022" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15/11/2022" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -12226,6 +12241,18 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnRekamPsikologiPerkawinanActionPerformed
 
+    private void btnMasterAturanPakaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasterAturanPakaiActionPerformed
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgAturanPakai aplikasi = new DlgAturanPakai(this, false);
+        aplikasi.emptTeks();
+        aplikasi.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        aplikasi.setLocationRelativeTo(PanelUtama);
+        aplikasi.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnMasterAturanPakaiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -12451,6 +12478,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnLihatPiutang;
     private widget.ButtonBig btnListSaranaRujukanBPJS;
     private widget.ButtonBig btnListSpesialistikRujukanBPJS;
+    private widget.ButtonBig btnMasterAturanPakai;
     private widget.ButtonBig btnMasterCaraBayar;
     private widget.ButtonBig btnMasterDTD;
     private widget.ButtonBig btnMasterFaskes;
@@ -13066,6 +13094,11 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
 
             if (akses.getobat() == true) {
                 Panelmenu.add(btnObat);
+                jmlmenu++;
+            }
+            
+            if (akses.getadmin() == true) {
+                Panelmenu.add(btnMasterAturanPakai);
                 jmlmenu++;
             }
 
@@ -14734,6 +14767,11 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
 
         if (akses.getpengajuan_klaim_raza() == true) {
             Panelmenu.add(btnPengajuanKlaimINACBGrz);
+            jmlmenu++;
+        }
+        
+        if (akses.getadmin() == true) {
+            Panelmenu.add(btnMasterAturanPakai);
             jmlmenu++;
         }
         
@@ -16544,6 +16582,13 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         if (akses.getsisrute_rujukan_masuk() == true) {
             if (btnRujukanMasukSisrute.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
                 Panelmenu.add(btnRujukanMasukSisrute);
+                jmlmenu++;
+            }
+        }
+        
+        if (akses.getadmin() == true) {
+            if (btnMasterAturanPakai.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnMasterAturanPakai);
                 jmlmenu++;
             }
         }
