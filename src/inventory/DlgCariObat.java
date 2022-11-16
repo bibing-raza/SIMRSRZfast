@@ -1021,7 +1021,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
                         stokbarang = 0;
                         psstok = koneksi.prepareStatement("select ifnull(stok,'0') from gudangbarang where kd_bangsal=? and kode_brng=?");
                         try {
-                            tbObat.setValueAt(embalase, tbObat.getSelectedRow(), 6);
+//                            tbObat.setValueAt(embalase, tbObat.getSelectedRow(), 6);
                             tbObat.setValueAt(tuslah, tbObat.getSelectedRow(), 7);
                             psstok.setString(1, bangsal);
                             psstok.setString(2, tbObat.getValueAt(tbObat.getSelectedRow(), 2).toString());
