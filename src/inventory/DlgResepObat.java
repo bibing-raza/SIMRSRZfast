@@ -1342,7 +1342,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 tampilObat();
             } else if (conteng == 1) {
                 DlgGantiAturanPakai ganti = new DlgGantiAturanPakai(null, false);
-                ganti.setSize(644, 426);
+                ganti.setSize(644, 316);
                 ganti.setLocationRelativeTo(internalFrame1);
                 ganti.setData(TNoRw.getText(), kodeobat, tglrsp, jamrsp);                
                 ganti.setVisible(true);

@@ -89,29 +89,10 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         jLabel15 = new widget.Label();
         cmbket = new widget.ComboBox();
         cmbmasasimpan = new widget.ComboBox();
-        jLabel16 = new widget.Label();
-        aturan1 = new widget.Label();
-        jLabel17 = new widget.Label();
-        waktu1 = new widget.Label();
-        jLabel18 = new widget.Label();
-        aturan2 = new widget.Label();
-        jLabel19 = new widget.Label();
-        waktu2 = new widget.Label();
-        jLabel21 = new widget.Label();
-        aturan3 = new widget.Label();
-        jLabel20 = new widget.Label();
-        keterangan = new widget.Label();
-        jLabel22 = new widget.Label();
-        masasimpan = new widget.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Ganti Aturan Pakai Obat ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
@@ -160,7 +141,7 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
 
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
-        PanelInput.setPreferredSize(new java.awt.Dimension(611, 350));
+        PanelInput.setPreferredSize(new java.awt.Dimension(611, 240));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
 
         FormInput.setName("FormInput"); // NOI18N
@@ -251,7 +232,7 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         jLabel10.setText("Aturan 2 : ");
         jLabel10.setName("jLabel10"); // NOI18N
         FormInput.add(jLabel10);
-        jLabel10.setBounds(0, 152, 100, 23);
+        jLabel10.setBounds(0, 124, 100, 23);
 
         cmbaturan2.setBackground(new java.awt.Color(248, 253, 243));
         cmbaturan2.setForeground(new java.awt.Color(0, 0, 0));
@@ -259,13 +240,13 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         cmbaturan2.setName("cmbaturan2"); // NOI18N
         cmbaturan2.setPreferredSize(new java.awt.Dimension(100, 23));
         FormInput.add(cmbaturan2);
-        cmbaturan2.setBounds(103, 152, 60, 23);
+        cmbaturan2.setBounds(103, 124, 60, 23);
 
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Aturan 3 : ");
         jLabel11.setName("jLabel11"); // NOI18N
         FormInput.add(jLabel11);
-        jLabel11.setBounds(0, 208, 100, 23);
+        jLabel11.setBounds(0, 152, 100, 23);
 
         cmbaturan3.setBackground(new java.awt.Color(248, 253, 243));
         cmbaturan3.setForeground(new java.awt.Color(0, 0, 0));
@@ -273,7 +254,7 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         cmbaturan3.setName("cmbaturan3"); // NOI18N
         cmbaturan3.setPreferredSize(new java.awt.Dimension(100, 23));
         FormInput.add(cmbaturan3);
-        cmbaturan3.setBounds(103, 208, 110, 23);
+        cmbaturan3.setBounds(103, 152, 110, 23);
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Waktu 1 : ");
@@ -293,7 +274,7 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         jLabel13.setText("Waktu 2 : ");
         jLabel13.setName("jLabel13"); // NOI18N
         FormInput.add(jLabel13);
-        jLabel13.setBounds(230, 152, 70, 23);
+        jLabel13.setBounds(230, 124, 70, 23);
 
         cmbwaktu2.setBackground(new java.awt.Color(248, 253, 243));
         cmbwaktu2.setForeground(new java.awt.Color(0, 0, 0));
@@ -301,19 +282,19 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         cmbwaktu2.setName("cmbwaktu2"); // NOI18N
         cmbwaktu2.setPreferredSize(new java.awt.Dimension(100, 23));
         FormInput.add(cmbwaktu2);
-        cmbwaktu2.setBounds(303, 152, 160, 23);
+        cmbwaktu2.setBounds(303, 124, 160, 23);
 
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Keterangan : ");
         jLabel14.setName("jLabel14"); // NOI18N
         FormInput.add(jLabel14);
-        jLabel14.setBounds(0, 236, 100, 23);
+        jLabel14.setBounds(0, 180, 100, 23);
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Masa Simpan : ");
         jLabel15.setName("jLabel15"); // NOI18N
         FormInput.add(jLabel15);
-        jLabel15.setBounds(0, 292, 100, 23);
+        jLabel15.setBounds(0, 208, 100, 23);
 
         cmbket.setBackground(new java.awt.Color(248, 253, 243));
         cmbket.setForeground(new java.awt.Color(0, 0, 0));
@@ -321,7 +302,7 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         cmbket.setName("cmbket"); // NOI18N
         cmbket.setPreferredSize(new java.awt.Dimension(100, 23));
         FormInput.add(cmbket);
-        cmbket.setBounds(103, 236, 350, 23);
+        cmbket.setBounds(103, 180, 350, 23);
 
         cmbmasasimpan.setBackground(new java.awt.Color(248, 253, 243));
         cmbmasasimpan.setForeground(new java.awt.Color(0, 0, 0));
@@ -329,112 +310,7 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         cmbmasasimpan.setName("cmbmasasimpan"); // NOI18N
         cmbmasasimpan.setPreferredSize(new java.awt.Dimension(100, 23));
         FormInput.add(cmbmasasimpan);
-        cmbmasasimpan.setBounds(103, 292, 300, 23);
-
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("Sebelumnya : ");
-        jLabel16.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel16.setName("jLabel16"); // NOI18N
-        FormInput.add(jLabel16);
-        jLabel16.setBounds(0, 124, 100, 23);
-
-        aturan1.setForeground(new java.awt.Color(0, 0, 0));
-        aturan1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        aturan1.setText("aturan1");
-        aturan1.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        aturan1.setName("aturan1"); // NOI18N
-        FormInput.add(aturan1);
-        aturan1.setBounds(103, 124, 110, 23);
-
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("Sebelumnya : ");
-        jLabel17.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel17.setName("jLabel17"); // NOI18N
-        FormInput.add(jLabel17);
-        jLabel17.setBounds(230, 124, 70, 23);
-
-        waktu1.setForeground(new java.awt.Color(0, 0, 0));
-        waktu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        waktu1.setText("waktu1");
-        waktu1.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        waktu1.setName("waktu1"); // NOI18N
-        FormInput.add(waktu1);
-        waktu1.setBounds(303, 124, 190, 23);
-
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("Sebelumnya : ");
-        jLabel18.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel18.setName("jLabel18"); // NOI18N
-        FormInput.add(jLabel18);
-        jLabel18.setBounds(0, 180, 100, 23);
-
-        aturan2.setForeground(new java.awt.Color(0, 0, 0));
-        aturan2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        aturan2.setText("aturan2");
-        aturan2.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        aturan2.setName("aturan2"); // NOI18N
-        FormInput.add(aturan2);
-        aturan2.setBounds(103, 180, 110, 23);
-
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel19.setText("Sebelumnya : ");
-        jLabel19.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel19.setName("jLabel19"); // NOI18N
-        FormInput.add(jLabel19);
-        jLabel19.setBounds(230, 180, 70, 23);
-
-        waktu2.setForeground(new java.awt.Color(0, 0, 0));
-        waktu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        waktu2.setText("waktu2");
-        waktu2.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        waktu2.setName("waktu2"); // NOI18N
-        FormInput.add(waktu2);
-        waktu2.setBounds(303, 180, 190, 23);
-
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel21.setText("Sebelumnya : ");
-        jLabel21.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel21.setName("jLabel21"); // NOI18N
-        FormInput.add(jLabel21);
-        jLabel21.setBounds(230, 208, 70, 23);
-
-        aturan3.setForeground(new java.awt.Color(0, 0, 0));
-        aturan3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        aturan3.setText("aturan3");
-        aturan3.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        aturan3.setName("aturan3"); // NOI18N
-        FormInput.add(aturan3);
-        aturan3.setBounds(303, 208, 190, 23);
-
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel20.setText("Sebelumnya : ");
-        jLabel20.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel20.setName("jLabel20"); // NOI18N
-        FormInput.add(jLabel20);
-        jLabel20.setBounds(0, 264, 100, 23);
-
-        keterangan.setForeground(new java.awt.Color(0, 0, 0));
-        keterangan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        keterangan.setText("keterangan");
-        keterangan.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        keterangan.setName("keterangan"); // NOI18N
-        FormInput.add(keterangan);
-        keterangan.setBounds(103, 264, 350, 23);
-
-        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel22.setText("Sebelumnya : ");
-        jLabel22.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel22.setName("jLabel22"); // NOI18N
-        FormInput.add(jLabel22);
-        jLabel22.setBounds(0, 320, 100, 23);
-
-        masasimpan.setForeground(new java.awt.Color(0, 0, 0));
-        masasimpan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        masasimpan.setText("masa simpan");
-        masasimpan.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        masasimpan.setName("masasimpan"); // NOI18N
-        FormInput.add(masasimpan);
-        masasimpan.setBounds(103, 320, 350, 23);
+        cmbmasasimpan.setBounds(103, 208, 300, 23);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -459,14 +335,7 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         cmbwaktu1.setSelectedIndex(0);
         cmbwaktu2.setSelectedIndex(0);
         cmbket.setSelectedIndex(0);
-        cmbmasasimpan.setSelectedIndex(0);
-        aturan1.setText("");
-        aturan2.setText("");
-        aturan3.setText("");
-        waktu1.setText("");
-        waktu2.setText("");
-        keterangan.setText("");
-        masasimpan.setText("");        
+        cmbmasasimpan.setSelectedIndex(0);      
         dispose();
 }//GEN-LAST:event_BtnKeluarActionPerformed
 
@@ -489,16 +358,6 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         }        
 }//GEN-LAST:event_BtnGantiActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'aturan pakai 1'", cmbaturan1);
-        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'aturan pakai 2'", cmbaturan2);
-        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'aturan pakai 3'", cmbaturan3);
-        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'waktu 1'", cmbwaktu1);
-        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'waktu 2'", cmbwaktu2);
-        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'keterangan'", cmbket);
-        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'masa simpan'", cmbmasasimpan);
-    }//GEN-LAST:event_formWindowOpened
-
     /**
     * @param args the command line arguments
     */
@@ -520,9 +379,6 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
     private widget.Button BtnKeluar;
     private widget.PanelBiasa FormInput;
     private javax.swing.JPanel PanelInput;
-    private widget.Label aturan1;
-    private widget.Label aturan2;
-    private widget.Label aturan3;
     private widget.ComboBox cmbaturan1;
     private widget.ComboBox cmbaturan2;
     private widget.ComboBox cmbaturan3;
@@ -537,13 +393,6 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
     private widget.Label jLabel13;
     private widget.Label jLabel14;
     private widget.Label jLabel15;
-    private widget.Label jLabel16;
-    private widget.Label jLabel17;
-    private widget.Label jLabel18;
-    private widget.Label jLabel19;
-    private widget.Label jLabel20;
-    private widget.Label jLabel21;
-    private widget.Label jLabel22;
     private widget.Label jLabel3;
     private widget.Label jLabel4;
     private widget.Label jLabel5;
@@ -552,16 +401,12 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private widget.TextBox jamresep;
     private widget.TextBox kdobat;
-    private widget.Label keterangan;
-    private widget.Label masasimpan;
     private widget.TextBox nmobat;
     private widget.TextBox nmpasien;
     private widget.TextBox norawat;
     private widget.TextBox norm;
     private widget.panelisi panelGlass8;
     private widget.TextBox tglresep;
-    private widget.Label waktu1;
-    private widget.Label waktu2;
     // End of variables declaration//GEN-END:variables
 
     public JTextField getTextField(){
@@ -604,6 +449,14 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
     }
     
     private void isAturanPakai() {
+        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'aturan pakai 1'", cmbaturan1);
+        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'aturan pakai 2'", cmbaturan2);
+        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'aturan pakai 3'", cmbaturan3);
+        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'waktu 1'", cmbwaktu1);
+        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'waktu 2'", cmbwaktu2);
+        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'keterangan'", cmbket);
+        Sequel.cariIsiComboDB("select nama from master_aturan_pakai where opsi = 'masa simpan'", cmbmasasimpan);
+        
         try {
             ps2 = koneksi.prepareStatement("select aturan1, aturan2, aturan3, waktu1, waktu2, keterangan, waktu_simpan from aturan_pakai "
                     + "where no_rawat='" + norawat.getText() + "' and kode_brng='" + kdobat.getText() + "' and "
@@ -611,13 +464,13 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
             try {
                 rs2 = ps2.executeQuery();
                 while (rs2.next()) {
-                    aturan1.setText(rs2.getString("aturan1"));
-                    aturan2.setText(rs2.getString("aturan2"));
-                    aturan3.setText(rs2.getString("aturan3"));
-                    waktu1.setText(rs2.getString("waktu1"));
-                    waktu2.setText(rs2.getString("waktu2"));
-                    keterangan.setText(rs2.getString("keterangan"));
-                    masasimpan.setText(rs2.getString("waktu_simpan"));
+                    cmbaturan1.setSelectedItem(rs2.getString("aturan1"));
+                    cmbaturan2.setSelectedItem(rs2.getString("aturan2"));
+                    cmbaturan3.setSelectedItem(rs2.getString("aturan3"));
+                    cmbwaktu1.setSelectedItem(rs2.getString("waktu1"));
+                    cmbwaktu2.setSelectedItem(rs2.getString("waktu2"));
+                    cmbket.setSelectedItem(rs2.getString("keterangan"));
+                    cmbmasasimpan.setSelectedItem(rs2.getString("waktu_simpan"));
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : " + e);

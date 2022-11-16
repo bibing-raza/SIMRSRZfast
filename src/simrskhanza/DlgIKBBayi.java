@@ -3135,7 +3135,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 param.put("kontakrs", akses.getkontakrs());
                 param.put("emailrs", akses.getemailrs());
                 param.put("logo", Sequel.cariGambar("select logo from setting"));
-                param.put("nmbayi", "-");
+                param.put("nmbayi", "");
                 param.put("tgllahir", Sequel.cariIsi("select date_format(tgl_lahir,'%d') from pasien where no_rkm_medis='" + NoRm.getText() + "'") + " "
                         + Sequel.bulanINDONESIA("select date_format(tgl_lahir,'%m') from pasien where no_rkm_medis='" + NoRm.getText() + "'") + " "
                         + Sequel.cariIsi("select date_format(tgl_lahir,'%Y') from pasien where no_rkm_medis='" + NoRm.getText() + "'"));
@@ -3247,7 +3247,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 param.put("kontakrs", akses.getkontakrs());
                 param.put("emailrs", akses.getemailrs());
                 param.put("logo", Sequel.cariGambar("select logo from setting"));
-                param.put("nmbayi", "-");
+                param.put("nmbayi", "");
                 param.put("tgllahir", Sequel.cariIsi("select date_format(tgl_lahir,'%d') from pasien where no_rkm_medis='" + NoRm.getText() + "'") + " "
                         + Sequel.bulanINDONESIA("select date_format(tgl_lahir,'%m') from pasien where no_rkm_medis='" + NoRm.getText() + "'") + " "
                         + Sequel.cariIsi("select date_format(tgl_lahir,'%Y') from pasien where no_rkm_medis='" + NoRm.getText() + "'"));
