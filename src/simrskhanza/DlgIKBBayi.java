@@ -80,7 +80,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
             "Asal Rujukan", "Dirujuk",
             "Jns. Alamat", "Cara Lahir", "Jns. Penolong", "Apgus Score menit 1",
             "Apgus Score menit 5", "Apgus Score menit 10", "Asal Bayi", "Umur Kehamilan",
-            "Rwt. Gabung dg. Ibu", "IMD", "KMC", "BBB Sebenarnya", "norwIbunya", "noskloriginal"
+            "Rwt. Gabung dg. Ibu", "IMD", "KMC", "BBB Sebenarnya", "norwIbunya", "noskloriginal", "nippejabat"
         }) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -92,7 +92,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         tbBayi.setPreferredScrollableViewportSize(new Dimension(800, 800));
         tbBayi.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 43; i++) {
+        for (int i = 0; i < 44; i++) {
             TableColumn column = tbBayi.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(80);
@@ -180,6 +180,9 @@ public class DlgIKBBayi extends javax.swing.JDialog {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
             } else if (i == 42) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 43) {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
             }
@@ -2884,6 +2887,9 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         Valid.textKosong(cmbIMD, "IMD");
     } else if (cmbKMC.getSelectedItem().equals(" ")) {
         Valid.textKosong(cmbKMC, "KMC");
+    } else if (nip.getText().trim().equals("")) {
+        Valid.textKosong(benarberat, "Diketahui Oleh (Pejabat Berwenang)");
+        BtnPejabat.requestFocus();
     } else if (LingkarPerut.getText().trim().equals("") || (Panjang.getText().trim().equals("")
             || (LingkarKepala.getText().trim().equals("") || (LingkarDada.getText().trim().equals("")
             || (Anakke.getText().trim().equals("") || (Ketuban.getText().trim().equals(""))))))) {
@@ -2951,6 +2957,9 @@ private void BtnEditActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRS
         Valid.textKosong(cmbIMD, "IMD");
     } else if (cmbKMC.getSelectedItem().equals(" ")) {
         Valid.textKosong(cmbKMC, "KMC");
+    } else if (nip.getText().trim().equals("")) {
+        Valid.textKosong(benarberat, "Diketahui Oleh (Pejabat Berwenang)");
+        BtnPejabat.requestFocus();
     } else {
         Valid.editTable(tabMode, "pasien", "no_rkm_medis", Kd2, "no_rkm_medis='" + NoRm.getText()
                 + "',nm_pasien='" + NmBayi.getText()
@@ -2994,8 +3003,10 @@ private void BtnEditActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 + "',IMD='" + cmbIMD.getSelectedItem()
                 + "',KMC='" + cmbKMC.getSelectedItem()
                 + "',berat_badan_benar='" + benarberat.getText()
-                + "',no_rawat_ibu='" + norwtIbu + "'");
+                + "',no_rawat_ibu='" + norwtIbu
+                + "',nip_pejabat='" + nip.getText() + "'");
         if (tabMode.getRowCount() != 0) {
+            TCari.setText(NoRm.getText());
             tampil();
         }
         emptTeks();
@@ -3779,7 +3790,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 + "ifnull(pb.jenis_alamat,'-') jenis_alamat, ifnull(pb.cara_lahir,'-') cara_lahir, ifnull(pb.jenis_penolong,'-') jenis_penolong, "
                 + "ifnull(pb.apgus_skor_menit1,'-') apgus_skor_menit1, ifnull(pb.apgus_skor_menit5,'-') apgus_skor_menit1, ifnull(pb.apgus_skor_menit10,'-') apgus_skor_menit10, "
                 + "ifnull(pb.asal_bayi,'-') asal_bayi, ifnull(pb.umur_kehamilan,'-') umur_kehamilan, ifnull(pb.rawat_gabung_dg_ibu,'-') rwt_gabung, "
-                + "ifnull(pb.IMD,'-') imd, ifnull(pb.KMC,'-') kmc, pb.berat_badan_benar, ifnull(pb.no_rawat_ibu,'-') no_rawat_ibu "
+                + "ifnull(pb.IMD,'-') imd, ifnull(pb.KMC,'-') kmc, pb.berat_badan_benar, ifnull(pb.no_rawat_ibu,'-') no_rawat_ibu, ifnull(pb.nip_pejabat,'') nip_pejabat "
                 + "FROM pasien p INNER JOIN pasien_bayi pb on pb.no_rkm_medis=p.no_rkm_medis INNER JOIN pegawai pg on pg.nik=pb.penolong "
                 + "where " + jkelcari + tglcari + " p.no_rkm_medis like '%" + TCari.getText().trim() + "%' "
                 + "or " + jkelcari + tglcari + " p.nm_pasien like '%" + TCari.getText().trim() + "%' "
@@ -3863,7 +3874,8 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     rs.getString(40),
                     rs.getString(41),
                     rs.getString(42),
-                    rs.getString(25)
+                    rs.getString(25),
+                    rs.getString("nip_pejabat")
                 });
             }
         } catch (SQLException e) {
@@ -3989,6 +4001,8 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             benarberat.setText(tbBayi.getValueAt(tbBayi.getSelectedRow(), 40).toString());
             norwtIbu = tbBayi.getValueAt(tbBayi.getSelectedRow(), 41).toString();
             NoSKL.setText(tbBayi.getValueAt(tbBayi.getSelectedRow(), 42).toString());
+            nip.setText(tbBayi.getValueAt(tbBayi.getSelectedRow(), 43).toString());
+            nmpejabat.setText(Sequel.cariIsi("select nama from pegawai where nik='" + nip.getText() + "'"));
             Sequel.cariIsi("select penolong from pasien_bayi where no_rkm_medis=?", KdPenolong, tbBayi.getValueAt(tbBayi.getSelectedRow(), 0).toString());
             
             if (norwtIbu.equals("-")) {
@@ -4219,14 +4233,17 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                         + cmbIMD.getSelectedItem() + "','"
                         + cmbKMC.getSelectedItem() + "','"
                         + benarberat.getText() + "','"
-                        + norwtIbu + "'", "No.RM/No.SKL") == true) {
+                        + norwtIbu + "','"
+                        + nip.getText() + "'", "No.RM/No.SKL") == true) {
                     Sequel.queryu2("delete from set_no_rkm_medis");
                     Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
                     Sequel.mengedit("pasien", "no_rkm_medis=?", " nm_pasien=?", 2, new String[]{NoRm.getText(), NmBayi.getText()});
                 }
                 Sequel.queryu2("delete from set_no_rkm_medis");
                 Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
-                tampil();
+                
+                TCari.setText(NoRm.getText());
+                tampil();                
                 emptTeks();
             } else {
                 //autoNomor();
@@ -4273,14 +4290,16 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                             + cmbIMD.getSelectedItem() + "','"
                             + cmbKMC.getSelectedItem() + "','"
                             + benarberat.getText() + "','"
-                            + norwtIbu + "'", "No.RM/No.SKL") == true) {
+                            + norwtIbu + "','"
+                            + nip.getText() + "'", "No.RM/No.SKL") == true) {
                         Sequel.queryu2("delete from set_no_rkm_medis");
                         Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
                         Sequel.mengedit("pasien", "no_rkm_medis=?", " nm_pasien=?", 2, new String[]{NoRm.getText(), NmBayi.getText()});
                     }
                     Sequel.queryu2("delete from set_no_rkm_medis");
                     Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
-
+                    
+                    TCari.setText(NoRm.getText());
                     tampil();
                     emptTeks();
                 } else {
@@ -4328,14 +4347,16 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                 + cmbIMD.getSelectedItem() + "','"
                                 + cmbKMC.getSelectedItem() + "','"
                                 + benarberat.getText() + "','"
-                                + norwtIbu + "'", "No.RM/No.SKL") == true) {
+                                + norwtIbu + "','"
+                                + nip.getText() + "'", "No.RM/No.SKL") == true) {
                             Sequel.queryu2("delete from set_no_rkm_medis");
                             Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
                             Sequel.mengedit("pasien", "no_rkm_medis=?", " nm_pasien=?", 2, new String[]{NoRm.getText(), NmBayi.getText()});
                         }
                         Sequel.queryu2("delete from set_no_rkm_medis");
                         Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
-
+                        
+                        TCari.setText(NoRm.getText());
                         tampil();
                         emptTeks();
                     }
@@ -4374,8 +4395,11 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     + cmbIMD.getSelectedItem() + "','"
                     + cmbKMC.getSelectedItem() + "','"
                     + benarberat.getText() + "','"
-                    + norwtIbu + "'", "No.RM/No.SKL") == true) {
+                    + norwtIbu + "','"
+                    + nip.getText() + "'", "No.RM/No.SKL") == true) {
                 Sequel.mengedit("pasien", "no_rkm_medis=?", " nm_pasien=?", 2, new String[]{NoRm.getText(), NmBayi.getText()});
+                
+                TCari.setText(NoRm.getText());
                 tampil();
                 emptTeks();
             }
