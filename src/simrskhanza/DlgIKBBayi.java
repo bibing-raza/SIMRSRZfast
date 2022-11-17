@@ -3022,9 +3022,16 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
 }//GEN-LAST:event_BtnEditKeyPressed
 
 private void BtnHapusActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed1
-    Valid.hapusTable(tabMode, NoRm, "pasien_bayi", "no_rkm_medis");
-    tampil();
-    emptTeks();
+    if (NoRm.getText().equals("")) {
+        Valid.textKosong(NoRm, "No.Rekam Medis");
+    } else {
+        x = JOptionPane.showConfirmDialog(rootPane, "Yakin data mau dihapus..??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (x == JOptionPane.YES_OPTION) {
+            Valid.hapusTable(tabMode, NoRm, "pasien_bayi", "no_rkm_medis");
+            tampil();
+            emptTeks();
+        }
+    }
 }//GEN-LAST:event_BtnHapusActionPerformed1
 
 private void BtnHapusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnHapusKeyPressed
@@ -3821,7 +3828,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 + "or " + jkelcari + tglcari + " pb.berat_badan_benar like '%" + TCari.getText().trim() + "%' "
                 + "or " + jkelcari + tglcari + " pb.umur_kehamilan like '%" + TCari.getText().trim() + "%' "
                 + "or " + jkelcari + tglcari + " pb.no_rawat_ibu like '%" + TCari.getText().trim() + "%' "
-                + "order by p.tgl_daftar desc limit " + cmbHlm.getSelectedItem() + " ";
+                + "order by pb.no_skl desc limit " + cmbHlm.getSelectedItem() + " ";
         prosesCari(sql);
     }
 
@@ -4081,15 +4088,16 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     }
 
     public void isCek() {
-        BtnSimpan.setEnabled(akses.getkelahiran_bayi());
-        BtnHapus.setEnabled(akses.getkelahiran_bayi());
+        BtnSimpan.setEnabled(akses.getkelahiran_bayi());        
         BtnEdit.setEnabled(akses.getkelahiran_bayi());
         BtnPrint.setEnabled(akses.getkelahiran_bayi());
 
         if (akses.getkode().equals("Admin Utama")) {
             NoSKL.setEditable(true);
+            BtnHapus.setEnabled(true);
         } else {
             NoSKL.setEditable(false);
+            BtnHapus.setEnabled(false);
         }
     }
 

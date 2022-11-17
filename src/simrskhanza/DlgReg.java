@@ -1310,6 +1310,15 @@ public final class DlgReg extends javax.swing.JDialog {
         MnBarcodeRM2 = new javax.swing.JMenuItem();
         MnLabelRM1 = new javax.swing.JMenuItem();
         MnLabelRM2 = new javax.swing.JMenuItem();
+        MnLabelPxRanap3 = new javax.swing.JMenu();
+        MrkChampion = new javax.swing.JMenuItem();
+        MrkAjp = new javax.swing.JMenuItem();
+        MrkCox = new javax.swing.JMenuItem();
+        MrkAlfa = new javax.swing.JMenuItem();
+        MrkOlean = new javax.swing.JMenuItem();
+        MrkKojico = new javax.swing.JMenuItem();
+        MnLabelPxRanap1 = new javax.swing.JMenuItem();
+        MnLabelPxRanap2 = new javax.swing.JMenuItem();
         MnKamarInap = new javax.swing.JMenuItem();
         MnPemeriksaan = new javax.swing.JMenu();
         MnPeriksaLab = new javax.swing.JMenuItem();
@@ -1873,6 +1882,147 @@ public final class DlgReg extends javax.swing.JDialog {
             }
         });
         MnCetakKelengkapanInap.add(MnLabelRM2);
+
+        MnLabelPxRanap3.setBackground(new java.awt.Color(242, 242, 242));
+        MnLabelPxRanap3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnLabelPxRanap3.setText("Label Pasien (4,9 x 1,9 Cm)");
+        MnLabelPxRanap3.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnLabelPxRanap3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnLabelPxRanap3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnLabelPxRanap3.setIconTextGap(5);
+        MnLabelPxRanap3.setName("MnLabelPxRanap3"); // NOI18N
+        MnLabelPxRanap3.setOpaque(true);
+        MnLabelPxRanap3.setPreferredSize(new java.awt.Dimension(220, 26));
+
+        MrkChampion.setBackground(new java.awt.Color(242, 242, 242));
+        MrkChampion.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MrkChampion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MrkChampion.setText("Merek CHAMPION");
+        MrkChampion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MrkChampion.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MrkChampion.setIconTextGap(5);
+        MrkChampion.setName("MrkChampion"); // NOI18N
+        MrkChampion.setPreferredSize(new java.awt.Dimension(175, 26));
+        MrkChampion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MrkChampionActionPerformed(evt);
+            }
+        });
+        MnLabelPxRanap3.add(MrkChampion);
+
+        MrkAjp.setBackground(new java.awt.Color(242, 242, 242));
+        MrkAjp.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MrkAjp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MrkAjp.setText("Merek AJP BRAND");
+        MrkAjp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MrkAjp.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MrkAjp.setIconTextGap(5);
+        MrkAjp.setName("MrkAjp"); // NOI18N
+        MrkAjp.setPreferredSize(new java.awt.Dimension(175, 26));
+        MrkAjp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MrkAjpActionPerformed(evt);
+            }
+        });
+        MnLabelPxRanap3.add(MrkAjp);
+
+        MrkCox.setBackground(new java.awt.Color(242, 242, 242));
+        MrkCox.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MrkCox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MrkCox.setText("Merek COX");
+        MrkCox.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MrkCox.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MrkCox.setIconTextGap(5);
+        MrkCox.setName("MrkCox"); // NOI18N
+        MrkCox.setPreferredSize(new java.awt.Dimension(175, 26));
+        MrkCox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MrkCoxActionPerformed(evt);
+            }
+        });
+        MnLabelPxRanap3.add(MrkCox);
+
+        MrkAlfa.setBackground(new java.awt.Color(242, 242, 242));
+        MrkAlfa.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MrkAlfa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MrkAlfa.setText("Merek ALFA PREMIUM");
+        MrkAlfa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MrkAlfa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MrkAlfa.setIconTextGap(5);
+        MrkAlfa.setName("MrkAlfa"); // NOI18N
+        MrkAlfa.setPreferredSize(new java.awt.Dimension(175, 26));
+        MrkAlfa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MrkAlfaActionPerformed(evt);
+            }
+        });
+        MnLabelPxRanap3.add(MrkAlfa);
+
+        MrkOlean.setBackground(new java.awt.Color(242, 242, 242));
+        MrkOlean.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MrkOlean.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MrkOlean.setText("Merek OLEAN CITY BRAND");
+        MrkOlean.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MrkOlean.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MrkOlean.setIconTextGap(5);
+        MrkOlean.setName("MrkOlean"); // NOI18N
+        MrkOlean.setPreferredSize(new java.awt.Dimension(175, 26));
+        MrkOlean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MrkOleanActionPerformed(evt);
+            }
+        });
+        MnLabelPxRanap3.add(MrkOlean);
+
+        MrkKojico.setBackground(new java.awt.Color(242, 242, 242));
+        MrkKojico.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MrkKojico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MrkKojico.setText("Merek KOJICO BRAND");
+        MrkKojico.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MrkKojico.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MrkKojico.setIconTextGap(5);
+        MrkKojico.setName("MrkKojico"); // NOI18N
+        MrkKojico.setPreferredSize(new java.awt.Dimension(175, 26));
+        MrkKojico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MrkKojicoActionPerformed(evt);
+            }
+        });
+        MnLabelPxRanap3.add(MrkKojico);
+
+        MnCetakKelengkapanInap.add(MnLabelPxRanap3);
+
+        MnLabelPxRanap1.setBackground(new java.awt.Color(242, 242, 242));
+        MnLabelPxRanap1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnLabelPxRanap1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
+        MnLabelPxRanap1.setText("Label Pasien (3,9 x 1,9 Cm)");
+        MnLabelPxRanap1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnLabelPxRanap1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnLabelPxRanap1.setIconTextGap(5);
+        MnLabelPxRanap1.setName("MnLabelPxRanap1"); // NOI18N
+        MnLabelPxRanap1.setPreferredSize(new java.awt.Dimension(220, 26));
+        MnLabelPxRanap1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnLabelPxRanap1ActionPerformed(evt);
+            }
+        });
+        MnCetakKelengkapanInap.add(MnLabelPxRanap1);
+
+        MnLabelPxRanap2.setBackground(new java.awt.Color(242, 242, 242));
+        MnLabelPxRanap2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnLabelPxRanap2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
+        MnLabelPxRanap2.setText("Label Pasien (6,4 x 3,2 Cm)");
+        MnLabelPxRanap2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnLabelPxRanap2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnLabelPxRanap2.setIconTextGap(5);
+        MnLabelPxRanap2.setName("MnLabelPxRanap2"); // NOI18N
+        MnLabelPxRanap2.setPreferredSize(new java.awt.Dimension(220, 26));
+        MnLabelPxRanap2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnLabelPxRanap2ActionPerformed(evt);
+            }
+        });
+        MnCetakKelengkapanInap.add(MnLabelPxRanap2);
 
         jPopupMenu1.add(MnCetakKelengkapanInap);
 
@@ -9739,6 +9889,120 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         }
     }//GEN-LAST:event_MnPrinterBaru2ActionPerformed
 
+    private void MrkChampionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MrkChampionActionPerformed
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRM.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan klik dulu salah satu data pasiennya pada tabel...!!!!");
+            tbregistrasiRalan.requestFocus();
+        } else {
+            Valid.MyReport("rptLabelPxRanap7.jasper", "report", "::[ Label Pasien (4,9 x 1,8 Cm) Merek CHAMPION ]::",
+                "select no_rkm_medis, concat(nm_pasien,' (',if(jk='L','LK','PR'),')') nm_pasien, "
+                + "date_format(tgl_lahir,'%d-%m-%Y') tgl_lhr from pasien where no_rkm_medis='" + TNoRM.getText() + "'");
+        }
+    }//GEN-LAST:event_MrkChampionActionPerformed
+
+    private void MrkAjpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MrkAjpActionPerformed
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRM.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan klik dulu salah satu data pasiennya pada tabel...!!!!");
+            tbregistrasiRalan.requestFocus();
+        } else {
+            Valid.MyReport("rptLabelPxRanap6.jasper", "report", "::[ Label Pasien (4,9 x 1,8 Cm) Merek AJP BRAND ]::",
+                "select no_rkm_medis, concat(nm_pasien,' (',if(jk='L','LK','PR'),')') nm_pasien, "
+                + "date_format(tgl_lahir,'%d-%m-%Y') tgl_lhr from pasien where no_rkm_medis='" + TNoRM.getText() + "'");
+        }
+    }//GEN-LAST:event_MrkAjpActionPerformed
+
+    private void MrkCoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MrkCoxActionPerformed
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRM.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan klik dulu salah satu data pasiennya pada tabel...!!!!");
+            tbregistrasiRalan.requestFocus();
+        } else {
+            Valid.MyReport("rptLabelPxRanap5.jasper", "report", "::[ Label Pasien (4,9 x 1,8 Cm) Merek COX ]::",
+                "select no_rkm_medis, concat(nm_pasien,' (',if(jk='L','LK','PR'),')') nm_pasien, "
+                + "date_format(tgl_lahir,'%d-%m-%Y') tgl_lhr from pasien where no_rkm_medis='" + TNoRM.getText() + "'");
+        }
+    }//GEN-LAST:event_MrkCoxActionPerformed
+
+    private void MrkAlfaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MrkAlfaActionPerformed
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRM.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan klik dulu salah satu data pasiennya pada tabel...!!!!");
+            tbregistrasiRalan.requestFocus();
+        } else {
+            Valid.MyReport("rptLabelPxRanap2.jasper", "report", "::[ Label Pasien (4,9 x 1,9 Cm) Merek ALFA PREMIUM ]::",
+                "select no_rkm_medis, concat(nm_pasien,' (',if(jk='L','LK','PR'),')') nm_pasien, "
+                + "date_format(tgl_lahir,'%d-%m-%Y') tgl_lhr from pasien where no_rkm_medis='" + TNoRM.getText() + "'");
+        }
+    }//GEN-LAST:event_MrkAlfaActionPerformed
+
+    private void MrkOleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MrkOleanActionPerformed
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRM.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan klik dulu salah satu data pasiennya pada tabel...!!!!");
+            tbregistrasiRalan.requestFocus();
+        } else {
+            Valid.MyReport("rptLabelPxRanap3.jasper", "report", "::[ Label Pasien (4,9 x 1,9 Cm) Merek OLEAN CITY BRAND ]::",
+                "select no_rkm_medis, concat(nm_pasien,' (',if(jk='L','LK','PR'),')') nm_pasien, "
+                + "date_format(tgl_lahir,'%d-%m-%Y') tgl_lhr from pasien where no_rkm_medis='" + TNoRM.getText() + "'");
+        }
+    }//GEN-LAST:event_MrkOleanActionPerformed
+
+    private void MrkKojicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MrkKojicoActionPerformed
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRM.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan klik dulu salah satu data pasiennya pada tabel...!!!!");
+            tbregistrasiRalan.requestFocus();
+        } else {
+            Valid.MyReport("rptLabelPxRanap4.jasper", "report", "::[ Label Pasien (4,9 x 1,9 Cm) Merek KOJICO BRAND ]::",
+                "select no_rkm_medis, concat(nm_pasien,' (',if(jk='L','LK','PR'),')') nm_pasien, "
+                + "date_format(tgl_lahir,'%d-%m-%Y') tgl_lhr from pasien where no_rkm_medis='" + TNoRM.getText() + "'");
+        }
+    }//GEN-LAST:event_MrkKojicoActionPerformed
+
+    private void MnLabelPxRanap1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnLabelPxRanap1ActionPerformed
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRM.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan klik dulu salah satu data pasiennya pada tabel...!!!!");
+            tbregistrasiRalan.requestFocus();
+        } else {
+            Valid.MyReport("rptLabelPxRanap.jasper", "report", "::[ Label Pasien (3,9 x 1,9 Cm) ]::",
+                "select no_rkm_medis, concat(nm_pasien,' (',if(jk='L','LK','PR'),')') nm_pasien, "
+                + "date_format(tgl_lahir,'%d-%m-%Y') tgl_lhr from pasien where no_rkm_medis='" + TNoRM.getText() + "'");
+        }
+    }//GEN-LAST:event_MnLabelPxRanap1ActionPerformed
+
+    private void MnLabelPxRanap2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnLabelPxRanap2ActionPerformed
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRM.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan klik dulu salah satu data pasiennya pada tabel...!!!!");
+            tbregistrasiRalan.requestFocus();
+        } else {
+            Valid.MyReport("rptLabelPxRanap1.jasper", "report", "::[ Label Pasien (6,4 x 3,2 Cm) ]::",
+                "select p.no_rkm_medis, concat(p.nm_pasien,' (',if(p.jk='L','LK','PR'),')') nm_pasien, date_format(p.tgl_lahir,'%d %M %Y') tgl_lhr, "
+                + "CONCAT(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamat from pasien p "
+                + "INNER JOIN kelurahan kl on kl.kd_kel=p.kd_kel INNER JOIN kecamatan kc on kc.kd_kec=p.kd_kec "
+                + "INNER JOIN kabupaten kb on kb.kd_kab=p.kd_kab where p.no_rkm_medis='" + TNoRM.getText() + "'");
+        }
+    }//GEN-LAST:event_MnLabelPxRanap2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -9873,6 +10137,9 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private javax.swing.JMenu MnKartu;
     private javax.swing.JMenuItem MnKartuNonUmum;
     private javax.swing.JMenuItem MnKartuUmum;
+    private javax.swing.JMenuItem MnLabelPxRanap1;
+    private javax.swing.JMenuItem MnLabelPxRanap2;
+    private javax.swing.JMenu MnLabelPxRanap3;
     private javax.swing.JMenuItem MnLabelRM1;
     private javax.swing.JMenuItem MnLabelRM2;
     private javax.swing.JMenuItem MnLabelTracker;
@@ -9908,6 +10175,12 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private javax.swing.JMenuItem MnSPBK;
     private javax.swing.JMenu MnStatus;
     private javax.swing.JMenuItem MnSudah;
+    private javax.swing.JMenuItem MrkAjp;
+    private javax.swing.JMenuItem MrkAlfa;
+    private javax.swing.JMenuItem MrkChampion;
+    private javax.swing.JMenuItem MrkCox;
+    private javax.swing.JMenuItem MrkKojico;
+    private javax.swing.JMenuItem MrkOlean;
     private widget.TextBox NoBalasan;
     private widget.TextBox NoPeserta;
     private widget.TextBox NomorSurat;
