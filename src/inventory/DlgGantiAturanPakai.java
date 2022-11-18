@@ -12,11 +12,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -33,8 +35,10 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
     private Connection koneksi = koneksiDB.condb();
     private sekuel Sequel = new sekuel();
     private validasi Valid = new validasi();
+    private final Properties prop = new Properties();
     private PreparedStatement ps1, ps2;
     private ResultSet rs1, rs2;    
+    private String nmPrinter1 = "", nmPrinter2 = "", norwt = "", kdobt = "", tgl_resep = "", jam_resep = "";
         
     /** Creates new form DlgPenyakit
      * @param parent
@@ -44,8 +48,15 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocation(10,2);
-        setSize(628,674);       
+        setSize(628,674);  
         
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            nmPrinter1 = koneksiDB.NAMAPRINTER1();
+            nmPrinter2 = koneksiDB.NAMAPRINTER2();
+        } catch (Exception e) {
+            System.out.println("NAMA PRINTER : "+e);
+        }        
     }
 
     /** This method is called from within the constructor to
@@ -61,6 +72,9 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         panelGlass8 = new widget.panelisi();
         BtnGanti = new widget.Button();
+        jLabel16 = new widget.Label();
+        cmblabel = new widget.ComboBox();
+        BtnPrint = new widget.Button();
         BtnKeluar = new widget.Button();
         PanelInput = new javax.swing.JPanel();
         FormInput = new widget.PanelBiasa();
@@ -93,8 +107,13 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Ganti Aturan Pakai Obat ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Labeling Aturan Pakai Obat ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -108,10 +127,10 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         panelGlass8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 8));
 
         BtnGanti.setForeground(new java.awt.Color(0, 0, 0));
-        BtnGanti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/inventaris.png"))); // NOI18N
-        BtnGanti.setMnemonic('G');
-        BtnGanti.setText("Ganti");
-        BtnGanti.setToolTipText("Alt+G");
+        BtnGanti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
+        BtnGanti.setMnemonic('S');
+        BtnGanti.setText("Simpan");
+        BtnGanti.setToolTipText("Alt+S");
         BtnGanti.setName("BtnGanti"); // NOI18N
         BtnGanti.setPreferredSize(new java.awt.Dimension(100, 30));
         BtnGanti.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +139,38 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
             }
         });
         panelGlass8.add(BtnGanti);
+
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Jns. Label :");
+        jLabel16.setName("jLabel16"); // NOI18N
+        jLabel16.setPreferredSize(new java.awt.Dimension(65, 23));
+        panelGlass8.add(jLabel16);
+
+        cmblabel.setBackground(new java.awt.Color(248, 253, 243));
+        cmblabel.setForeground(new java.awt.Color(0, 0, 0));
+        cmblabel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Obat Minum", "Obat Luar" }));
+        cmblabel.setName("cmblabel"); // NOI18N
+        cmblabel.setPreferredSize(new java.awt.Dimension(100, 23));
+        panelGlass8.add(cmblabel);
+
+        BtnPrint.setForeground(new java.awt.Color(0, 0, 0));
+        BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
+        BtnPrint.setMnemonic('T');
+        BtnPrint.setText("Cetak");
+        BtnPrint.setToolTipText("Alt+T");
+        BtnPrint.setName("BtnPrint"); // NOI18N
+        BtnPrint.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPrintActionPerformed(evt);
+            }
+        });
+        BtnPrint.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnPrintKeyPressed(evt);
+            }
+        });
+        panelGlass8.add(BtnPrint);
 
         BtnKeluar.setForeground(new java.awt.Color(0, 0, 0));
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
@@ -322,20 +373,11 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKeluarActionPerformed
-        norawat.setText("");
-        norm.setText("");
-        nmpasien.setText("");
-        kdobat.setText("");
-        nmobat.setText("");
-        tglresep.setText("");
-        jamresep.setText("");
-        cmbaturan1.setSelectedIndex(0);
-        cmbaturan2.setSelectedIndex(0);
-        cmbaturan3.setSelectedIndex(0);
-        cmbwaktu1.setSelectedIndex(0);
-        cmbwaktu2.setSelectedIndex(0);
-        cmbket.setSelectedIndex(0);
-        cmbmasasimpan.setSelectedIndex(0);      
+        emptteks();
+        norwt = "";
+        kdobt = "";
+        tgl_resep = "";
+        jam_resep = "";
         dispose();
 }//GEN-LAST:event_BtnKeluarActionPerformed
 
@@ -344,6 +386,11 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Silahkan pilih dulu data obat yg. akan diperbaiki aturan pakainya...!!");
         } else {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            norwt = "";
+            kdobt = "";
+            tgl_resep = "";
+            jam_resep = "";
+
             Sequel.mengedit("aturan_pakai", "no_rawat='" + norawat.getText() + "' and tgl_perawatan='" + tglresep.getText() + "' "
                     + "and jam='" + jamresep.getText() + "' and kode_brng='" + kdobat.getText() + "'",
                     "aturan1='" + cmbaturan1.getSelectedItem().toString() + "', "
@@ -353,10 +400,106 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
                     + "waktu2='" + cmbwaktu2.getSelectedItem().toString() + "', "
                     + "keterangan='" + cmbket.getSelectedItem().toString() + "', "
                     + "waktu_simpan='" + cmbmasasimpan.getSelectedItem().toString() + "'");
-            BtnKeluarActionPerformed(null);
+            
+            norwt = norawat.getText();
+            kdobt = kdobat.getText();
+            tgl_resep = tglresep.getText();
+            jam_resep = jamresep.getText();
+            emptteks();
+            
+            JOptionPane.showMessageDialog(null, "Aturan pakai obat berhasil disimpan, bisa dilanjutkan dg. mencetak labelnya...!!");
+            cmblabel.requestFocus();
             this.setCursor(Cursor.getDefaultCursor());
         }        
 }//GEN-LAST:event_BtnGantiActionPerformed
+
+    private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
+        if (norawat.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih dulu data obat yg. akan diperbaiki aturan pakainya...!!");
+        } else if (cmblabel.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih salah satu jenis label aturan pakai yg. akan dicetak...!!");
+            cmblabel.requestFocus();
+        } else if (norwt.equals("") && kdobt.equals("")) {
+            JOptionPane.showMessageDialog(null, "Data aturan pakai obat masih kosong...!!");
+        } else {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            if (cmblabel.getSelectedIndex() == 1) {                
+                Map<String, Object> param = new HashMap<>();
+                param.put("namars", akses.getnamars());
+                param.put("alamatrs", akses.getalamatrs());
+                param.put("kotars", akses.getkabupatenrs());
+                param.put("propinsirs", akses.getpropinsirs());
+                param.put("logo", Sequel.cariGambar("select logo_hitam_putih from setting"));
+                param.put("jns_label", "");
+//        Valid.MyReport("rptAturanPakai.jasper", "report", "::[ Labeling Obat Minum ]::",
+//                "select ap.no_rawat, ap.kode_brng, concat(p.no_rkm_medis,' - ',p.nm_pasien) pasien, date_format(ap.tgl_perawatan,'%d/%m/%Y') tgl, "
+//                + "d.nama_brng, ap.aturan1, ap.aturan2, ap.aturan3, ap.waktu1, ap.waktu2, ap.keterangan, ap.waktu_simpan, ap.tgl_perawatan, "
+//                + "ap.jam from aturan_pakai ap inner join databarang d on d.kode_brng=ap.kode_brng "
+//                + "inner join reg_periksa rp on rp.no_rawat=ap.no_rawat inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
+//                + "ap.no_rawat='" + norwt + "' and "
+//                + "ap.kode_brng='" + kdobt + "' and "
+//                + "ap.tgl_perawatan='" + tgl_resep + "' and "
+//                + "ap.jam='" + jam_resep + "'", param);
+
+                Valid.AutoPrintMulti("rptAturanPakai.jasper", "report", "::[ Labeling Obat Minum ]::",
+                        "select ap.no_rawat, ap.kode_brng, concat(p.no_rkm_medis,' - ',p.nm_pasien) pasien, date_format(ap.tgl_perawatan,'%d/%m/%Y') tgl, "
+                        + "d.nama_brng, ap.aturan1, ap.aturan2, ap.aturan3, ap.waktu1, ap.waktu2, ap.keterangan, ap.waktu_simpan, ap.tgl_perawatan, "
+                        + "ap.jam from aturan_pakai ap inner join databarang d on d.kode_brng=ap.kode_brng "
+                        + "inner join reg_periksa rp on rp.no_rawat=ap.no_rawat inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
+                        + "ap.no_rawat='" + norwt + "' and "
+                        + "ap.kode_brng='" + kdobt + "' and "
+                        + "ap.tgl_perawatan='" + tgl_resep + "' and "
+                        + "ap.jam='" + jam_resep + "'", param, nmPrinter1);
+                BtnKeluarActionPerformed(null);
+                
+            } else if (cmblabel.getSelectedIndex() == 2) {
+                Map<String, Object> param = new HashMap<>();
+                param.put("namars", akses.getnamars());
+                param.put("alamatrs", akses.getalamatrs());
+                param.put("kotars", akses.getkabupatenrs());
+                param.put("propinsirs", akses.getpropinsirs());
+                param.put("logo", Sequel.cariGambar("select logo_hitam_putih from setting"));
+                param.put("jns_label", "OBAT LUAR");
+//        Valid.MyReport("rptAturanPakai.jasper", "report", "::[ Labeling Obat Luar ]::",
+//                "select ap.no_rawat, ap.kode_brng, concat(p.no_rkm_medis,' - ',p.nm_pasien) pasien, date_format(ap.tgl_perawatan,'%d/%m/%Y') tgl, "
+//                + "d.nama_brng, ap.aturan1, ap.aturan2, ap.aturan3, ap.waktu1, ap.waktu2, ap.keterangan, ap.waktu_simpan, ap.tgl_perawatan, "
+//                + "ap.jam from aturan_pakai ap inner join databarang d on d.kode_brng=ap.kode_brng "
+//                + "inner join reg_periksa rp on rp.no_rawat=ap.no_rawat inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
+//                + "ap.no_rawat='" + tbItemObat.getValueAt(i, 1).toString() + "' and "
+//                + "ap.kode_brng='" + tbItemObat.getValueAt(i, 2).toString() + "' and "
+//                + "ap.tgl_perawatan='" + tbItemObat.getValueAt(i, 13).toString() + "' and "
+//                + "ap.jam='" + tbItemObat.getValueAt(i, 14).toString() + "'", param);
+
+                Valid.AutoPrintMulti("rptAturanPakai.jasper", "report", "::[ Labeling Obat Luar ]::",
+                        "select ap.no_rawat, ap.kode_brng, concat(p.no_rkm_medis,' - ',p.nm_pasien) pasien, date_format(ap.tgl_perawatan,'%d/%m/%Y') tgl, "
+                        + "d.nama_brng, ap.aturan1, ap.aturan2, ap.aturan3, ap.waktu1, ap.waktu2, ap.keterangan, ap.waktu_simpan, ap.tgl_perawatan, "
+                        + "ap.jam from aturan_pakai ap inner join databarang d on d.kode_brng=ap.kode_brng "
+                        + "inner join reg_periksa rp on rp.no_rawat=ap.no_rawat inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
+                        + "ap.no_rawat='" + norwt + "' and "
+                        + "ap.kode_brng='" + kdobt + "' and "
+                        + "ap.tgl_perawatan='" + tgl_resep + "' and "
+                        + "ap.jam='" + jam_resep + "'", param, nmPrinter2);
+                
+                BtnKeluarActionPerformed(null);
+            }
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_BtnPrintActionPerformed
+
+    private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnPrintKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            BtnPrintActionPerformed(null);
+        } else {
+            Valid.pindah(evt, BtnGanti, BtnKeluar);
+        }
+    }//GEN-LAST:event_BtnPrintKeyPressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        norwt = "";
+        kdobt = "";
+        tgl_resep = "";
+        jam_resep = "";
+    }//GEN-LAST:event_formWindowOpened
 
     /**
     * @param args the command line arguments
@@ -377,12 +520,14 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private widget.Button BtnGanti;
     private widget.Button BtnKeluar;
+    private widget.Button BtnPrint;
     private widget.PanelBiasa FormInput;
     private javax.swing.JPanel PanelInput;
     private widget.ComboBox cmbaturan1;
     private widget.ComboBox cmbaturan2;
     private widget.ComboBox cmbaturan3;
     private widget.ComboBox cmbket;
+    private widget.ComboBox cmblabel;
     private widget.ComboBox cmbmasasimpan;
     private widget.ComboBox cmbwaktu1;
     private widget.ComboBox cmbwaktu2;
@@ -393,6 +538,7 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
     private widget.Label jLabel13;
     private widget.Label jLabel14;
     private widget.Label jLabel15;
+    private widget.Label jLabel16;
     private widget.Label jLabel3;
     private widget.Label jLabel4;
     private widget.Label jLabel5;
@@ -421,6 +567,10 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         tglresep.setText(tgl);
         jamresep.setText(jam);
         isAturanPakai();
+        norwt = norw;
+        kdobt = kodeobat;
+        tgl_resep = tgl;
+        jam_resep = jam;
     }
     
     private void isPasien() {
@@ -485,5 +635,22 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
+    }
+    
+    private void emptteks() {
+        norawat.setText("");
+        norm.setText("");
+        nmpasien.setText("");
+        kdobat.setText("");
+        nmobat.setText("");
+        tglresep.setText("");
+        jamresep.setText("");
+        cmbaturan1.setSelectedIndex(0);
+        cmbaturan2.setSelectedIndex(0);
+        cmbaturan3.setSelectedIndex(0);
+        cmbwaktu1.setSelectedIndex(0);
+        cmbwaktu2.setSelectedIndex(0);
+        cmbket.setSelectedIndex(0);
+        cmbmasasimpan.setSelectedIndex(0);
     }
 }
