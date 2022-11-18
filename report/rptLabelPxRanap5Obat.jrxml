@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="552" pageHeight="396" columnWidth="538" leftMargin="7" rightMargin="7" topMargin="7" bottomMargin="7">
-	<property name="ireport.zoom" value="1.8181818181818556"/>
+	<property name="ireport.zoom" value="2.0000000000000404"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.callouts" value="##Mon Aug 21 21:59:06 SGT 2017"/>
@@ -1232,11 +1232,11 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="381" y="50" width="47" height="10"/>
+				<reportElement x="381" y="50" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<line>
 				<reportElement x="145" y="58" width="23" height="1"/>
@@ -1252,26 +1252,26 @@
 				<text><![CDATA[Jam :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="197" y="50" width="47" height="10"/>
+				<reportElement x="197" y="50" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<line>
-				<reportElement x="244" y="58" width="62" height="1"/>
+				<reportElement x="248" y="58" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="60" y="58" width="62" height="1"/>
+				<reportElement x="65" y="58" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="428" y="58" width="62" height="1"/>
+				<reportElement x="432" y="58" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
@@ -1283,11 +1283,11 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="13" y="50" width="47" height="10"/>
+				<reportElement x="13" y="50" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="124" y="50" width="20" height="10"/>
@@ -1394,11 +1394,11 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="381" y="151" width="47" height="10"/>
+				<reportElement x="381" y="151" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<line>
 				<reportElement x="433" y="170" width="57" height="1"/>
@@ -1407,17 +1407,17 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="428" y="159" width="62" height="1"/>
+				<reportElement x="432" y="159" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="197" y="151" width="47" height="10"/>
+				<reportElement x="197" y="151" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<line>
 				<reportElement x="249" y="170" width="57" height="1"/>
@@ -1498,7 +1498,7 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="244" y="159" width="62" height="1"/>
+				<reportElement x="248" y="159" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
@@ -1511,11 +1511,11 @@
 				<text><![CDATA[Tgl. Kadaluarsa :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="151" width="47" height="10"/>
+				<reportElement x="13" y="151" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="308" y="162" width="20" height="10"/>
@@ -1532,7 +1532,7 @@
 				<text><![CDATA[Tgl. Kadaluarsa :]]></text>
 			</staticText>
 			<line>
-				<reportElement x="60" y="159" width="62" height="1"/>
+				<reportElement x="65" y="159" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
@@ -1550,11 +1550,11 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="381" y="250" width="47" height="10"/>
+				<reportElement x="381" y="250" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<line>
 				<reportElement x="433" y="269" width="57" height="1"/>
@@ -1563,17 +1563,17 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="428" y="258" width="62" height="1"/>
+				<reportElement x="432" y="258" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="197" y="250" width="47" height="10"/>
+				<reportElement x="197" y="250" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<line>
 				<reportElement x="249" y="269" width="57" height="1"/>
@@ -1654,7 +1654,7 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="244" y="258" width="62" height="1"/>
+				<reportElement x="248" y="258" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
@@ -1667,11 +1667,11 @@
 				<text><![CDATA[Tgl. Kadaluarsa :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="250" width="47" height="10"/>
+				<reportElement x="13" y="250" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="308" y="261" width="20" height="10"/>
@@ -1688,7 +1688,7 @@
 				<text><![CDATA[Tgl. Kadaluarsa :]]></text>
 			</staticText>
 			<line>
-				<reportElement x="60" y="258" width="62" height="1"/>
+				<reportElement x="65" y="258" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
@@ -1700,7 +1700,7 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="428" y="358" width="62" height="1"/>
+				<reportElement x="432" y="358" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
@@ -1738,18 +1738,18 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="197" y="350" width="47" height="10"/>
+				<reportElement x="197" y="350" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="381" y="350" width="47" height="10"/>
+				<reportElement x="381" y="350" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<line>
 				<reportElement x="512" y="369" width="23" height="1"/>
@@ -1771,7 +1771,7 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="60" y="358" width="62" height="1"/>
+				<reportElement x="65" y="358" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
@@ -1783,7 +1783,7 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="244" y="358" width="62" height="1"/>
+				<reportElement x="248" y="358" width="57" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.7" lineStyle="Dotted"/>
 				</graphicElement>
@@ -1809,11 +1809,11 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="13" y="350" width="47" height="10"/>
+				<reportElement x="13" y="350" width="51" height="10"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="7"/>
 				</textElement>
-				<text><![CDATA[Tgl. Penyipan :]]></text>
+				<text><![CDATA[Tgl. Penyiapan :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="381" y="361" width="53" height="10"/>
