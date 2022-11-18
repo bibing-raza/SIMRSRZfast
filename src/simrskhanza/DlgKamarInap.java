@@ -963,6 +963,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MrkChampion = new javax.swing.JMenuItem();
         MrkAjp = new javax.swing.JMenuItem();
         MrkCox = new javax.swing.JMenuItem();
+        MrkCoxObat = new javax.swing.JMenuItem();
         MrkAlfa = new javax.swing.JMenuItem();
         MrkOlean = new javax.swing.JMenuItem();
         MrkKojico = new javax.swing.JMenuItem();
@@ -1790,7 +1791,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
 
         TglMati.setEditable(false);
         TglMati.setForeground(new java.awt.Color(0, 51, 204));
-        TglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        TglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         TglMati.setDisplayFormat("dd-MM-yyyy");
         TglMati.setName("TglMati"); // NOI18N
         TglMati.setOpaque(false);
@@ -3077,6 +3078,22 @@ public class DlgKamarInap extends javax.swing.JDialog {
         });
         MnLabelPxRanap3.add(MrkCox);
 
+        MrkCoxObat.setBackground(new java.awt.Color(255, 255, 255));
+        MrkCoxObat.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MrkCoxObat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MrkCoxObat.setText("Merek COX (Farmasi)");
+        MrkCoxObat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MrkCoxObat.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MrkCoxObat.setIconTextGap(5);
+        MrkCoxObat.setName("MrkCoxObat"); // NOI18N
+        MrkCoxObat.setPreferredSize(new java.awt.Dimension(175, 26));
+        MrkCoxObat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MrkCoxObatActionPerformed(evt);
+            }
+        });
+        MnLabelPxRanap3.add(MrkCoxObat);
+
         MrkAlfa.setBackground(new java.awt.Color(255, 255, 255));
         MrkAlfa.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MrkAlfa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
@@ -4269,7 +4286,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel37.setBounds(0, 20, 110, 23);
 
         Tglsurat.setEditable(false);
-        Tglsurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        Tglsurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         Tglsurat.setDisplayFormat("dd-MM-yyyy");
         Tglsurat.setName("Tglsurat"); // NOI18N
         Tglsurat.setOpaque(false);
@@ -4398,7 +4415,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel105.setBounds(0, 20, 110, 23);
 
         Tglsurat1.setEditable(false);
-        Tglsurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        Tglsurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         Tglsurat1.setDisplayFormat("dd-MM-yyyy");
         Tglsurat1.setName("Tglsurat1"); // NOI18N
         Tglsurat1.setOpaque(false);
@@ -4502,7 +4519,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel43.setBounds(10, 20, 120, 23);
 
         TglMati1.setEditable(false);
-        TglMati1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        TglMati1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         TglMati1.setDisplayFormat("dd-MM-yyyy");
         TglMati1.setName("TglMati1"); // NOI18N
         TglMati1.setOpaque(false);
@@ -5137,7 +5154,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel91);
 
         DTPCari9.setEditable(false);
-        DTPCari9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        DTPCari9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         DTPCari9.setDisplayFormat("dd-MM-yyyy");
         DTPCari9.setName("DTPCari9"); // NOI18N
         DTPCari9.setOpaque(false);
@@ -5156,7 +5173,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel92);
 
         DTPCari10.setEditable(false);
-        DTPCari10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        DTPCari10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         DTPCari10.setDisplayFormat("dd-MM-yyyy");
         DTPCari10.setName("DTPCari10"); // NOI18N
         DTPCari10.setOpaque(false);
@@ -6026,7 +6043,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel51.setBounds(0, 25, 130, 23);
 
         TglRegRalan.setEditable(false);
-        TglRegRalan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        TglRegRalan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         TglRegRalan.setDisplayFormat("dd-MM-yyyy");
         TglRegRalan.setName("TglRegRalan"); // NOI18N
         TglRegRalan.setOpaque(false);
@@ -6372,7 +6389,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         statusSEP.setPreferredSize(new java.awt.Dimension(207, 23));
 
         tglMasukInap.setEditable(false);
-        tglMasukInap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        tglMasukInap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         tglMasukInap.setDisplayFormat("dd-MM-yyyy");
         tglMasukInap.setName("tglMasukInap"); // NOI18N
         tglMasukInap.setOpaque(false);
@@ -6733,7 +6750,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(R2);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -6758,7 +6775,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -6786,7 +6803,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(R3);
 
         DTPCari3.setEditable(false);
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -6811,7 +6828,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         DTPCari4.setEditable(false);
-        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
         DTPCari4.setDisplayFormat("dd-MM-yyyy");
         DTPCari4.setName("DTPCari4"); // NOI18N
         DTPCari4.setOpaque(false);
@@ -13811,6 +13828,20 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         }
     }//GEN-LAST:event_MnPrinterBaru2ActionPerformed
 
+    private void MrkCoxObatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MrkCoxObatActionPerformed
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (noRMCopy.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan klik dulu salah satu data pasiennya pada tabel...!!!!");
+            tbKamIn.requestFocus();
+        } else {
+            Valid.MyReport("rptLabelPxRanap5Obat.jasper", "report", "::[ Label Pasien (4,9 x 1,8 Cm) Merek COX (Farmasi) ]::",
+                    "select no_rkm_medis, concat(nm_pasien,' (',if(jk='L','LK','PR'),')') nm_pasien, "
+                    + "date_format(tgl_lahir,'%d-%m-%Y') tgl_lhr from pasien where no_rkm_medis='" + noRMCopy.getText() + "'");
+        }
+    }//GEN-LAST:event_MrkCoxObatActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -14019,6 +14050,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JMenuItem MrkAlfa;
     private javax.swing.JMenuItem MrkChampion;
     private javax.swing.JMenuItem MrkCox;
+    private javax.swing.JMenuItem MrkCoxObat;
     private javax.swing.JMenuItem MrkKojico;
     private javax.swing.JMenuItem MrkOlean;
     private widget.TextBox NmBayi;
