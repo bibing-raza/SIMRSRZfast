@@ -4421,11 +4421,11 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
                     + "INNER JOIN reg_periksa rp on rp.no_rawat=ki.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
                     + "rp.tgl_registrasi BETWEEN ? and ? and (b.nm_bangsal LIKE '%obg%' or b.nm_bangsal LIKE '%intan%' or "
-                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE 'iso%') and p.jk='P' and rp.sttsumur='Th' and rp.no_rawat like ? or "
+                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE '%isolasi%') and p.jk='P' and rp.sttsumur='Th' and rp.no_rawat like ? or "
                     + "rp.tgl_registrasi BETWEEN ? and ? and (b.nm_bangsal LIKE '%obg%' or b.nm_bangsal LIKE '%intan%' or "
-                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE 'iso%') and p.jk='P' and rp.sttsumur='Th' and p.no_rkm_medis like ? or "
+                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE '%isolasi%') and p.jk='P' and rp.sttsumur='Th' and p.no_rkm_medis like ? or "
                     + "rp.tgl_registrasi BETWEEN ? and ? and (b.nm_bangsal LIKE '%obg%' or b.nm_bangsal LIKE '%intan%' or "
-                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE 'iso%') and p.jk='P' and rp.sttsumur='Th' and p.nm_pasien like ? "
+                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE '%isolasi%') and p.jk='P' and rp.sttsumur='Th' and p.nm_pasien like ? "
                     + "order by p.nm_pasien");
             try {
                 ps.setString(1, Valid.SetTgl(tgl1.getSelectedItem() + ""));
