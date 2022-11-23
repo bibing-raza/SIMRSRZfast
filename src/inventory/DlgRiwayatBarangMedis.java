@@ -1323,7 +1323,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                 + "WHERE d.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND d. STATUS = 'RALAN' AND d.kd_bangsal = 'APT01' GROUP BY d.kode_brng) AS f ON f.kode_brng = a.kode_brng "
                 + "LEFT JOIN (SELECT b.kode_brng, b.nama_brng, sum(d.jumlah) jumlah, d.h_beli FROM penjualan p INNER JOIN detailjual d ON d.nota_jual = p.nota_jual "
                 + "INNER JOIN databarang b ON b.kode_brng = d.kode_brng WHERE p.tgl_jual BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY d.kode_brng) AS g ON g.kode_brng = a.kode_brng) "
-                + "Where IFNULL(b.jumlah, 0) > 0 OR IFNULL(c.jumlah, 0) > 0 OR IFNULL(d.jumlah, 0) > 0 OR IFNULL(e.jumlah, 0) > 0 OR IFNULL(f.jumlah, 0) > 0 OR IFNULL(g.jumlah, 0) > 0 "
+//                + "Where IFNULL(b.jumlah, 0) > 0 OR IFNULL(c.jumlah, 0) > 0 OR IFNULL(d.jumlah, 0) > 0 OR IFNULL(e.jumlah, 0) > 0 OR IFNULL(f.jumlah, 0) > 0 OR IFNULL(g.jumlah, 0) > 0 "
                 + "ORDER BY a.nama_brng", param);
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_MnLapPakaiBekalFarmasiActionPerformed

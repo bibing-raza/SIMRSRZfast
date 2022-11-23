@@ -71,7 +71,7 @@ public final class DlgRekamPsikologisAnak extends javax.swing.JDialog {
     private DlgMasterRencanaTritmenPsikologi tritmen = new DlgMasterRencanaTritmenPsikologi(null, false);
     private DlgCariPenyakit penyakit = new DlgCariPenyakit(null, false);
     private DlgCariDokter petugas = new DlgCariDokter(null, false);
-    private int i = 0, x = 0, cekRPA = 0, pilihan = 0;
+    private int i = 0, x = 0, cekRPA = 0, pilihan = 0, data = 0;
     private final Properties prop = new Properties();
     private String tglKedatangan = "", wktSimpan = "", jkel = "", dataMasalah = "", nilaiMasalah = "", dataTritmen = "";
 
@@ -4563,7 +4563,7 @@ public final class DlgRekamPsikologisAnak extends javax.swing.JDialog {
         TTester.setBounds(133, 94, 390, 23);
 
         tgl_rencana.setEditable(false);
-        tgl_rencana.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-10-2022" }));
+        tgl_rencana.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-10-2022" }));
         tgl_rencana.setDisplayFormat("dd-MM-yyyy");
         tgl_rencana.setName("tgl_rencana"); // NOI18N
         tgl_rencana.setOpaque(false);
@@ -5139,7 +5139,7 @@ public final class DlgRekamPsikologisAnak extends javax.swing.JDialog {
         panelGlass23.add(jLabel41);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-10-2022" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-10-2022" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -5154,7 +5154,7 @@ public final class DlgRekamPsikologisAnak extends javax.swing.JDialog {
         panelGlass23.add(jLabel42);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-10-2022" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-10-2022" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -6125,10 +6125,26 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if (kdkeluhan.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu jenis keluhan permasalahanya...!!!!");
         } else {
-            if (kdkeluhan.getText().equals("KP0096")) {
-                if (masalahLain.getText().length() < 2) {
-                    JOptionPane.showMessageDialog(null, "Nama keluhan permasalahan lainnya harus diisi dulu...!!!!");
-                    masalahLain.requestFocus();
+            data = 0;
+            for (i = 0; i < tbItemMasalah.getRowCount(); i++) {
+                if (tbItemMasalah.getValueAt(i, 0).toString().equals(kdkeluhan.getText())) {
+                    data++;
+                }
+            }
+           
+            if (data == 0) {
+                if (kdkeluhan.getText().equals("KP0096")) {
+                    if (masalahLain.getText().length() < 2) {
+                        JOptionPane.showMessageDialog(null, "Nama keluhan permasalahan lainnya harus diisi dulu...!!!!");
+                        masalahLain.requestFocus();
+                    } else {
+                        tabMode4.addRow(new Object[]{kdkeluhan.getText(), nmkeluhan.getText(), masalahLain.getText(), Sequel.cariIsi("select now()")});
+                        kdkeluhan.setText("");
+                        nmkeluhan.setText("");
+                        masalahLain.setText("");
+                        btnKeluhan.requestFocus();
+                    }
+
                 } else {
                     tabMode4.addRow(new Object[]{kdkeluhan.getText(), nmkeluhan.getText(), masalahLain.getText(), Sequel.cariIsi("select now()")});
                     kdkeluhan.setText("");
@@ -6136,12 +6152,8 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     masalahLain.setText("");
                     btnKeluhan.requestFocus();
                 }
-
-            } else {
-                tabMode4.addRow(new Object[]{kdkeluhan.getText(), nmkeluhan.getText(), masalahLain.getText(), Sequel.cariIsi("select now()")});
-                kdkeluhan.setText("");
-                nmkeluhan.setText("");
-                masalahLain.setText("");
+            } else if (data >= 1) {
+                JOptionPane.showMessageDialog(null, "Nama keluhan permasalahan tersebut sudah ada dipilih...!!!!");
                 btnKeluhan.requestFocus();
             }
         }
@@ -6151,19 +6163,31 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if (kdkeluhan.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu jenis keluhan permasalahanya...!!!!");
         } else {
-            if (kdkeluhan.getText().equals("KP0096")) {
-                if (masalahLain.getText().length() < 2) {
-                    JOptionPane.showMessageDialog(null, "Nama keluhan permasalahan lainnya harus diisi dulu...!!!!");
-                    masalahLain.requestFocus();
+            data = 0;
+            for (i = 0; i < tbItemMasalah.getRowCount(); i++) {
+                if (tbItemMasalah.getValueAt(i, 0).toString().equals(kdkeluhan.getText())) {
+                    data++;
+                }
+            }
+
+            if (data == 0) {
+                if (kdkeluhan.getText().equals("KP0096")) {
+                    if (masalahLain.getText().length() < 2) {
+                        JOptionPane.showMessageDialog(null, "Nama keluhan permasalahan lainnya harus diisi dulu...!!!!");
+                        masalahLain.requestFocus();
+                    } else {
+                        tabMode4.removeRow(tbItemMasalah.getSelectedRow());
+                        tabMode4.addRow(new Object[]{kdkeluhan.getText(), nmkeluhan.getText(), masalahLain.getText(), Sequel.cariIsi("select now()")});
+                        BtnCloseIn3ActionPerformed(null);
+                    }
                 } else {
                     tabMode4.removeRow(tbItemMasalah.getSelectedRow());
                     tabMode4.addRow(new Object[]{kdkeluhan.getText(), nmkeluhan.getText(), masalahLain.getText(), Sequel.cariIsi("select now()")});
                     BtnCloseIn3ActionPerformed(null);
                 }
-            } else {
-                tabMode4.removeRow(tbItemMasalah.getSelectedRow());
-                tabMode4.addRow(new Object[]{kdkeluhan.getText(), nmkeluhan.getText(), masalahLain.getText(), Sequel.cariIsi("select now()")});
-                BtnCloseIn3ActionPerformed(null);
+            } else if (data >= 1) {
+                JOptionPane.showMessageDialog(null, "Nama keluhan permasalahan tersebut sudah ada dipilih...!!!!");
+                btnKeluhan.requestFocus();
             }
         }
     }//GEN-LAST:event_BtnEdit1ActionPerformed
@@ -7195,10 +7219,26 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if (kdtritmen.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu jenis rencana tritmennya...!!!!");
         } else {
-            if (kdtritmen.getText().equals("RT0025")) {
-                if (tritmenLain.getText().length() < 2) {
-                    JOptionPane.showMessageDialog(null, "Nama rencana tritmen lainnya harus diisi dulu...!!!!");
-                    tritmenLain.requestFocus();
+            data = 0;
+            for (i = 0; i < tbItemTritmen.getRowCount(); i++) {
+                if (tbItemTritmen.getValueAt(i, 0).toString().equals(kdtritmen.getText())) {
+                    data++;
+                }
+            }
+           
+            if (data == 0) {
+                if (kdtritmen.getText().equals("RT0025")) {
+                    if (tritmenLain.getText().length() < 2) {
+                        JOptionPane.showMessageDialog(null, "Nama rencana tritmen lainnya harus diisi dulu...!!!!");
+                        tritmenLain.requestFocus();
+                    } else {
+                        tabMode18.addRow(new Object[]{kdtritmen.getText(), nmtritmen.getText(), tritmenLain.getText(), Sequel.cariIsi("select now()")});
+                        kdtritmen.setText("");
+                        nmtritmen.setText("");
+                        tritmenLain.setText("");
+                        btnTritmen.requestFocus();
+                    }
+
                 } else {
                     tabMode18.addRow(new Object[]{kdtritmen.getText(), nmtritmen.getText(), tritmenLain.getText(), Sequel.cariIsi("select now()")});
                     kdtritmen.setText("");
@@ -7206,12 +7246,8 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     tritmenLain.setText("");
                     btnTritmen.requestFocus();
                 }
-
-            } else {
-                tabMode18.addRow(new Object[]{kdtritmen.getText(), nmtritmen.getText(), tritmenLain.getText(), Sequel.cariIsi("select now()")});
-                kdtritmen.setText("");
-                nmtritmen.setText("");
-                tritmenLain.setText("");
+            } else if (data >= 1) {
+                JOptionPane.showMessageDialog(null, "Nama rencana tritmen tersebut sudah ada dipilih...!!!!");
                 btnTritmen.requestFocus();
             }
         }
@@ -7221,19 +7257,31 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if (kdtritmen.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu jenis rencana tritmennya...!!!!");
         } else {
-            if (kdtritmen.getText().equals("RT0025")) {
-                if (tritmenLain.getText().length() < 2) {
-                    JOptionPane.showMessageDialog(null, "Nama rencana tritmen lainnya harus diisi dulu...!!!!");
-                    tritmenLain.requestFocus();
+            data = 0;
+            for (i = 0; i < tbItemTritmen.getRowCount(); i++) {
+                if (tbItemTritmen.getValueAt(i, 0).toString().equals(kdtritmen.getText())) {
+                    data++;
+                }
+            }
+          
+            if (data == 0) {
+                if (kdtritmen.getText().equals("RT0025")) {
+                    if (tritmenLain.getText().length() < 2) {
+                        JOptionPane.showMessageDialog(null, "Nama rencana tritmen lainnya harus diisi dulu...!!!!");
+                        tritmenLain.requestFocus();
+                    } else {
+                        tabMode18.removeRow(tbItemTritmen.getSelectedRow());
+                        tabMode18.addRow(new Object[]{kdtritmen.getText(), nmtritmen.getText(), tritmenLain.getText(), Sequel.cariIsi("select now()")});
+                        BtnCloseIn4ActionPerformed(null);
+                    }
                 } else {
                     tabMode18.removeRow(tbItemTritmen.getSelectedRow());
                     tabMode18.addRow(new Object[]{kdtritmen.getText(), nmtritmen.getText(), tritmenLain.getText(), Sequel.cariIsi("select now()")});
                     BtnCloseIn4ActionPerformed(null);
                 }
-            } else {
-                tabMode18.removeRow(tbItemTritmen.getSelectedRow());
-                tabMode18.addRow(new Object[]{kdtritmen.getText(), nmtritmen.getText(), tritmenLain.getText(), Sequel.cariIsi("select now()")});
-                BtnCloseIn4ActionPerformed(null);
+            } else if (data >= 1) {
+                JOptionPane.showMessageDialog(null, "Nama rencana tritmen tersebut sudah ada dipilih...!!!!");
+                btnTritmen.requestFocus();
             }
         }
     }//GEN-LAST:event_BtnEdit2ActionPerformed

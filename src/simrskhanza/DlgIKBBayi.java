@@ -2964,7 +2964,7 @@ private void BtnEditActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRS
         Valid.editTable(tabMode, "pasien", "no_rkm_medis", Kd2, "no_rkm_medis='" + NoRm.getText()
                 + "',nm_pasien='" + NmBayi.getText()
                 + "',jk='" + JKel.getSelectedItem().toString().substring(0, 1)
-                + "',tgl_lahir='" + Valid.SetTgl(Lahir.getSelectedItem() + "")
+                + "',tgl_lahir='" + Valid.SetTgl(Lahir.getSelectedItem() + "") 
                 + "',alamat='" + AlamatIbu.getText()
                 + "',tgl_daftar='" + Valid.SetTgl(Daftar.getSelectedItem() + "")
                 + "',umur='" + UmurBayi.getText()
@@ -4244,8 +4244,8 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                         + norwtIbu + "','"
                         + nip.getText() + "'", "No.RM/No.SKL") == true) {
                     Sequel.queryu2("delete from set_no_rkm_medis");
-                    Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
-                    Sequel.mengedit("pasien", "no_rkm_medis=?", " nm_pasien=?", 2, new String[]{NoRm.getText(), NmBayi.getText()});
+                    Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});                    
+                    Sequel.mengedit("pasien", "no_rkm_medis='" + NoRm.getText() + "'", "nm_pasien='" + NmBayi.getText() + "', tgl_lahir='" + Valid.SetTgl(Lahir.getSelectedItem() + "") + "'");
                 }
                 Sequel.queryu2("delete from set_no_rkm_medis");
                 Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
@@ -4302,7 +4302,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                             + nip.getText() + "'", "No.RM/No.SKL") == true) {
                         Sequel.queryu2("delete from set_no_rkm_medis");
                         Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
-                        Sequel.mengedit("pasien", "no_rkm_medis=?", " nm_pasien=?", 2, new String[]{NoRm.getText(), NmBayi.getText()});
+                        Sequel.mengedit("pasien", "no_rkm_medis='" + NoRm.getText() + "'", "nm_pasien='" + NmBayi.getText() + "', tgl_lahir='" + Valid.SetTgl(Lahir.getSelectedItem() + "") + "'");
                     }
                     Sequel.queryu2("delete from set_no_rkm_medis");
                     Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
@@ -4359,7 +4359,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                 + nip.getText() + "'", "No.RM/No.SKL") == true) {
                             Sequel.queryu2("delete from set_no_rkm_medis");
                             Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
-                            Sequel.mengedit("pasien", "no_rkm_medis=?", " nm_pasien=?", 2, new String[]{NoRm.getText(), NmBayi.getText()});
+                            Sequel.mengedit("pasien", "no_rkm_medis='" + NoRm.getText() + "'", "nm_pasien='" + NmBayi.getText() + "', tgl_lahir='" + Valid.SetTgl(Lahir.getSelectedItem() + "") + "'");
                         }
                         Sequel.queryu2("delete from set_no_rkm_medis");
                         Sequel.queryu2("insert into set_no_rkm_medis values(?)", 1, new String[]{NoRm.getText()});
@@ -4405,7 +4405,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     + benarberat.getText() + "','"
                     + norwtIbu + "','"
                     + nip.getText() + "'", "No.RM/No.SKL") == true) {
-                Sequel.mengedit("pasien", "no_rkm_medis=?", " nm_pasien=?", 2, new String[]{NoRm.getText(), NmBayi.getText()});
+                Sequel.mengedit("pasien", "no_rkm_medis='" + NoRm.getText() + "'", "nm_pasien='" + NmBayi.getText() + "', tgl_lahir='" + Valid.SetTgl(Lahir.getSelectedItem() + "") + "'");
                 
                 TCari.setText(NoRm.getText());
                 tampil();

@@ -331,6 +331,7 @@ import rekammedis.DlgMonevAsuhanGizi;
 import rekammedis.DlgRekamPsikologisAnak;
 import rekammedis.DlgRekamPsikologisDewasa;
 import rekammedis.DlgRekamPsikologisPerkawinan;
+import rekammedis.MasterDataDinkes;
 import rekammedis.MasterMasalahKeperawatan;
 import rekammedis.MasterTriaseMacamKasus;
 import rekammedis.MasterTriasePemeriksaan;
@@ -893,6 +894,8 @@ public class frmUtama extends javax.swing.JFrame {
         btnRekamPsikologisAnak = new widget.ButtonBig();
         btnRekamPsikologiPerkawinan = new widget.ButtonBig();
         btnMasterAturanPakai = new widget.ButtonBig();
+        btnMasterKasusPersalinanDinkes = new widget.ButtonBig();
+        btnKasusPersalinanDinkes = new widget.ButtonBig();
         tanggal = new widget.Tanggal();
         btnDataPenjualan = new widget.ButtonBig();
         btnInputPenjualan = new widget.ButtonBig();
@@ -5990,6 +5993,32 @@ public class frmUtama extends javax.swing.JFrame {
         });
         Panelmenu.add(btnMasterAturanPakai);
 
+        btnMasterKasusPersalinanDinkes.setForeground(new java.awt.Color(0, 0, 0));
+        btnMasterKasusPersalinanDinkes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/kab_banjar.png"))); // NOI18N
+        btnMasterKasusPersalinanDinkes.setText("Master Kasus Persalinan (DINKES)");
+        btnMasterKasusPersalinanDinkes.setIconTextGap(0);
+        btnMasterKasusPersalinanDinkes.setName("btnMasterKasusPersalinanDinkes"); // NOI18N
+        btnMasterKasusPersalinanDinkes.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnMasterKasusPersalinanDinkes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMasterKasusPersalinanDinkesActionPerformed(evt);
+            }
+        });
+        Panelmenu.add(btnMasterKasusPersalinanDinkes);
+
+        btnKasusPersalinanDinkes.setForeground(new java.awt.Color(0, 0, 0));
+        btnKasusPersalinanDinkes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/kab_banjar.png"))); // NOI18N
+        btnKasusPersalinanDinkes.setText("Data Kasus Persalinan (DINKES)");
+        btnKasusPersalinanDinkes.setIconTextGap(0);
+        btnKasusPersalinanDinkes.setName("btnKasusPersalinanDinkes"); // NOI18N
+        btnKasusPersalinanDinkes.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnKasusPersalinanDinkes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKasusPersalinanDinkesActionPerformed(evt);
+            }
+        });
+        Panelmenu.add(btnKasusPersalinanDinkes);
+
         scrollPane2.setViewportView(Panelmenu);
 
         panelMenu.add(scrollPane2, java.awt.BorderLayout.CENTER);
@@ -5998,7 +6027,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15/11/2022" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22/11/2022" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -12253,6 +12282,33 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnMasterAturanPakaiActionPerformed
 
+    private void btnMasterKasusPersalinanDinkesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasterKasusPersalinanDinkesActionPerformed
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        MasterDataDinkes aplikasi = new MasterDataDinkes(this, false);        
+        aplikasi.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        aplikasi.setLocationRelativeTo(PanelUtama);
+        aplikasi.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnMasterKasusPersalinanDinkesActionPerformed
+
+    private void btnKasusPersalinanDinkesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKasusPersalinanDinkesActionPerformed
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgDinkesPersalinan aplikasi = new DlgDinkesPersalinan(this, false);        
+        aplikasi.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        aplikasi.setLocationRelativeTo(PanelUtama);
+        aplikasi.isCek();
+        aplikasi.ChkInput.setSelected(false);
+        aplikasi.isForm();
+        aplikasi.emptteks();
+        aplikasi.tampil();
+        aplikasi.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnKasusPersalinanDinkesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -12456,6 +12512,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnKamar;
     private widget.ButtonBig btnKamarInap;
     private widget.ButtonBig btnKasir;
+    private widget.ButtonBig btnKasusPersalinanDinkes;
     private widget.ButtonBig btnKategoriBarang;
     private widget.ButtonBig btnKategoriInventaris;
     private widget.ButtonBig btnKemenkesKanker;
@@ -12483,6 +12540,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnMasterDTD;
     private widget.ButtonBig btnMasterFaskes;
     private widget.ButtonBig btnMasterJabatanKomite;
+    private widget.ButtonBig btnMasterKasusPersalinanDinkes;
     private widget.ButtonBig btnMasterKeluhanPsikologis;
     private widget.ButtonBig btnMasterMasalahKeperawatan;
     private widget.ButtonBig btnMasterRencanaTritmenPsikologis;
@@ -14312,6 +14370,16 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 Panelmenu.add(btnPasienMati);
                 jmlmenu++;
             }
+            
+            if (akses.getadmin() == true) {
+                Panelmenu.add(btnMasterKasusPersalinanDinkes);
+                jmlmenu++;
+            }
+            
+            if (akses.getdata_persalinan() == true) {
+                Panelmenu.add(btnKasusPersalinanDinkes);
+                jmlmenu++;
+            }
 
             if (akses.getdiagnosa_pasien() == true) {
                 Panelmenu.add(btnDiagnosa);
@@ -14812,6 +14880,16 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
 
         if (akses.getpenilaian_awal_keperawatan_kebidanan() == true) {
             Panelmenu.add(btnPenilaianAwalKeperawatanKebidananRalan);
+            jmlmenu++;
+        }
+        
+        if (akses.getadmin() == true) {
+            Panelmenu.add(btnMasterKasusPersalinanDinkes);
+            jmlmenu++;
+        }
+        
+        if (akses.getdata_persalinan() == true) {
+            Panelmenu.add(btnKasusPersalinanDinkes);
             jmlmenu++;
         }
 
@@ -16687,6 +16765,20 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         if (akses.getinformasi_kamar() == true) {
             if (btnAnalisaKamar.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
                 Panelmenu.add(btnAnalisaKamar);
+                jmlmenu++;
+            }
+        }
+        
+        if (akses.getadmin() == true) {
+            if (btnMasterKasusPersalinanDinkes.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnMasterKasusPersalinanDinkes);
+                jmlmenu++;
+            }
+        }
+        
+        if (akses.getdata_persalinan() == true) {
+            if (btnKasusPersalinanDinkes.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnKasusPersalinanDinkes);
                 jmlmenu++;
             }
         }

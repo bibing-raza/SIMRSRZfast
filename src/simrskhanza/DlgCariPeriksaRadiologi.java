@@ -1698,7 +1698,7 @@ public class DlgCariPeriksaRadiologi extends javax.swing.JDialog {
         jLabel51.setBounds(0, 25, 130, 23);
 
         tanggalPeriksa.setEditable(false);
-        tanggalPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-09-2021" }));
+        tanggalPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-06-2022" }));
         tanggalPeriksa.setDisplayFormat("dd-MM-yyyy");
         tanggalPeriksa.setName("tanggalPeriksa"); // NOI18N
         tanggalPeriksa.setOpaque(false);
@@ -2375,7 +2375,7 @@ public class DlgCariPeriksaRadiologi extends javax.swing.JDialog {
         panelisi1.add(jLabel29);
 
         tglNota.setEditable(false);
-        tglNota.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-09-2021" }));
+        tglNota.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-06-2022" }));
         tglNota.setDisplayFormat("dd-MM-yyyy");
         tglNota.setName("tglNota"); // NOI18N
         tglNota.setOpaque(false);
@@ -2972,7 +2972,8 @@ private void tbPeriksaRadiologiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FI
 
                 if (cekHasil == 0) {
                     Sequel.menyimpan("hasil_radiologi", "'" + Kd2.getText() + "','" + tglhasil + "','" + jamhasil + "',"
-                            + "'" + HasilPeriksa.getText() + "','" + diagKlinisRad.getText() + "','" + kdItem + "'", "Hasil Pemeriksaan Radiologi");
+                            + "'" + HasilPeriksa.getText() + "','" + diagKlinisRad.getText() + "','" + kdItem + "',"
+                            + "'" + Sequel.cariIsi("select now()") + "'", "Hasil Pemeriksaan Radiologi");
                 } else {
                     Sequel.mengedit("hasil_radiologi", "no_rawat='" + Kd2.getText() + "' and tgl_periksa='" + tglhasil + "' and jam='" + jamhasil + "' and kd_jenis_prw='" + kdItem + "'",
                             "hasil='" + HasilPeriksa.getText() + "', diag_klinis_radiologi='" + diagKlinisRad.getText() + "', kd_jenis_prw='" + kdItem + "'");

@@ -105,7 +105,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
             g = 0, gb = 0, cekBonGZ = 0, cekjampersal = 0, cekjamkesda = 0, cekPXbpjs = 0, cekInapDRPR = 0;
     private double lama = Sequel.cariIsiAngka("select lamajam from set_jam_minimal"), persenbayi = Sequel.cariInteger("select bayi from set_jam_minimal");
     private String dokterranap = "", bangsal = "", diagnosa_akhir = Sequel.cariIsi("select diagnosaakhir from set_jam_minimal"), cekKelamin = "",
-            namakamar = "", umur = "0", sttsumur = "Th", cekAPS = "", norawatAPS = "", cekdokter = "",
+            namakamar = "", umur = "0", sttsumur = "Th", cekAPS = "", norawatAPS = "", cekdokter = "", dpjpObgyn = "",
             kdAPS = "", diagnosa_ok = "", cekDataPersalinan = "", cekRMbayi = "", kamarCovid = "", 
             cekHR = "", nmgedung = "", sepJKD = "", pilihMenu = "", noRwNew = "";
 
@@ -1791,7 +1791,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
 
         TglMati.setEditable(false);
         TglMati.setForeground(new java.awt.Color(0, 51, 204));
-        TglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        TglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         TglMati.setDisplayFormat("dd-MM-yyyy");
         TglMati.setName("TglMati"); // NOI18N
         TglMati.setOpaque(false);
@@ -4286,7 +4286,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel37.setBounds(0, 20, 110, 23);
 
         Tglsurat.setEditable(false);
-        Tglsurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        Tglsurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         Tglsurat.setDisplayFormat("dd-MM-yyyy");
         Tglsurat.setName("Tglsurat"); // NOI18N
         Tglsurat.setOpaque(false);
@@ -4415,7 +4415,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel105.setBounds(0, 20, 110, 23);
 
         Tglsurat1.setEditable(false);
-        Tglsurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        Tglsurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         Tglsurat1.setDisplayFormat("dd-MM-yyyy");
         Tglsurat1.setName("Tglsurat1"); // NOI18N
         Tglsurat1.setOpaque(false);
@@ -4519,7 +4519,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel43.setBounds(10, 20, 120, 23);
 
         TglMati1.setEditable(false);
-        TglMati1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        TglMati1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         TglMati1.setDisplayFormat("dd-MM-yyyy");
         TglMati1.setName("TglMati1"); // NOI18N
         TglMati1.setOpaque(false);
@@ -5154,7 +5154,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel91);
 
         DTPCari9.setEditable(false);
-        DTPCari9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        DTPCari9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         DTPCari9.setDisplayFormat("dd-MM-yyyy");
         DTPCari9.setName("DTPCari9"); // NOI18N
         DTPCari9.setOpaque(false);
@@ -5173,7 +5173,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel92);
 
         DTPCari10.setEditable(false);
-        DTPCari10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        DTPCari10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         DTPCari10.setDisplayFormat("dd-MM-yyyy");
         DTPCari10.setName("DTPCari10"); // NOI18N
         DTPCari10.setOpaque(false);
@@ -6043,7 +6043,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel51.setBounds(0, 25, 130, 23);
 
         TglRegRalan.setEditable(false);
-        TglRegRalan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        TglRegRalan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         TglRegRalan.setDisplayFormat("dd-MM-yyyy");
         TglRegRalan.setName("TglRegRalan"); // NOI18N
         TglRegRalan.setOpaque(false);
@@ -6389,7 +6389,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         statusSEP.setPreferredSize(new java.awt.Dimension(207, 23));
 
         tglMasukInap.setEditable(false);
-        tglMasukInap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        tglMasukInap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         tglMasukInap.setDisplayFormat("dd-MM-yyyy");
         tglMasukInap.setName("tglMasukInap"); // NOI18N
         tglMasukInap.setOpaque(false);
@@ -6750,7 +6750,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(R2);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -6775,7 +6775,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -6803,7 +6803,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(R3);
 
         DTPCari3.setEditable(false);
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -6828,7 +6828,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         DTPCari4.setEditable(false);
-        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-11-2022" }));
+        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
         DTPCari4.setDisplayFormat("dd-MM-yyyy");
         DTPCari4.setName("DTPCari4"); // NOI18N
         DTPCari4.setOpaque(false);
@@ -7146,8 +7146,6 @@ public class DlgKamarInap extends javax.swing.JDialog {
             if (tabMode.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Maaf, data kamar inap pasien sudah habis...!!!!");
                 BtnIn.requestFocus();
-            } else if (TPasien.getText().trim().equals("")) {
-//                tbKamIn.requestFocus();
             } else {
                 PasiennyaPulang();
             }
@@ -15709,6 +15707,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         cekTinPers = 0;
         cekOperasi2 = 0;
         dokterranap = "";
+        dpjpObgyn = "";
 
         cekKamar = Sequel.cariInteger("select count(1) tes from kamar_inap k inner join kamar r on r.kd_kamar = k.kd_kamar "
                 + "inner join bangsal b on b.kd_bangsal = r.kd_bangsal where (b.nm_bangsal like '%OBG%' ) "
@@ -15728,6 +15727,8 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 + "where p.diagnosa_awal like 'g%p%a' and kd_kamar not like 'BD%' and p.no_rawat = '" + norawat.getText() + "'");
         dokterranap = Sequel.cariIsi("select no_rawat from dpjp_ranap where no_rawat='" + norawat.getText() + "'");
         cekPXbpjs = Sequel.cariInteger("select count(1) cek from bridging_sep where jnspelayanan='1' and no_rawat='" + norawat.getText() + "'");
+        dpjpObgyn = Sequel.cariIsi("select s.kd_sps from dpjp_ranap dr inner join dokter d on d.kd_dokter=dr.kd_dokter "
+                + "inner join spesialis s on s.kd_sps=d.kd_sps where dr.no_rawat='" + norawat.getText() + "'");
 
         if (cekKamar > 0) {
             if (cekDr > 0 || cekPr > 0 || cekDrPr > 0 || cekOperasi > 0) {
@@ -15736,6 +15737,22 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 } else {
                     if (dokterranap.equals("")) {
                         JOptionPane.showMessageDialog(null, "DPJP pasien ini harus diisi dulu sebelum pasien dipulangkan,.. !!!");
+                    } else if (dpjpObgyn.equals("S0012") && Sequel.cariInteger("select count(-1) from persalinan_dinkes where no_rawat='" + norawat.getText() + "'") == 0) {
+                        x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu kasus data persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                        if (x == JOptionPane.YES_OPTION) {
+                            DlgDinkesPersalinan dinkes = new DlgDinkesPersalinan(null, false);
+                            dinkes.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                            dinkes.setLocationRelativeTo(internalFrame1);
+                            dinkes.emptteks();
+                            dinkes.ChkInput.setSelected(true);
+                            dinkes.isForm();                            
+                            dinkes.setPasien(norawat.getText(), tglMasukInap.getDate());
+                            dinkes.isCek();
+                            dinkes.setVisible(true);
+                        } else {
+                            tampil();
+                            emptTeks();
+                        }
                     } else {
                         norawat.setEditable(false);
                         kdkamar.setEditable(false);
@@ -15794,6 +15811,22 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             } else {
                 if (dokterranap.equals("")) {
                     JOptionPane.showMessageDialog(null, "DPJP pasien ini harus diisi dulu sebelum pasien dipulangkan,.. !!!");
+                } else if (dpjpObgyn.equals("S0012") && Sequel.cariInteger("select count(-1) from persalinan_dinkes where no_rawat='" + norawat.getText() + "'") == 0) {
+                    x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu kasus data persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                    if (x == JOptionPane.YES_OPTION) {
+                        DlgDinkesPersalinan dinkes = new DlgDinkesPersalinan(null, false);
+                        dinkes.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                        dinkes.setLocationRelativeTo(internalFrame1);
+                        dinkes.emptteks();
+                        dinkes.ChkInput.setSelected(true);
+                        dinkes.isForm();
+                        dinkes.setPasien(norawat.getText(), tglMasukInap.getDate());
+                        dinkes.isCek();
+                        dinkes.setVisible(true);
+                    } else {
+                        tampil();
+                        emptTeks();
+                    }
                 } else {
                     norawat.setEditable(false);
                     kdkamar.setEditable(false);
@@ -15857,6 +15890,22 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 } else {
                     if (dokterranap.equals("")) {
                         JOptionPane.showMessageDialog(null, "DPJP pasien ini harus diisi dulu sebelum pasien dipulangkan,.. !!!");
+                    } else if (dpjpObgyn.equals("S0012") && Sequel.cariInteger("select count(-1) from persalinan_dinkes where no_rawat='" + norawat.getText() + "'") == 0) {
+                        x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu kasus data persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                        if (x == JOptionPane.YES_OPTION) {
+                            DlgDinkesPersalinan dinkes = new DlgDinkesPersalinan(null, false);
+                            dinkes.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                            dinkes.setLocationRelativeTo(internalFrame1);
+                            dinkes.emptteks();
+                            dinkes.ChkInput.setSelected(true);
+                            dinkes.isForm();
+                            dinkes.setPasien(norawat.getText(), tglMasukInap.getDate());
+                            dinkes.isCek();
+                            dinkes.setVisible(true);
+                        } else {
+                            tampil();
+                            emptTeks();
+                        }
                     } else {
                         norawat.setEditable(false);
                         kdkamar.setEditable(false);
@@ -15915,6 +15964,22 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             } else {
                 if (dokterranap.equals("")) {
                     JOptionPane.showMessageDialog(null, "DPJP pasien ini harus diisi dulu sebelum pasien dipulangkan,.. !!!");
+                } else if (dpjpObgyn.equals("S0012") && Sequel.cariInteger("select count(-1) from persalinan_dinkes where no_rawat='" + norawat.getText() + "'") == 0) {
+                    x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu kasus data persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                    if (x == JOptionPane.YES_OPTION) {
+                        DlgDinkesPersalinan dinkes = new DlgDinkesPersalinan(null, false);
+                        dinkes.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                        dinkes.setLocationRelativeTo(internalFrame1);
+                        dinkes.emptteks();
+                        dinkes.ChkInput.setSelected(true);
+                        dinkes.isForm();
+                        dinkes.setPasien(norawat.getText(), tglMasukInap.getDate());
+                        dinkes.isCek();
+                        dinkes.setVisible(true);
+                    } else {
+                        tampil();
+                        emptTeks();
+                    }
                 } else {
                     norawat.setEditable(false);
                     kdkamar.setEditable(false);
@@ -15974,6 +16039,22 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         } else {
             if (dokterranap.equals("")) {
                 JOptionPane.showMessageDialog(null, "DPJP pasien ini harus diisi dulu sebelum pasien dipulangkan,.. !!!");
+            } else if (dpjpObgyn.equals("S0012") && Sequel.cariInteger("select count(-1) from persalinan_dinkes where no_rawat='" + norawat.getText() + "'") == 0) {
+                x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu kasus data persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                if (x == JOptionPane.YES_OPTION) {
+                    DlgDinkesPersalinan dinkes = new DlgDinkesPersalinan(null, false);
+                    dinkes.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                    dinkes.setLocationRelativeTo(internalFrame1);
+                    dinkes.emptteks();
+                    dinkes.ChkInput.setSelected(true);
+                    dinkes.isForm();
+                    dinkes.setPasien(norawat.getText(), tglMasukInap.getDate());
+                    dinkes.isCek();
+                    dinkes.setVisible(true);
+                } else {
+                    tampil();
+                    emptTeks();
+                }
             } else {
                 norawat.setEditable(false);
                 kdkamar.setEditable(false);
