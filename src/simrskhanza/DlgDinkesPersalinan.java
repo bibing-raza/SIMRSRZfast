@@ -1539,7 +1539,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void BtnPerbaikiKasusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPerbaikiKasusActionPerformed
         if (tabMode1.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(null, "Rencana tritmen yang dipilih/ditentukan belum ada...!!");
+            JOptionPane.showMessageDialog(null, "Kasus persalinan yang dipilih/ditentukan belum ada...!!");
             BtnPilihKasus.requestFocus();
         } else if (tbKasus.getSelectedRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu data kasus persalinannya pada tabel...!!!!");
