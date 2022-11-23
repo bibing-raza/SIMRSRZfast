@@ -728,8 +728,10 @@ public class DlgPasien extends javax.swing.JDialog {
         ppRiwayat = new javax.swing.JMenuItem();
         ppCatatanPasien = new javax.swing.JMenuItem();
         ppGabungRM = new javax.swing.JMenuItem();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        MnViaBPJSNik = new javax.swing.JMenuItem();
+        MnViaBPJSNoKartu = new javax.swing.JMenuItem();
         buttonGroup1 = new javax.swing.ButtonGroup();
-        Kd2 = new widget.TextBox();
         DlgDemografi = new javax.swing.JDialog();
         internalFrame3 = new widget.InternalFrame();
         panelBiasa2 = new widget.PanelBiasa();
@@ -745,10 +747,6 @@ public class DlgPasien extends javax.swing.JDialog {
         jLabel34 = new widget.Label();
         jLabel35 = new widget.Label();
         BtnPrint3 = new widget.Button();
-        NoRm = new widget.TextBox();
-        jPopupMenu2 = new javax.swing.JPopupMenu();
-        MnViaBPJSNik = new javax.swing.JMenuItem();
-        MnViaBPJSNoKartu = new javax.swing.JMenuItem();
         WindowGabungRM = new javax.swing.JDialog();
         internalFrame8 = new widget.InternalFrame();
         BtnCloseIn6 = new widget.Button();
@@ -758,6 +756,8 @@ public class DlgPasien extends javax.swing.JDialog {
         NmPasienTujuan = new widget.TextBox();
         label41 = new widget.Label();
         BtnCari1 = new widget.Button();
+        Kd2 = new widget.TextBox();
+        NoRm = new widget.TextBox();
         kdsuku = new widget.TextBox();
         kdbahasa = new widget.TextBox();
         internalFrame1 = new widget.InternalFrame();
@@ -1559,8 +1559,35 @@ public class DlgPasien extends javax.swing.JDialog {
         });
         jPopupMenu1.add(ppGabungRM);
 
-        Kd2.setName("Kd2"); // NOI18N
-        Kd2.setPreferredSize(new java.awt.Dimension(207, 23));
+        jPopupMenu2.setName("jPopupMenu2"); // NOI18N
+
+        MnViaBPJSNik.setBackground(new java.awt.Color(255, 255, 255));
+        MnViaBPJSNik.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnViaBPJSNik.setForeground(new java.awt.Color(60, 80, 50));
+        MnViaBPJSNik.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnViaBPJSNik.setText("Cek Via NIK Web Servis BPJS");
+        MnViaBPJSNik.setName("MnViaBPJSNik"); // NOI18N
+        MnViaBPJSNik.setPreferredSize(new java.awt.Dimension(250, 25));
+        MnViaBPJSNik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnViaBPJSNikActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(MnViaBPJSNik);
+
+        MnViaBPJSNoKartu.setBackground(new java.awt.Color(255, 255, 255));
+        MnViaBPJSNoKartu.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnViaBPJSNoKartu.setForeground(new java.awt.Color(60, 80, 50));
+        MnViaBPJSNoKartu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnViaBPJSNoKartu.setText("Cek Via No Kartu Web Servis BPJS");
+        MnViaBPJSNoKartu.setName("MnViaBPJSNoKartu"); // NOI18N
+        MnViaBPJSNoKartu.setPreferredSize(new java.awt.Dimension(250, 25));
+        MnViaBPJSNoKartu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnViaBPJSNoKartuActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(MnViaBPJSNoKartu);
 
         DlgDemografi.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         DlgDemografi.setName("DlgDemografi"); // NOI18N
@@ -1698,44 +1725,6 @@ public class DlgPasien extends javax.swing.JDialog {
 
         DlgDemografi.getContentPane().add(internalFrame3, java.awt.BorderLayout.CENTER);
 
-        NoRm.setHighlighter(null);
-        NoRm.setName("NoRm"); // NOI18N
-        NoRm.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                NoRmKeyPressed(evt);
-            }
-        });
-
-        jPopupMenu2.setName("jPopupMenu2"); // NOI18N
-
-        MnViaBPJSNik.setBackground(new java.awt.Color(255, 255, 255));
-        MnViaBPJSNik.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnViaBPJSNik.setForeground(new java.awt.Color(60, 80, 50));
-        MnViaBPJSNik.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnViaBPJSNik.setText("Cek Via NIK Web Servis BPJS");
-        MnViaBPJSNik.setName("MnViaBPJSNik"); // NOI18N
-        MnViaBPJSNik.setPreferredSize(new java.awt.Dimension(250, 25));
-        MnViaBPJSNik.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnViaBPJSNikActionPerformed(evt);
-            }
-        });
-        jPopupMenu2.add(MnViaBPJSNik);
-
-        MnViaBPJSNoKartu.setBackground(new java.awt.Color(255, 255, 255));
-        MnViaBPJSNoKartu.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnViaBPJSNoKartu.setForeground(new java.awt.Color(60, 80, 50));
-        MnViaBPJSNoKartu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnViaBPJSNoKartu.setText("Cek Via No Kartu Web Servis BPJS");
-        MnViaBPJSNoKartu.setName("MnViaBPJSNoKartu"); // NOI18N
-        MnViaBPJSNoKartu.setPreferredSize(new java.awt.Dimension(250, 25));
-        MnViaBPJSNoKartu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnViaBPJSNoKartuActionPerformed(evt);
-            }
-        });
-        jPopupMenu2.add(MnViaBPJSNoKartu);
-
         WindowGabungRM.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         WindowGabungRM.setModal(true);
         WindowGabungRM.setName("WindowGabungRM"); // NOI18N
@@ -1824,6 +1813,17 @@ public class DlgPasien extends javax.swing.JDialog {
         BtnCari1.setBounds(210, 22, 130, 23);
 
         WindowGabungRM.getContentPane().add(internalFrame8, java.awt.BorderLayout.CENTER);
+
+        Kd2.setName("Kd2"); // NOI18N
+        Kd2.setPreferredSize(new java.awt.Dimension(207, 23));
+
+        NoRm.setHighlighter(null);
+        NoRm.setName("NoRm"); // NOI18N
+        NoRm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NoRmKeyPressed(evt);
+            }
+        });
 
         kdsuku.setName("kdsuku"); // NOI18N
         kdsuku.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -2241,7 +2241,7 @@ public class DlgPasien extends javax.swing.JDialog {
         FormInput.add(jLabel13);
         jLabel13.setBounds(4, 98, 95, 23);
 
-        DTPLahir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-08-2022" }));
+        DTPLahir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
         DTPLahir.setDisplayFormat("dd-MM-yyyy");
         DTPLahir.setName("DTPLahir"); // NOI18N
         DTPLahir.setOpaque(false);
@@ -2399,7 +2399,7 @@ public class DlgPasien extends javax.swing.JDialog {
         TKtp.setBounds(712, 127, 130, 23);
 
         DTPDaftar.setEditable(false);
-        DTPDaftar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-08-2022" }));
+        DTPDaftar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
         DTPDaftar.setDisplayFormat("dd-MM-yyyy");
         DTPDaftar.setEnabled(false);
         DTPDaftar.setName("DTPDaftar"); // NOI18N
@@ -4103,8 +4103,7 @@ private void ppKelahiranBayiActionPerformed(java.awt.event.ActionEvent evt) {//G
     } else {
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         DlgIKBBayi resume = new DlgIKBBayi(null, false);
-        resume.setNoRM(TNo.getText(), TNm.getText(), NmIbu.getText(), Alamat.getText() + ", " + Kelurahan.getText() + ", " + Kecamatan.getText() + ", " + Kabupaten.getText(), CmbJk.getSelectedItem().toString(),
-                TUmurTh.getText() + " Th " + TUmurBl.getText() + " Bl " + TUmurHr.getText() + " Hr", DTPLahir.getDate(), DTPDaftar.getDate());
+        resume.setData(TNo.getText());
         resume.tampil();
         resume.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
         resume.setLocationRelativeTo(internalFrame1);

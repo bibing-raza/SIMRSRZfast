@@ -7130,7 +7130,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         lahir.setSize(internalFrame1.getWidth(), internalFrame1.getHeight());
                         lahir.setLocationRelativeTo(internalFrame1);
                         lahir.setVisible(true);
-                        lahir.bukaDataBayi(TNoRM.getText());
+                        lahir.setData(TNoRM.getText());
                         lahir.autoSKL();
 
                         emptTeks();
@@ -7832,7 +7832,7 @@ private void MnRawatInapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 lahir.setSize(internalFrame1.getWidth(), internalFrame1.getHeight());
                 lahir.setLocationRelativeTo(internalFrame1);
                 lahir.setVisible(true);
-                lahir.bukaDataBayi(TNoRM.getText());
+                lahir.setData(TNoRM.getText());
                 lahir.autoSKL();
 
                 emptTeks();
@@ -8529,7 +8529,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                         lahir.setSize(internalFrame1.getWidth(), internalFrame1.getHeight());
                         lahir.setLocationRelativeTo(internalFrame1);
                         lahir.setVisible(true);
-                        lahir.bukaDataBayi(TNoRM.getText());
+                        lahir.setData(TNoRM.getText());
                         lahir.autoSKL();
 
                         emptTeks();
