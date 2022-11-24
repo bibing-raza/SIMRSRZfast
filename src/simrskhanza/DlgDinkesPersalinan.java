@@ -1876,7 +1876,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             if (cmbLimit.getSelectedIndex() == 7) {
                 ps = koneksi.prepareStatement("select pd.no_rawat, concat(date_format(rp.tgl_registrasi,'%d-%m-%Y'),' / ',p.no_rkm_medis) tglrm, concat(p.nm_pasien,' / ',p.no_tlp) nama, "
                         + "concat(rp.umurdaftar,' ',rp.sttsumur) umur, pj.png_jawab, concat(concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab),' / ',p.no_ktp) alamat, "
-                        + "concat(pd.rujukan,' - ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, pd.jam_lapor, pd.jam_adv, pd.jam_acc, pd.kasus_persalinan, "
+                        + "concat(pd.rujukan,' - ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, if(cek_jam_lapor='1',pd.jam_lapor,'') jamlap, "
+                        + "if(cek_jam_adv='1',pd.jam_adv,'') jamad, if(cek_jam_acc='1',pd.jam_acc,'') jamac, pd.kasus_persalinan, "
                         + "p.no_rkm_medis, p.nm_pasien, date_format(rp.tgl_registrasi,'%d-%m-%Y') tglreg, p.no_tlp, p.no_ktp, concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamatnya, "
                         + "pd.rujukan rujuknya, pd.ket_rujukan, d.kd_dokter, d.nm_dokter, pd.cek_jam_lapor, pd.cek_jam_adv, pd.cek_jam_acc FROM persalinan_dinkes pd "
                         + "INNER JOIN reg_periksa rp ON rp.no_rawat = pd.no_rawat INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis INNER JOIN kelurahan kl ON kl.kd_kel = p.kd_kel "
@@ -1895,7 +1896,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             } else {
                 ps = koneksi.prepareStatement("select pd.no_rawat, concat(date_format(rp.tgl_registrasi,'%d-%m-%Y'),' / ',p.no_rkm_medis) tglrm, concat(p.nm_pasien,' / ',p.no_tlp) nama, "
                         + "concat(rp.umurdaftar,' ',rp.sttsumur) umur, pj.png_jawab, concat(concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab),' / ',p.no_ktp) alamat, "
-                        + "concat(pd.rujukan,' - ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, pd.jam_lapor, pd.jam_adv, pd.jam_acc, pd.kasus_persalinan, "
+                        + "concat(pd.rujukan,' - ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, if(cek_jam_lapor='1',pd.jam_lapor,'') jamlap, "
+                        + "if(cek_jam_adv='1',pd.jam_adv,'') jamad, if(cek_jam_acc='1',pd.jam_acc,'') jamac, pd.kasus_persalinan, "
                         + "p.no_rkm_medis, p.nm_pasien, date_format(rp.tgl_registrasi,'%d-%m-%Y') tglreg, p.no_tlp, p.no_ktp, concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamatnya, "
                         + "pd.rujukan rujuknya, pd.ket_rujukan, d.kd_dokter, d.nm_dokter, pd.cek_jam_lapor, pd.cek_jam_adv, pd.cek_jam_acc FROM persalinan_dinkes pd "
                         + "INNER JOIN reg_periksa rp ON rp.no_rawat = pd.no_rawat INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis INNER JOIN kelurahan kl ON kl.kd_kel = p.kd_kel "
@@ -1956,9 +1958,9 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         rs.getString("rujukan"),
                         rs.getString("dpjp"),
                         rs.getString("jam_reg"),
-                        rs.getString("jam_lapor"),
-                        rs.getString("jam_adv"),
-                        rs.getString("jam_acc"),
+                        rs.getString("jamlap"),
+                        rs.getString("jamad"),
+                        rs.getString("jamac"),
                         rs.getString("kasus_persalinan"),
                         rs.getString("no_rkm_medis"),
                         rs.getString("nm_pasien"),
