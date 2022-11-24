@@ -40,8 +40,8 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
     private sekuel Sequel = new sekuel();
     private validasi Valid = new validasi();
     private Properties prop = new Properties();
-    private PreparedStatement ps, ps1, ps2, ps3, psx1;
-    private ResultSet rs, rs1, rs2, rs3, rsx1;
+    private PreparedStatement ps, ps1, ps2, ps3, ps4;
+    private ResultSet rs, rs1, rs2, rs3, rs4;
     private int i = 0, x = 0, data = 0;
     private MasterDataDinkes dinkes = new MasterDataDinkes(null, false);
     private DlgCariDokter dokter = new DlgCariDokter(null, false);
@@ -665,7 +665,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         panelGlass10.add(jLabel63);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-11-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -679,7 +679,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         panelGlass10.add(jLabel64);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-11-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -770,14 +770,12 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
 
         norawat.setEditable(false);
         norawat.setForeground(new java.awt.Color(0, 0, 0));
-        norawat.setHighlighter(null);
         norawat.setName("norawat"); // NOI18N
         FormInput.add(norawat);
         norawat.setBounds(101, 6, 130, 23);
 
         norm.setEditable(false);
         norm.setForeground(new java.awt.Color(0, 0, 0));
-        norm.setHighlighter(null);
         norm.setName("norm"); // NOI18N
         FormInput.add(norm);
         norm.setBounds(234, 6, 70, 23);
@@ -899,7 +897,6 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
 
         kddpjp.setEditable(false);
         kddpjp.setForeground(new java.awt.Color(0, 0, 0));
-        kddpjp.setHighlighter(null);
         kddpjp.setName("kddpjp"); // NOI18N
         FormInput.add(kddpjp);
         kddpjp.setBounds(101, 146, 100, 23);
@@ -2042,193 +2039,195 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                                 "", "", "", "", "", "", "", "", "", "", "", ""
                             }) == true) {
                         //ngecek kasus persalinan
-                        psx1 = koneksi.prepareStatement("select d.kode from detail_persalinan_dinkes d "
+                        ps4 = koneksi.prepareStatement("select ifnull(d.kode,'') kode from detail_persalinan_dinkes d "
                                 + "inner join master_kasus_persalinan_dinkes m on m.kode=d.kode where d.no_rawat='" + rs3.getString("no_rawat") + "'");
                         try {
-                            rsx1 = psx1.executeQuery();
-                            while (rsx1.next()) {
-                                if (rsx1.getString("kode").equals("001")) {
+                            rs4 = ps4.executeQuery();
+                            while (rs4.next()) {
+                                if (rs4.getString("kode").equals("001")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp14='V'");
-                                } else if (rsx1.getString("kode").equals("002")) {
+                                } else if (rs4.getString("kode").equals("002")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp15='V'");
-                                } else if (rsx1.getString("kode").equals("003")) {
+                                } else if (rs4.getString("kode").equals("003")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp16='V'");
-                                } else if (rsx1.getString("kode").equals("004")) {
+                                } else if (rs4.getString("kode").equals("004")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp17='V'");
-                                } else if (rsx1.getString("kode").equals("005")) {
+                                } else if (rs4.getString("kode").equals("005")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp18='V'");
-                                } else if (rsx1.getString("kode").equals("006")) {
+                                } else if (rs4.getString("kode").equals("006")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp19='V'");
-                                } else if (rsx1.getString("kode").equals("007")) {
+                                } else if (rs4.getString("kode").equals("007")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp20='V'");
-                                } else if (rsx1.getString("kode").equals("008")) {
+                                } else if (rs4.getString("kode").equals("008")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp21='V'");
-                                } else if (rsx1.getString("kode").equals("009")) {
+                                } else if (rs4.getString("kode").equals("009")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp22='V'");
-                                } else if (rsx1.getString("kode").equals("010")) {
+                                } else if (rs4.getString("kode").equals("010")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp23='V'");
-                                } else if (rsx1.getString("kode").equals("011")) {
+                                } else if (rs4.getString("kode").equals("011")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp24='V'");
-                                } else if (rsx1.getString("kode").equals("012")) {
+                                } else if (rs4.getString("kode").equals("012")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp25='V'");
-                                } else if (rsx1.getString("kode").equals("013")) {
+                                } else if (rs4.getString("kode").equals("013")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp26='V'");
-                                } else if (rsx1.getString("kode").equals("014")) {
+                                } else if (rs4.getString("kode").equals("014")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp27='V'");
-                                } else if (rsx1.getString("kode").equals("015")) {
+                                } else if (rs4.getString("kode").equals("015")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp28='V'");
-                                } else if (rsx1.getString("kode").equals("016")) {
+                                } else if (rs4.getString("kode").equals("016")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp29='V'");
-                                } else if (rsx1.getString("kode").equals("017")) {
+                                } else if (rs4.getString("kode").equals("017")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp30='V'");
-                                } else if (rsx1.getString("kode").equals("018")) {
+                                } else if (rs4.getString("kode").equals("018")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp31='V'");
-                                } else if (rsx1.getString("kode").equals("019")) {
+                                } else if (rs4.getString("kode").equals("019")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp32='V'");
-                                } else if (rsx1.getString("kode").equals("020")) {
+                                } else if (rs4.getString("kode").equals("020")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp33='V'");
-                                } else if (rsx1.getString("kode").equals("021")) {
+                                } else if (rs4.getString("kode").equals("021")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp34='V'");
-                                } else if (rsx1.getString("kode").equals("022")) {
+                                } else if (rs4.getString("kode").equals("022")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp35='V'");
-                                } else if (rsx1.getString("kode").equals("023")) {
+                                } else if (rs4.getString("kode").equals("023")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp36='V'");
-                                } else if (rsx1.getString("kode").equals("024")) {
+                                } else if (rs4.getString("kode").equals("024")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp37='V'");
-                                } else if (rsx1.getString("kode").equals("025")) {
+                                } else if (rs4.getString("kode").equals("025")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp38='V'");
-                                } else if (rsx1.getString("kode").equals("026")) {
+                                } else if (rs4.getString("kode").equals("026")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp39='V'");
-                                } else if (rsx1.getString("kode").equals("027")) {
+                                } else if (rs4.getString("kode").equals("027")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp40='V'");
-                                } else if (rsx1.getString("kode").equals("028")) {
+                                } else if (rs4.getString("kode").equals("028")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp41='V'");
-                                } else if (rsx1.getString("kode").equals("029")) {
+                                } else if (rs4.getString("kode").equals("029")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp42='V'");
-                                } else if (rsx1.getString("kode").equals("030")) {
+                                } else if (rs4.getString("kode").equals("030")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp43='V'");
-                                } else if (rsx1.getString("kode").equals("031")) {
+                                } else if (rs4.getString("kode").equals("031")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp44='V'");
-                                } else if (rsx1.getString("kode").equals("032")) {
+                                } else if (rs4.getString("kode").equals("032")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp45='V'");
-                                } else if (rsx1.getString("kode").equals("033")) {
+                                } else if (rs4.getString("kode").equals("033")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp46='V'");
-                                } else if (rsx1.getString("kode").equals("034")) {
+                                } else if (rs4.getString("kode").equals("034")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp47='V'");
-                                } else if (rsx1.getString("kode").equals("035")) {
+                                } else if (rs4.getString("kode").equals("035")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp48='V'");
-                                } else if (rsx1.getString("kode").equals("036")) {
+                                } else if (rs4.getString("kode").equals("036")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp49='V'");
-                                } else if (rsx1.getString("kode").equals("037")) {
+                                } else if (rs4.getString("kode").equals("037")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp50='V'");
-                                } else if (rsx1.getString("kode").equals("038")) {
+                                } else if (rs4.getString("kode").equals("038")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp51='V'");
-                                } else if (rsx1.getString("kode").equals("039")) {
+                                } else if (rs4.getString("kode").equals("039")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp52='V'");
-                                } else if (rsx1.getString("kode").equals("040")) {
+                                } else if (rs4.getString("kode").equals("040")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp53='V'");
-                                } else if (rsx1.getString("kode").equals("041")) {
+                                } else if (rs4.getString("kode").equals("041")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp54='V'");
-                                } else if (rsx1.getString("kode").equals("042")) {
+                                } else if (rs4.getString("kode").equals("042")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp55='V'");
-                                } else if (rsx1.getString("kode").equals("043")) {
+                                } else if (rs4.getString("kode").equals("043")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp56='V'");
-                                } else if (rsx1.getString("kode").equals("044")) {
+                                } else if (rs4.getString("kode").equals("044")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp57='V'");
-                                } else if (rsx1.getString("kode").equals("045")) {
+                                } else if (rs4.getString("kode").equals("045")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp58='V'");
-                                } else if (rsx1.getString("kode").equals("046")) {
+                                } else if (rs4.getString("kode").equals("046")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp59='V'");
-                                } else if (rsx1.getString("kode").equals("047")) {
+                                } else if (rs4.getString("kode").equals("047")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp60='V'");
-                                } else if (rsx1.getString("kode").equals("048")) {
+                                } else if (rs4.getString("kode").equals("048")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp61='V'");
-                                } else if (rsx1.getString("kode").equals("049")) {
+                                } else if (rs4.getString("kode").equals("049")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp62='V'");
-                                } else if (rsx1.getString("kode").equals("050")) {
+                                } else if (rs4.getString("kode").equals("050")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp63='V'");
-                                } else if (rsx1.getString("kode").equals("051")) {
+                                } else if (rs4.getString("kode").equals("051")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp64='V'");
-                                } else if (rsx1.getString("kode").equals("052")) {
+                                } else if (rs4.getString("kode").equals("052")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp65='V'");
-                                } else if (rsx1.getString("kode").equals("053")) {
+                                } else if (rs4.getString("kode").equals("053")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp66='V'");
-                                } else if (rsx1.getString("kode").equals("054")) {
+                                } else if (rs4.getString("kode").equals("054")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp67='V'");
-                                } else if (rsx1.getString("kode").equals("055")) {
+                                } else if (rs4.getString("kode").equals("055")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp68='V'");
-                                } else if (rsx1.getString("kode").equals("056")) {
+                                } else if (rs4.getString("kode").equals("056")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp69='V'");
-                                } else if (rsx1.getString("kode").equals("057")) {
+                                } else if (rs4.getString("kode").equals("057")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp70='V'");
-                                } else if (rsx1.getString("kode").equals("058")) {
+                                } else if (rs4.getString("kode").equals("058")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp71='V'");
-                                } else if (rsx1.getString("kode").equals("059")) {
+                                } else if (rs4.getString("kode").equals("059")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp72='V'");
-                                } else if (rsx1.getString("kode").equals("060")) {
+                                } else if (rs4.getString("kode").equals("060")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp73='V'");
-                                } else if (rsx1.getString("kode").equals("061")) {
+                                } else if (rs4.getString("kode").equals("061")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp74='V'");
-                                } else if (rsx1.getString("kode").equals("062")) {
+                                } else if (rs4.getString("kode").equals("062")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp75='V'");
-                                } else if (rsx1.getString("kode").equals("063")) {
+                                } else if (rs4.getString("kode").equals("063")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp76='V'");
-                                } else if (rsx1.getString("kode").equals("064")) {
+                                } else if (rs4.getString("kode").equals("064")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp77='V'");
-                                } else if (rsx1.getString("kode").equals("065")) {
+                                } else if (rs4.getString("kode").equals("065")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp78='V'");
-                                } else if (rsx1.getString("kode").equals("066")) {
+                                } else if (rs4.getString("kode").equals("066")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp79='V'");
-                                } else if (rsx1.getString("kode").equals("067")) {
+                                } else if (rs4.getString("kode").equals("067")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp80='V'");
-                                } else if (rsx1.getString("kode").equals("068")) {
+                                } else if (rs4.getString("kode").equals("068")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp81='V'");
-                                } else if (rsx1.getString("kode").equals("069")) {
+                                } else if (rs4.getString("kode").equals("069")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp82='V'");
-                                } else if (rsx1.getString("kode").equals("070")) {
+                                } else if (rs4.getString("kode").equals("070")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp83='V'");
-                                } else if (rsx1.getString("kode").equals("071")) {
+                                } else if (rs4.getString("kode").equals("071")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp84='V'");
-                                } else if (rsx1.getString("kode").equals("072")) {
+                                } else if (rs4.getString("kode").equals("072")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp85='V'");
-                                } else if (rsx1.getString("kode").equals("073")) {
+                                } else if (rs4.getString("kode").equals("073")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp86='V'");
-                                } else if (rsx1.getString("kode").equals("074")) {
+                                } else if (rs4.getString("kode").equals("074")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp87='V'");
-                                } else if (rsx1.getString("kode").equals("075")) {
+                                } else if (rs4.getString("kode").equals("075")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp88='V'");
-                                } else if (rsx1.getString("kode").equals("076")) {
+                                } else if (rs4.getString("kode").equals("076")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp89='V'");
-                                } else if (rsx1.getString("kode").equals("077")) {
+                                } else if (rs4.getString("kode").equals("077")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp90='V'");
-                                } else if (rsx1.getString("kode").equals("078")) {
+                                } else if (rs4.getString("kode").equals("078")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp91='V'");
-                                } else if (rsx1.getString("kode").equals("079")) {
+                                } else if (rs4.getString("kode").equals("079")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp92='V'");
-                                } else if (rsx1.getString("kode").equals("080")) {
+                                } else if (rs4.getString("kode").equals("080")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp93='V'");
-                                } else if (rsx1.getString("kode").equals("081")) {
+                                } else if (rs4.getString("kode").equals("081")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp94='V'");
-                                } else if (rsx1.getString("kode").equals("082")) {
+                                } else if (rs4.getString("kode").equals("082")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp95='V'");
-                                } else if (rsx1.getString("kode").equals("083")) {
+                                } else if (rs4.getString("kode").equals("083")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp96='V'");
-                                } else if (rsx1.getString("kode").equals("084")) {
+                                } else if (rs4.getString("kode").equals("084")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp97='V'");
-                                } else if (rsx1.getString("kode").equals("085")) {
+                                } else if (rs4.getString("kode").equals("085")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp98='V'");
-                                } else if (rsx1.getString("kode").equals("086")) {
+                                } else if (rs4.getString("kode").equals("086")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp99='V'");
+                                } else if (rs4.getString("kode").equals("")) {
+                                    System.out.println("Pesan : Item kasus persalinan gagal tersimpan ditabel detail_persalinan_dinkes");
                                 }
                             }
                         } catch (Exception e) {
                             System.out.println("Notifikasi Penghitungan Visit : " + e);
                         } finally {
-                            if (rsx1 != null) {
-                                rsx1.close();
+                            if (rs4 != null) {
+                                rs4.close();
                             }
-                            if (psx1 != null) {
-                                psx1.close();
+                            if (ps4 != null) {
+                                ps4.close();
                             }
                         }
                     }

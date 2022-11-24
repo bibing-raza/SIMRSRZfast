@@ -1273,6 +1273,13 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     cetakLabelLuar();
                 }
             }
+
+            tampilObat();
+            for (i = 0; i < tbItemObat.getRowCount(); i++) {
+                if (tbItemObat.getValueAt(i, 1).equals(TNoRw.getText())) {
+                    tbItemObat.setValueAt(Boolean.FALSE, i, 0);
+                }
+            }
         }
     }//GEN-LAST:event_ppLabelObatLuarActionPerformed
 
@@ -1284,6 +1291,13 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             for (i = 0; i < tbItemObat.getRowCount(); i++) {
                 if (tbItemObat.getValueAt(i, 0).toString().equals("true")) {
                     cetakLabelMinum();
+                }
+            }
+
+            tampilObat();
+            for (i = 0; i < tbItemObat.getRowCount(); i++) {
+                if (tbItemObat.getValueAt(i, 1).equals(TNoRw.getText())) {
+                    tbItemObat.setValueAt(Boolean.FALSE, i, 0);
                 }
             }
         }
@@ -1704,13 +1718,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 + "ap.kode_brng='" + tbItemObat.getValueAt(i, 2).toString() + "' and "
                 + "ap.tgl_perawatan='" + tbItemObat.getValueAt(i, 13).toString() + "' and "
                 + "ap.jam='" + tbItemObat.getValueAt(i, 14).toString() + "'", param, nmPrinter1);
-
-        tampilObat();
-        for (i = 0; i < tbItemObat.getRowCount(); i++) {
-            if (tbItemObat.getValueAt(i, 1).equals(TNoRw.getText())) {
-                tbItemObat.setValueAt(Boolean.FALSE, i, 0);
-            }
-        }
         this.setCursor(Cursor.getDefaultCursor());
     }
     
@@ -1742,13 +1749,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 + "ap.kode_brng='" + tbItemObat.getValueAt(i, 2).toString() + "' and "
                 + "ap.tgl_perawatan='" + tbItemObat.getValueAt(i, 13).toString() + "' and "
                 + "ap.jam='" + tbItemObat.getValueAt(i, 14).toString() + "'", param, nmPrinter2);
-
-        tampilObat();
-        for (i = 0; i < tbItemObat.getRowCount(); i++) {
-            if (tbItemObat.getValueAt(i, 1).equals(TNoRw.getText())) {
-                tbItemObat.setValueAt(Boolean.FALSE, i, 0);
-            }
-        }
         this.setCursor(Cursor.getDefaultCursor());
     }
 }

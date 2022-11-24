@@ -471,7 +471,6 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         label27 = new widget.Label();
         label28 = new widget.Label();
         JKel = new widget.ComboBox();
-        label23 = new widget.Label();
         label30 = new widget.Label();
         Lahir = new widget.Tanggal();
         label31 = new widget.Label();
@@ -554,6 +553,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         nip = new widget.TextBox();
         nmpejabat = new widget.TextBox();
         BtnPejabat = new widget.Button();
+        label60 = new widget.Label();
 
         Popup.setName("Popup"); // NOI18N
 
@@ -951,7 +951,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-11-2022" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-11-2022" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -971,7 +971,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-11-2022" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-11-2022" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -1572,13 +1572,6 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         FormInput.add(JKel);
         JKel.setBounds(89, 162, 100, 23);
 
-        label23.setForeground(new java.awt.Color(0, 0, 0));
-        label23.setText("Berat Bayi (gram) :");
-        label23.setName("label23"); // NOI18N
-        label23.setPreferredSize(new java.awt.Dimension(65, 23));
-        FormInput.add(label23);
-        label23.setBounds(220, 132, 100, 23);
-
         label30.setForeground(new java.awt.Color(0, 0, 0));
         label30.setText("Tgl. Lahir :");
         label30.setName("label30"); // NOI18N
@@ -1971,7 +1964,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
             }
         });
         FormInput.add(cmbBerat);
-        cmbBerat.setBounds(325, 132, 130, 23);
+        cmbBerat.setBounds(287, 132, 130, 23);
 
         cmbMatiPerin.setForeground(new java.awt.Color(0, 0, 0));
         cmbMatiPerin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Kelahiran mati", "Mati neonatal < 7 hari" }));
@@ -2331,11 +2324,11 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         cmbKMC.setBounds(995, 192, 70, 23);
 
         label58.setForeground(new java.awt.Color(0, 0, 0));
-        label58.setText("Berat Bayi Sebenarnya :");
+        label58.setText("Berat Badan Bayi :");
         label58.setName("label58"); // NOI18N
         label58.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label58);
-        label58.setBounds(0, 132, 130, 23);
+        label58.setBounds(0, 132, 100, 23);
 
         benarberat.setForeground(new java.awt.Color(0, 0, 0));
         benarberat.setName("benarberat"); // NOI18N
@@ -2351,15 +2344,15 @@ public class DlgIKBBayi extends javax.swing.JDialog {
             }
         });
         FormInput.add(benarberat);
-        benarberat.setBounds(133, 132, 60, 23);
+        benarberat.setBounds(105, 132, 60, 23);
 
         label59.setForeground(new java.awt.Color(0, 0, 0));
         label59.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label59.setText("gr.");
+        label59.setText("gr.  Rentang Brt. Bayi :");
         label59.setName("label59"); // NOI18N
         label59.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label59);
-        label59.setBounds(198, 132, 20, 23);
+        label59.setBounds(170, 132, 115, 23);
 
         NoRmIbu.setEditable(false);
         NoRmIbu.setForeground(new java.awt.Color(0, 0, 0));
@@ -2388,10 +2381,10 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         btnPasienIbu.setBounds(437, 42, 28, 23);
 
         jLabel25.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel25.setText("Diketahui Oleh (Pejabat Berwenang) :");
+        jLabel25.setText("Diketahui Oleh (Kabid. Yanmed) :");
         jLabel25.setName("jLabel25"); // NOI18N
         FormInput.add(jLabel25);
-        jLabel25.setBounds(373, 312, 200, 23);
+        jLabel25.setBounds(403, 312, 170, 23);
 
         nip.setEditable(false);
         nip.setForeground(new java.awt.Color(0, 0, 0));
@@ -2418,6 +2411,14 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         });
         FormInput.add(BtnPejabat);
         BtnPejabat.setBounds(925, 312, 28, 23);
+
+        label60.setForeground(new java.awt.Color(0, 0, 0));
+        label60.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label60.setText("gram");
+        label60.setName("label60"); // NOI18N
+        label60.setPreferredSize(new java.awt.Dimension(65, 23));
+        FormInput.add(label60);
+        label60.setBounds(423, 132, 30, 23);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -3699,7 +3700,6 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private widget.Label label20;
     private widget.Label label21;
     private widget.Label label22;
-    private widget.Label label23;
     private widget.Label label24;
     private widget.Label label25;
     private widget.Label label26;
@@ -3736,6 +3736,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private widget.Label label57;
     private widget.Label label58;
     private widget.Label label59;
+    private widget.Label label60;
     private widget.Label label9;
     private widget.ComboBox menit;
     private widget.ComboBox menit1;

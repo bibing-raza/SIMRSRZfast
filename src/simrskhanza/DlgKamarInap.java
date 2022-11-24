@@ -7132,7 +7132,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         lahir.setVisible(true);
                         lahir.setData(TNoRM.getText());
                         lahir.autoSKL();
-
+                        
                         emptTeks();
                         tampil();
                     } else {
@@ -15738,7 +15738,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                     if (dokterranap.equals("")) {
                         JOptionPane.showMessageDialog(null, "DPJP pasien ini harus diisi dulu sebelum pasien dipulangkan,.. !!!");
                     } else if (dpjpObgyn.equals("S0012") && Sequel.cariInteger("select count(-1) from persalinan_dinkes where no_rawat='" + norawat.getText() + "'") == 0) {
-                        x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu kasus data persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                        x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu data kasus persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
                         if (x == JOptionPane.YES_OPTION) {
                             DlgDinkesPersalinan dinkes = new DlgDinkesPersalinan(null, false);
                             dinkes.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
@@ -15812,7 +15812,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 if (dokterranap.equals("")) {
                     JOptionPane.showMessageDialog(null, "DPJP pasien ini harus diisi dulu sebelum pasien dipulangkan,.. !!!");
                 } else if (dpjpObgyn.equals("S0012") && Sequel.cariInteger("select count(-1) from persalinan_dinkes where no_rawat='" + norawat.getText() + "'") == 0) {
-                    x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu kasus data persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                    x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu data kasus persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
                     if (x == JOptionPane.YES_OPTION) {
                         DlgDinkesPersalinan dinkes = new DlgDinkesPersalinan(null, false);
                         dinkes.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
@@ -15891,7 +15891,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                     if (dokterranap.equals("")) {
                         JOptionPane.showMessageDialog(null, "DPJP pasien ini harus diisi dulu sebelum pasien dipulangkan,.. !!!");
                     } else if (dpjpObgyn.equals("S0012") && Sequel.cariInteger("select count(-1) from persalinan_dinkes where no_rawat='" + norawat.getText() + "'") == 0) {
-                        x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu kasus data persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                        x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu data kasus persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
                         if (x == JOptionPane.YES_OPTION) {
                             DlgDinkesPersalinan dinkes = new DlgDinkesPersalinan(null, false);
                             dinkes.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
@@ -15965,7 +15965,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 if (dokterranap.equals("")) {
                     JOptionPane.showMessageDialog(null, "DPJP pasien ini harus diisi dulu sebelum pasien dipulangkan,.. !!!");
                 } else if (dpjpObgyn.equals("S0012") && Sequel.cariInteger("select count(-1) from persalinan_dinkes where no_rawat='" + norawat.getText() + "'") == 0) {
-                    x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu kasus data persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                    x = JOptionPane.showConfirmDialog(rootPane, "Silahkan isi dulu data kasus persalinan permintaan Dinkes Kab. Banjar..!!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
                     if (x == JOptionPane.YES_OPTION) {
                         DlgDinkesPersalinan dinkes = new DlgDinkesPersalinan(null, false);
                         dinkes.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
