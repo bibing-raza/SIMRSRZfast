@@ -45,7 +45,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
     private int i = 0, x = 0, data = 0;
     private MasterDataDinkes dinkes = new MasterDataDinkes(null, false);
     private DlgCariDokter dokter = new DlgCariDokter(null, false);
-    private String datakasus = "", dialog_simpan = "";
+    private String datakasus = "", dialog_simpan = "", cJL = "", cJADV = "", cJACC = "", jamlap = "", jamad = "", jamac = "";
 
     /**
      * Creates new form DlgPemberianInfus
@@ -60,7 +60,8 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         tabMode = new DefaultTableModel(null, new Object[]{
             "norawat", "Tgl. MRS/No.RM", "Nama Pasien / HP", "Umur", "Cara Bayar", "Alamat/NIK",
             "Rujukan", "DPJP", "Jam MRS", "Jam Lapor", "Jam ADV", "Jam ACC", "Kasus Persalinan",
-            "norm", "nmpasien", "tglreg", "notelp", "nik", "alamatnya", "rujukan", "ket_rujukan", "kd_dokter", "nm_dokter"
+            "norm", "nmpasien", "tglreg", "notelp", "nik", "alamatnya", "rujukan", "ket_rujukan",
+            "kd_dokter", "nm_dokter", "cekjamlap", "cekjamad", "cekjamac"
         }) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -72,7 +73,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         tbDinkes.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tbDinkes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 23; i++) {
+        for (int i = 0; i < 26; i++) {
             TableColumn column = tbDinkes.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setMinWidth(0);
@@ -129,6 +130,15 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
             } else if (i == 22) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 23) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 24) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 25) {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
             }
@@ -346,15 +356,12 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         kddpjp = new widget.TextBox();
         jLabel18 = new widget.Label();
         jammrs = new widget.TextBox();
-        jLabel19 = new widget.Label();
         cmbJam = new widget.ComboBox();
         cmbMnt = new widget.ComboBox();
         cmbDtk = new widget.ComboBox();
-        jLabel20 = new widget.Label();
         cmbJam1 = new widget.ComboBox();
         cmbMnt1 = new widget.ComboBox();
         cmbDtk1 = new widget.ComboBox();
-        jLabel21 = new widget.Label();
         cmbJam2 = new widget.ComboBox();
         cmbMnt2 = new widget.ComboBox();
         cmbDtk2 = new widget.ComboBox();
@@ -366,6 +373,10 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         BtnPerbaikiKasus = new widget.Button();
         nmdpjp = new widget.TextBox();
         btnDokter = new widget.Button();
+        Chkjamadv = new widget.CekBox();
+        Chkjamlapor = new widget.CekBox();
+        Chkjamacc = new widget.CekBox();
+        jLabel21 = new widget.Label();
 
         WindowDataKasus.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         WindowDataKasus.setName("WindowDataKasus"); // NOI18N
@@ -665,7 +676,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         panelGlass10.add(jLabel63);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-11-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-11-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -679,7 +690,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         panelGlass10.add(jLabel64);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-11-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-11-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -734,7 +745,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
 
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
-        PanelInput.setPreferredSize(new java.awt.Dimension(280, 372));
+        PanelInput.setPreferredSize(new java.awt.Dimension(280, 286));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -785,7 +796,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         namapasien.setHighlighter(null);
         namapasien.setName("namapasien"); // NOI18N
         FormInput.add(namapasien);
-        namapasien.setBounds(306, 6, 370, 23);
+        namapasien.setBounds(306, 6, 330, 23);
 
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Tgl. MRS : ");
@@ -810,20 +821,20 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         nohp.setHighlighter(null);
         nohp.setName("nohp"); // NOI18N
         FormInput.add(nohp);
-        nohp.setBounds(386, 34, 180, 23);
+        nohp.setBounds(386, 34, 138, 23);
 
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Umur : ");
         jLabel11.setName("jLabel11"); // NOI18N
         FormInput.add(jLabel11);
-        jLabel11.setBounds(566, 34, 50, 23);
+        jLabel11.setBounds(525, 34, 50, 23);
 
         umur.setEditable(false);
         umur.setForeground(new java.awt.Color(0, 0, 0));
         umur.setHighlighter(null);
         umur.setName("umur"); // NOI18N
         FormInput.add(umur);
-        umur.setBounds(616, 34, 60, 23);
+        umur.setBounds(576, 34, 60, 23);
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Cara Bayar : ");
@@ -848,7 +859,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         nik.setHighlighter(null);
         nik.setName("nik"); // NOI18N
         FormInput.add(nik);
-        nik.setBounds(496, 62, 180, 23);
+        nik.setBounds(496, 62, 140, 23);
 
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Alamat : ");
@@ -861,7 +872,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         alamat.setHighlighter(null);
         alamat.setName("alamat"); // NOI18N
         FormInput.add(alamat);
-        alamat.setBounds(101, 90, 576, 23);
+        alamat.setBounds(101, 90, 535, 23);
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Rujukan : ");
@@ -887,7 +898,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         ketrujukan.setHighlighter(null);
         ketrujukan.setName("ketrujukan"); // NOI18N
         FormInput.add(ketrujukan);
-        ketrujukan.setBounds(284, 118, 393, 23);
+        ketrujukan.setBounds(284, 118, 351, 23);
 
         jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("DPJP : ");
@@ -913,12 +924,6 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         jammrs.setName("jammrs"); // NOI18N
         FormInput.add(jammrs);
         jammrs.setBounds(257, 34, 78, 23);
-
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel19.setText("Jam Lapor : ");
-        jLabel19.setName("jLabel19"); // NOI18N
-        FormInput.add(jLabel19);
-        jLabel19.setBounds(0, 174, 100, 23);
 
         cmbJam.setForeground(new java.awt.Color(0, 0, 0));
         cmbJam.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
@@ -959,12 +964,6 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         FormInput.add(cmbDtk);
         cmbDtk.setBounds(203, 174, 45, 23);
 
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel20.setText("Jam ADV : ");
-        jLabel20.setName("jLabel20"); // NOI18N
-        FormInput.add(jLabel20);
-        jLabel20.setBounds(248, 174, 65, 23);
-
         cmbJam1.setForeground(new java.awt.Color(0, 0, 0));
         cmbJam1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
         cmbJam1.setName("cmbJam1"); // NOI18N
@@ -976,7 +975,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             }
         });
         FormInput.add(cmbJam1);
-        cmbJam1.setBounds(316, 174, 45, 23);
+        cmbJam1.setBounds(101, 202, 45, 23);
 
         cmbMnt1.setForeground(new java.awt.Color(0, 0, 0));
         cmbMnt1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
@@ -989,7 +988,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             }
         });
         FormInput.add(cmbMnt1);
-        cmbMnt1.setBounds(367, 174, 45, 23);
+        cmbMnt1.setBounds(152, 202, 45, 23);
 
         cmbDtk1.setForeground(new java.awt.Color(0, 0, 0));
         cmbDtk1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
@@ -1002,13 +1001,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             }
         });
         FormInput.add(cmbDtk1);
-        cmbDtk1.setBounds(419, 174, 45, 23);
-
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel21.setText("Jam ACC : ");
-        jLabel21.setName("jLabel21"); // NOI18N
-        FormInput.add(jLabel21);
-        jLabel21.setBounds(464, 174, 65, 23);
+        cmbDtk1.setBounds(203, 202, 45, 23);
 
         cmbJam2.setForeground(new java.awt.Color(0, 0, 0));
         cmbJam2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
@@ -1021,7 +1014,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             }
         });
         FormInput.add(cmbJam2);
-        cmbJam2.setBounds(531, 174, 45, 23);
+        cmbJam2.setBounds(101, 230, 45, 23);
 
         cmbMnt2.setForeground(new java.awt.Color(0, 0, 0));
         cmbMnt2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
@@ -1034,7 +1027,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             }
         });
         FormInput.add(cmbMnt2);
-        cmbMnt2.setBounds(582, 174, 45, 23);
+        cmbMnt2.setBounds(152, 230, 45, 23);
 
         cmbDtk2.setForeground(new java.awt.Color(0, 0, 0));
         cmbDtk2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
@@ -1047,13 +1040,13 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             }
         });
         FormInput.add(cmbDtk2);
-        cmbDtk2.setBounds(633, 174, 45, 23);
+        cmbDtk2.setBounds(203, 230, 45, 23);
 
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setText("Kasus : ");
         jLabel22.setName("jLabel22"); // NOI18N
         FormInput.add(jLabel22);
-        jLabel22.setBounds(0, 202, 100, 23);
+        jLabel22.setBounds(640, 6, 50, 23);
 
         Scroll1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " Data Kasus Persalinan (Dinkes) ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         Scroll1.setName("Scroll1"); // NOI18N
@@ -1074,7 +1067,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         Scroll1.setViewportView(tbKasus);
 
         FormInput.add(Scroll1);
-        Scroll1.setBounds(101, 202, 410, 140);
+        Scroll1.setBounds(692, 6, 410, 210);
 
         BtnPilihKasus.setForeground(new java.awt.Color(0, 0, 0));
         BtnPilihKasus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
@@ -1091,7 +1084,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnPilihKasus);
-        BtnPilihKasus.setBounds(521, 210, 115, 27);
+        BtnPilihKasus.setBounds(692, 225, 115, 27);
 
         BtnHapusKasus.setForeground(new java.awt.Color(0, 0, 0));
         BtnHapusKasus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
@@ -1108,7 +1101,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnHapusKasus);
-        BtnHapusKasus.setBounds(521, 245, 115, 27);
+        BtnHapusKasus.setBounds(814, 225, 115, 27);
 
         BtnPerbaikiKasus.setForeground(new java.awt.Color(0, 0, 0));
         BtnPerbaikiKasus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/inventaris.png"))); // NOI18N
@@ -1125,14 +1118,14 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnPerbaikiKasus);
-        BtnPerbaikiKasus.setBounds(521, 280, 115, 27);
+        BtnPerbaikiKasus.setBounds(937, 225, 115, 27);
 
         nmdpjp.setEditable(false);
         nmdpjp.setForeground(new java.awt.Color(0, 0, 0));
         nmdpjp.setHighlighter(null);
         nmdpjp.setName("nmdpjp"); // NOI18N
         FormInput.add(nmdpjp);
-        nmdpjp.setBounds(206, 146, 440, 23);
+        nmdpjp.setBounds(206, 146, 400, 23);
 
         btnDokter.setForeground(new java.awt.Color(0, 0, 0));
         btnDokter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
@@ -1145,7 +1138,51 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             }
         });
         FormInput.add(btnDokter);
-        btnDokter.setBounds(648, 146, 28, 23);
+        btnDokter.setBounds(607, 146, 28, 23);
+
+        Chkjamadv.setBackground(new java.awt.Color(255, 255, 250));
+        Chkjamadv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
+        Chkjamadv.setForeground(new java.awt.Color(0, 0, 0));
+        Chkjamadv.setText("Jam ADV : ");
+        Chkjamadv.setBorderPainted(true);
+        Chkjamadv.setBorderPaintedFlat(true);
+        Chkjamadv.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Chkjamadv.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        Chkjamadv.setName("Chkjamadv"); // NOI18N
+        FormInput.add(Chkjamadv);
+        Chkjamadv.setBounds(0, 202, 100, 23);
+
+        Chkjamlapor.setBackground(new java.awt.Color(255, 255, 250));
+        Chkjamlapor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
+        Chkjamlapor.setForeground(new java.awt.Color(0, 0, 0));
+        Chkjamlapor.setText("Jam Lapor : ");
+        Chkjamlapor.setBorderPainted(true);
+        Chkjamlapor.setBorderPaintedFlat(true);
+        Chkjamlapor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Chkjamlapor.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        Chkjamlapor.setName("Chkjamlapor"); // NOI18N
+        FormInput.add(Chkjamlapor);
+        Chkjamlapor.setBounds(0, 174, 100, 23);
+
+        Chkjamacc.setBackground(new java.awt.Color(255, 255, 250));
+        Chkjamacc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
+        Chkjamacc.setForeground(new java.awt.Color(0, 0, 0));
+        Chkjamacc.setText("Jam ACC : ");
+        Chkjamacc.setBorderPainted(true);
+        Chkjamacc.setBorderPaintedFlat(true);
+        Chkjamacc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Chkjamacc.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        Chkjamacc.setName("Chkjamacc"); // NOI18N
+        FormInput.add(Chkjamacc);
+        Chkjamacc.setBounds(0, 230, 100, 23);
+
+        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel21.setText("( Silahkan diconteng dulu Jam Lapor / Jam ADV / Jam ACC jika datanya ada )");
+        jLabel21.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        jLabel21.setName("jLabel21"); // NOI18N
+        FormInput.add(jLabel21);
+        jLabel21.setBounds(255, 230, 380, 23);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -1166,6 +1203,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Maaf, Item kasus persalinan masih kosong...!!!!");
             BtnPilihKasus.requestFocus();
         } else {
+            cekjam();
             datakasus = "";
             for (i = 0; i < tbKasus.getRowCount(); i++) {
                 if (datakasus.equals("")) {
@@ -1175,10 +1213,9 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
                 }
             }
 
-            Sequel.menyimpan("persalinan_dinkes", "'" + norawat.getText() + "','" + cmbrujukan.getSelectedItem().toString() + "','" + ketrujukan.getText() + "','"
-                    + cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem() + "','"
-                    + cmbJam1.getSelectedItem() + ":" + cmbMnt1.getSelectedItem() + ":" + cmbDtk1.getSelectedItem() + "','"
-                    + cmbJam2.getSelectedItem() + ":" + cmbMnt2.getSelectedItem() + ":" + cmbDtk2.getSelectedItem() + "','" + datakasus + "'", "Persalinan Dinkes");
+            Sequel.menyimpan("persalinan_dinkes", "'" + norawat.getText() + "','" + cmbrujukan.getSelectedItem().toString() + "',"
+                    + "'" + ketrujukan.getText() + "','" + jamlap + "','" + jamad + "','" + jamac + "',"
+                    + "'" + datakasus + "','" + cJL + "','" + cJADV + "','" + cJACC + "'", "Persalinan Dinkes");
 
             for (i = 0; i < tbKasus.getRowCount(); i++) {
                 Sequel.menyimpan("detail_persalinan_dinkes", "'" + norawat.getText() + "',"
@@ -1656,6 +1693,9 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public widget.Button BtnSimpan;
     private widget.Button BtnSimpan2;
     public widget.CekBox ChkInput;
+    private widget.CekBox Chkjamacc;
+    private widget.CekBox Chkjamadv;
+    private widget.CekBox Chkjamlapor;
     private widget.Tanggal DTPCari1;
     private widget.Tanggal DTPCari2;
     private widget.PanelBiasa FormInput;
@@ -1691,8 +1731,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel16;
     private widget.Label jLabel17;
     private widget.Label jLabel18;
-    private widget.Label jLabel19;
-    private widget.Label jLabel20;
     private widget.Label jLabel21;
     private widget.Label jLabel22;
     private widget.Label jLabel5;
@@ -1726,6 +1764,9 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // End of variables declaration//GEN-END:variables
 
     private void getData() {
+        cJL = "";
+        cJADV = "";
+        cJACC = "";
         if (tbDinkes.getSelectedRow() != -1) {
             norawat.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 0).toString());
             norm.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 13).toString());
@@ -1740,16 +1781,46 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             cmbrujukan.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 19).toString());
             ketrujukan.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 20).toString());
             kddpjp.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 21).toString());
-            nmdpjp.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 22).toString());
-            cmbJam.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 9).toString().substring(0, 2));
-            cmbMnt.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 9).toString().substring(3, 5));
-            cmbDtk.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 9).toString().substring(6, 8));
-            cmbJam1.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 10).toString().substring(0, 2));
-            cmbMnt1.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 10).toString().substring(3, 5));
-            cmbDtk1.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 10).toString().substring(6, 8));
-            cmbJam2.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 11).toString().substring(0, 2));
-            cmbMnt2.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 11).toString().substring(3, 5));
-            cmbDtk2.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 11).toString().substring(6, 8));
+            nmdpjp.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 22).toString());            
+            cJL = tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 23).toString();
+            cJADV = tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 24).toString();
+            cJACC = tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 25).toString();
+            
+            if (cJL.equals("1")) {
+                Chkjamlapor.setSelected(true);
+                cmbJam.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 9).toString().substring(0, 2));
+                cmbMnt.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 9).toString().substring(3, 5));
+                cmbDtk.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 9).toString().substring(6, 8));
+            } else {
+                Chkjamlapor.setSelected(false);
+                cmbJam.setSelectedIndex(0);
+                cmbMnt.setSelectedIndex(0);
+                cmbDtk.setSelectedIndex(0);
+            }
+
+            if (cJADV.equals("1")) {
+                Chkjamadv.setSelected(true);
+                cmbJam1.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 10).toString().substring(0, 2));
+                cmbMnt1.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 10).toString().substring(3, 5));
+                cmbDtk1.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 10).toString().substring(6, 8));
+            } else {
+                Chkjamadv.setSelected(false);
+                cmbJam1.setSelectedIndex(0);
+                cmbMnt1.setSelectedIndex(0);
+                cmbDtk1.setSelectedIndex(0);
+            }
+          
+            if (cJACC.equals("1")) {
+                Chkjamacc.setSelected(true);
+                cmbJam2.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 11).toString().substring(0, 2));
+                cmbMnt2.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 11).toString().substring(3, 5));
+                cmbDtk2.setSelectedItem(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 11).toString().substring(6, 8));
+            } else {
+                Chkjamacc.setSelected(false);
+                cmbJam2.setSelectedIndex(0);
+                cmbMnt2.setSelectedIndex(0);
+                cmbDtk2.setSelectedIndex(0);
+            }
             tampilKasus();
         }
     }
@@ -1757,7 +1828,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void isForm() {
         if (ChkInput.isSelected() == true) {
             ChkInput.setVisible(false);
-            PanelInput.setPreferredSize(new Dimension(WIDTH, 372));
+            PanelInput.setPreferredSize(new Dimension(WIDTH, 286));
             FormInput.setVisible(true);
             ChkInput.setVisible(true);
         } else if (ChkInput.isSelected() == false) {
@@ -1784,6 +1855,9 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         kddpjp.setText("");
         nmdpjp.setText("");
 
+        Chkjamlapor.setSelected(false);
+        Chkjamadv.setSelected(false);
+        Chkjamacc.setSelected(false);
         cmbJam.setSelectedIndex(0);
         cmbMnt.setSelectedIndex(0);
         cmbDtk.setSelectedIndex(0);
@@ -1804,8 +1878,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         + "concat(rp.umurdaftar,' ',rp.sttsumur) umur, pj.png_jawab, concat(concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab),' / ',p.no_ktp) alamat, "
                         + "concat(pd.rujukan,' - ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, pd.jam_lapor, pd.jam_adv, pd.jam_acc, pd.kasus_persalinan, "
                         + "p.no_rkm_medis, p.nm_pasien, date_format(rp.tgl_registrasi,'%d-%m-%Y') tglreg, p.no_tlp, p.no_ktp, concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamatnya, "
-                        + "pd.rujukan rujuknya, pd.ket_rujukan, d.kd_dokter, d.nm_dokter FROM persalinan_dinkes pd INNER JOIN reg_periksa rp ON rp.no_rawat = pd.no_rawat "
-                        + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis INNER JOIN kelurahan kl ON kl.kd_kel = p.kd_kel "
+                        + "pd.rujukan rujuknya, pd.ket_rujukan, d.kd_dokter, d.nm_dokter, pd.cek_jam_lapor, pd.cek_jam_adv, pd.cek_jam_acc FROM persalinan_dinkes pd "
+                        + "INNER JOIN reg_periksa rp ON rp.no_rawat = pd.no_rawat INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis INNER JOIN kelurahan kl ON kl.kd_kel = p.kd_kel "
                         + "INNER JOIN kecamatan kc ON kc.kd_kec = p.kd_kec INNER JOIN kabupaten kb ON kb.kd_kab = p.kd_kab "
                         + "INNER JOIN penjab pj ON pj.kd_pj = rp.kd_pj LEFT JOIN dpjp_ranap dr ON dr.no_rawat = pd.no_rawat LEFT JOIN dokter d ON d.kd_dokter = dr.kd_dokter WHERE "
                         + "rp.tgl_registrasi between ? and ? and pd.no_rawat like ? or "
@@ -1823,8 +1897,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         + "concat(rp.umurdaftar,' ',rp.sttsumur) umur, pj.png_jawab, concat(concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab),' / ',p.no_ktp) alamat, "
                         + "concat(pd.rujukan,' - ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, pd.jam_lapor, pd.jam_adv, pd.jam_acc, pd.kasus_persalinan, "
                         + "p.no_rkm_medis, p.nm_pasien, date_format(rp.tgl_registrasi,'%d-%m-%Y') tglreg, p.no_tlp, p.no_ktp, concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamatnya, "
-                        + "pd.rujukan rujuknya, pd.ket_rujukan, d.kd_dokter, d.nm_dokter FROM persalinan_dinkes pd INNER JOIN reg_periksa rp ON rp.no_rawat = pd.no_rawat "
-                        + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis INNER JOIN kelurahan kl ON kl.kd_kel = p.kd_kel "
+                        + "pd.rujukan rujuknya, pd.ket_rujukan, d.kd_dokter, d.nm_dokter, pd.cek_jam_lapor, pd.cek_jam_adv, pd.cek_jam_acc FROM persalinan_dinkes pd "
+                        + "INNER JOIN reg_periksa rp ON rp.no_rawat = pd.no_rawat INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis INNER JOIN kelurahan kl ON kl.kd_kel = p.kd_kel "
                         + "INNER JOIN kecamatan kc ON kc.kd_kec = p.kd_kec INNER JOIN kabupaten kb ON kb.kd_kab = p.kd_kab "
                         + "INNER JOIN penjab pj ON pj.kd_pj = rp.kd_pj LEFT JOIN dpjp_ranap dr ON dr.no_rawat = pd.no_rawat LEFT JOIN dokter d ON d.kd_dokter = dr.kd_dokter WHERE "
                         + "rp.tgl_registrasi between ? and ? and pd.no_rawat like ? or "
@@ -1895,7 +1969,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         rs.getString("rujuknya"),
                         rs.getString("ket_rujukan"),
                         rs.getString("kd_dokter"),
-                        rs.getString("nm_dokter")
+                        rs.getString("nm_dokter"),                        
+                        rs.getString("cek_jam_lapor"),
+                        rs.getString("cek_jam_adv"),
+                        rs.getString("cek_jam_acc")
                     });
                 }
             } catch (Exception e) {
@@ -2006,7 +2083,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             ps3 = koneksi.prepareStatement("select pd.no_rawat, concat(date_format(rp.tgl_registrasi,'%d-%m-%Y'),' / ',p.no_rkm_medis) tgl_rm, "
                     + "concat(p.nm_pasien,' / ',p.no_tlp) nama, concat(rp.umurdaftar,' ',rp.sttsumur,'.') umur, "
                     + "pj.png_jawab, concat(concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab),' / ',p.no_ktp) alamat, "
-                    + "concat(pd.rujukan,' ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, pd.jam_lapor, pd.jam_adv, pd.jam_acc FROM persalinan_dinkes pd "
+                    + "concat(pd.rujukan,' ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, if(cek_jam_lapor='1',pd.jam_lapor,'') jamlap, "
+                    + "if(cek_jam_adv='1',pd.jam_adv,'') jamad, if(cek_jam_acc='1',pd.jam_acc,'') jamac FROM persalinan_dinkes pd "
                     + "INNER JOIN reg_periksa rp ON rp.no_rawat = pd.no_rawat INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
                     + "INNER JOIN kelurahan kl ON kl.kd_kel = p.kd_kel INNER JOIN kecamatan kc ON kc.kd_kec = p.kd_kec "
                     + "INNER JOIN kabupaten kb ON kb.kd_kab = p.kd_kab INNER JOIN penjab pj ON pj.kd_pj = rp.kd_pj "
@@ -2030,9 +2108,9 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                                 rs3.getString("rujukan"),
                                 rs3.getString("dpjp"),
                                 rs3.getString("jam_reg"),
-                                rs3.getString("jam_lapor"),
-                                rs3.getString("jam_adv"),
-                                rs3.getString("jam_acc"),
+                                rs3.getString("jamlap"),
+                                rs3.getString("jamad"),
+                                rs3.getString("jamac"),
                                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
@@ -2246,6 +2324,39 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             }
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
+        }
+    }
+    
+    private void cekjam() {
+        cJL = "";
+        cJADV = "";
+        cJACC = "";
+        jamlap = "";
+        jamad = "";
+        jamac = "";
+
+        if (Chkjamlapor.isSelected() == true) {
+            cJL = "1";
+            jamlap = cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem();
+        } else {
+            cJL = "0";
+            jamlap = "00:00:00";
+        }
+
+        if (Chkjamadv.isSelected() == true) {
+            cJADV = "1";
+            jamad = cmbJam1.getSelectedItem() + ":" + cmbMnt1.getSelectedItem() + ":" + cmbDtk1.getSelectedItem();
+        } else {
+            cJADV = "0";
+            jamad = "00:00:00";
+        }
+
+        if (Chkjamacc.isSelected() == true) {
+            cJACC = "1";
+            jamac = cmbJam2.getSelectedItem() + ":" + cmbMnt2.getSelectedItem() + ":" + cmbDtk2.getSelectedItem();
+        } else {
+            cJACC = "0";
+            jamac = "00:00:00";
         }
     }
 }
