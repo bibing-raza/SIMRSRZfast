@@ -430,17 +430,7 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
                 param.put("propinsirs", akses.getpropinsirs());
                 param.put("logo", Sequel.cariGambar("select logo_hitam_putih from setting"));
                 param.put("jns_label", "");
-                Valid.MyReport("rptAturanPakai.jasper", "report", "::[ Labeling Obat Minum ]::",
-                        "select ap.no_rawat, ap.kode_brng, concat(p.no_rkm_medis,' - ',p.nm_pasien) pasien, date_format(ap.tgl_perawatan,'%d/%m/%Y') tgl, "
-                        + "d.nama_brng, ap.aturan1, ap.aturan2, ap.aturan3, ap.waktu1, ap.waktu2, ap.keterangan, ap.waktu_simpan, ap.tgl_perawatan, "
-                        + "ap.jam from aturan_pakai ap inner join databarang d on d.kode_brng=ap.kode_brng "
-                        + "inner join reg_periksa rp on rp.no_rawat=ap.no_rawat inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
-                        + "ap.no_rawat='" + norwt + "' and "
-                        + "ap.kode_brng='" + kdobt + "' and "
-                        + "ap.tgl_perawatan='" + tgl_resep + "' and "
-                        + "ap.jam='" + jam_resep + "'", param);
-
-//                Valid.AutoPrintMulti("rptAturanPakai.jasper", "report", "::[ Labeling Obat Minum ]::",
+//                Valid.MyReport("rptAturanPakai.jasper", "report", "::[ Labeling Obat Minum ]::",
 //                        "select ap.no_rawat, ap.kode_brng, concat(p.no_rkm_medis,' - ',p.nm_pasien) pasien, date_format(ap.tgl_perawatan,'%d/%m/%Y') tgl, "
 //                        + "d.nama_brng, ap.aturan1, ap.aturan2, ap.aturan3, ap.waktu1, ap.waktu2, ap.keterangan, ap.waktu_simpan, ap.tgl_perawatan, "
 //                        + "ap.jam from aturan_pakai ap inner join databarang d on d.kode_brng=ap.kode_brng "
@@ -448,7 +438,17 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
 //                        + "ap.no_rawat='" + norwt + "' and "
 //                        + "ap.kode_brng='" + kdobt + "' and "
 //                        + "ap.tgl_perawatan='" + tgl_resep + "' and "
-//                        + "ap.jam='" + jam_resep + "'", param, nmPrinter1);
+//                        + "ap.jam='" + jam_resep + "'", param);
+
+                Valid.AutoPrintMulti("rptAturanPakai.jasper", "report", "::[ Labeling Obat Minum ]::",
+                        "select ap.no_rawat, ap.kode_brng, concat(p.no_rkm_medis,' - ',p.nm_pasien) pasien, date_format(ap.tgl_perawatan,'%d/%m/%Y') tgl, "
+                        + "d.nama_brng, ap.aturan1, ap.aturan2, ap.aturan3, ap.waktu1, ap.waktu2, ap.keterangan, ap.waktu_simpan, ap.tgl_perawatan, "
+                        + "ap.jam from aturan_pakai ap inner join databarang d on d.kode_brng=ap.kode_brng "
+                        + "inner join reg_periksa rp on rp.no_rawat=ap.no_rawat inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
+                        + "ap.no_rawat='" + norwt + "' and "
+                        + "ap.kode_brng='" + kdobt + "' and "
+                        + "ap.tgl_perawatan='" + tgl_resep + "' and "
+                        + "ap.jam='" + jam_resep + "'", param, nmPrinter1);
                 BtnKeluarActionPerformed(null);
 
             } else if (cmblabel.getSelectedIndex() == 2) {
@@ -459,17 +459,7 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
                 param.put("propinsirs", akses.getpropinsirs());
                 param.put("logo", Sequel.cariGambar("select logo_hitam_putih from setting"));
                 param.put("jns_label", "OBAT LUAR");
-                Valid.MyReport("rptAturanPakai.jasper", "report", "::[ Labeling Obat Luar ]::",
-                        "select ap.no_rawat, ap.kode_brng, concat(p.no_rkm_medis,' - ',p.nm_pasien) pasien, date_format(ap.tgl_perawatan,'%d/%m/%Y') tgl, "
-                        + "d.nama_brng, ap.aturan1, ap.aturan2, ap.aturan3, ap.waktu1, ap.waktu2, ap.keterangan, ap.waktu_simpan, ap.tgl_perawatan, "
-                        + "ap.jam from aturan_pakai ap inner join databarang d on d.kode_brng=ap.kode_brng "
-                        + "inner join reg_periksa rp on rp.no_rawat=ap.no_rawat inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
-                        + "ap.no_rawat='" + norwt + "' and "
-                        + "ap.kode_brng='" + kdobt + "' and "
-                        + "ap.tgl_perawatan='" + tgl_resep + "' and "
-                        + "ap.jam='" + jam_resep + "'", param);
-
-//                Valid.AutoPrintMulti("rptAturanPakai.jasper", "report", "::[ Labeling Obat Luar ]::",
+//                Valid.MyReport("rptAturanPakai.jasper", "report", "::[ Labeling Obat Luar ]::",
 //                        "select ap.no_rawat, ap.kode_brng, concat(p.no_rkm_medis,' - ',p.nm_pasien) pasien, date_format(ap.tgl_perawatan,'%d/%m/%Y') tgl, "
 //                        + "d.nama_brng, ap.aturan1, ap.aturan2, ap.aturan3, ap.waktu1, ap.waktu2, ap.keterangan, ap.waktu_simpan, ap.tgl_perawatan, "
 //                        + "ap.jam from aturan_pakai ap inner join databarang d on d.kode_brng=ap.kode_brng "
@@ -477,7 +467,17 @@ public final class DlgGantiAturanPakai extends javax.swing.JDialog {
 //                        + "ap.no_rawat='" + norwt + "' and "
 //                        + "ap.kode_brng='" + kdobt + "' and "
 //                        + "ap.tgl_perawatan='" + tgl_resep + "' and "
-//                        + "ap.jam='" + jam_resep + "'", param, nmPrinter2);                
+//                        + "ap.jam='" + jam_resep + "'", param);
+
+                Valid.AutoPrintMulti("rptAturanPakai.jasper", "report", "::[ Labeling Obat Luar ]::",
+                        "select ap.no_rawat, ap.kode_brng, concat(p.no_rkm_medis,' - ',p.nm_pasien) pasien, date_format(ap.tgl_perawatan,'%d/%m/%Y') tgl, "
+                        + "d.nama_brng, ap.aturan1, ap.aturan2, ap.aturan3, ap.waktu1, ap.waktu2, ap.keterangan, ap.waktu_simpan, ap.tgl_perawatan, "
+                        + "ap.jam from aturan_pakai ap inner join databarang d on d.kode_brng=ap.kode_brng "
+                        + "inner join reg_periksa rp on rp.no_rawat=ap.no_rawat inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
+                        + "ap.no_rawat='" + norwt + "' and "
+                        + "ap.kode_brng='" + kdobt + "' and "
+                        + "ap.tgl_perawatan='" + tgl_resep + "' and "
+                        + "ap.jam='" + jam_resep + "'", param, nmPrinter2);                
                 BtnKeluarActionPerformed(null);
             }
             this.setCursor(Cursor.getDefaultCursor());

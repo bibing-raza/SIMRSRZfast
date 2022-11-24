@@ -1213,19 +1213,22 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
                 }
             }
 
-            Sequel.menyimpan("persalinan_dinkes", "'" + norawat.getText() + "','" + cmbrujukan.getSelectedItem().toString() + "',"
-                    + "'" + ketrujukan.getText() + "','" + jamlap + "','" + jamad + "','" + jamac + "',"
-                    + "'" + datakasus + "','" + cJL + "','" + cJADV + "','" + cJACC + "'", "Persalinan Dinkes");
+            Sequel.AutoComitFalse();
+            if (Sequel.menyimpantf3("persalinan_dinkes", "?,?,?,?,?,?,?,?,?,?", "Data Kasus Persalinan", 10, new String[]{
+                norawat.getText(), cmbrujukan.getSelectedItem().toString(), ketrujukan.getText(), jamlap, jamad, jamac,
+                datakasus, cJL, cJADV, cJACC
+            }) == true) {
+                for (i = 0; i < tbKasus.getRowCount(); i++) {
+                    Sequel.menyimpan("detail_persalinan_dinkes", "'" + norawat.getText() + "',"
+                            + "'" + tbKasus.getValueAt(i, 0).toString() + "'", "Detail Kasus Persalinan");
+                }
 
-            for (i = 0; i < tbKasus.getRowCount(); i++) {
-                Sequel.menyimpan("detail_persalinan_dinkes", "'" + norawat.getText() + "',"
-                        + "'" + tbKasus.getValueAt(i, 0).toString() + "'", "Detail Kasus Persalinan");
+                Sequel.mengedit("pasien", "no_rkm_medis='" + norm.getText() + "'", "no_tlp='" + nohp.getText() + "', no_ktp='" + nik.getText() + "'");
+                Sequel.simpanReplaceInto("dpjp_ranap", "'" + norawat.getText() + "','" + kddpjp.getText() + "'", "DPJP Rawat Inap");
+                tampil();
+                emptteks();
             }
-
-            Sequel.mengedit("pasien", "no_rkm_medis='" + norm.getText() + "'", "no_tlp='" + nohp.getText() + "', no_ktp='" + nik.getText() + "'");
-            Sequel.simpanReplaceInto("dpjp_ranap", "'" + norawat.getText() + "','" + kddpjp.getText() + "'", "DPJP Rawat Inap");
-            tampil();
-            emptteks();
+            Sequel.AutoComitTrue();
         }
 }//GEN-LAST:event_BtnSimpanActionPerformed
 

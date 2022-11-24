@@ -226,6 +226,41 @@ public final class sekuel {
             return false;
         }
     }
+    
+    public boolean menyimpantf3(String table, String value, String pesan, int i, String[] a) {
+        bool = true;
+        try {
+            ps = connect.prepareStatement("insert into " + table + " values(" + value + ")");
+            try {
+                for (angka = 1; angka <= i; angka++) {
+                    ps.setString(angka, a[angka - 1]);
+                }
+                ps.executeUpdate();
+                bool = true;
+            } catch (Exception e) {
+                bool = false;
+                System.out.println("Notifikasi : " + e);
+                if (e.toString().contains("Duplicate")) {
+                    JOptionPane.showMessageDialog(null, "Maaf, gagal menyimpan data. Kemungkinan ada " + pesan + " yang sama dimasukkan sebelumnya...!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Maaf, gagal menyimpan data. Ada kesalahan Query...!");
+                }
+            } finally {
+                if (ps != null) {
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            bool = false;
+            System.out.println("Notifikasi : " + e);
+            if (e.toString().contains("Duplicate")) {
+                JOptionPane.showMessageDialog(null, "Maaf, gagal menyimpan data. Kemungkinan ada " + pesan + " yang sama dimasukkan sebelumnya...!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Maaf, gagal menyimpan data. Ada kesalahan Query...!");
+            }
+        }
+        return bool;
+    }
 
     public boolean menyimpantf2(String table, String value, String sama, int i, String[] a) {
         bool = true;
