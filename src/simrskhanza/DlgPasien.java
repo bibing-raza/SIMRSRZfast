@@ -245,7 +245,7 @@ public class DlgPasien extends javax.swing.JDialog {
         TNoPeserta.setDocument(new batasInput((byte) 25).getKata(TNoPeserta));
         TCari.setDocument(new batasInput((byte) 100).getKata(TCari));
         TTlp.setDocument(new batasInput((byte) 13).getOnlyAngka(TTlp));
-        umurPjawab.setDocument(new batasInput((byte) 3).getOnlyAngka(umurPjawab));
+        umurPjawab.setDocument(new batasInput((byte) 3).getKata(umurPjawab));
         notlpPJ.setDocument(new batasInput((byte) 13).getOnlyAngka(notlpPJ));
         
         if (koneksiDB.cariCepat().equals("aktif")) {
@@ -3307,6 +3307,9 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         JOptionPane.showMessageDialog(null, "Pendidikan Harus di Isi");
     } else if ((!CMbPnd.getSelectedItem().toString().equals("-")) && (umurBy < 6)) {
         JOptionPane.showMessageDialog(null, "Pendidikan Tidak Sesuai");
+    } else if (cmbPngJawab.getSelectedIndex() == 4 && umurPjawab.getText().equals("")) {
+        Valid.textKosong(umurPjawab, "umur suami");
+        umurPjawab.requestFocus();
     } else {
         ChkSamakanActionPerformed(null);
         lahir = DTPLahir.getDate();
@@ -3709,6 +3712,9 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         JOptionPane.showMessageDialog(null, "Pendidikan Harus di Isi");
     } else if ((!CMbPnd.getSelectedItem().toString().equals("-")) && (umurBy < 6)) {
         JOptionPane.showMessageDialog(null, "Pendidikan Tidak Sesuai");
+    } else if (cmbPngJawab.getSelectedIndex() == 4 && umurPjawab.getText().equals("")) {
+        Valid.textKosong(umurPjawab, "umur suami");
+        umurPjawab.requestFocus();
     } else {
 
         lahir = DTPLahir.getDate();
