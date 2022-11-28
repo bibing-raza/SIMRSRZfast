@@ -58,10 +58,10 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         initComponents();
 
         tabMode = new DefaultTableModel(null, new Object[]{
-            "norawat", "Tgl. MRS/No.RM", "Nama Pasien / HP", "Umur", "Cara Bayar", "Alamat/NIK",
+            "norawat", "Tgl. MRS/No.RM", "Nama Pasien/HP/Nama Suami", "Umur Pasien/Umur Suami", "Cara Bayar", "Alamat/NIK",
             "Rujukan", "DPJP", "Jam MRS", "Jam Lapor", "Jam ADV", "Jam ACC", "Kasus Persalinan",
             "norm", "nmpasien", "tglreg", "notelp", "nik", "alamatnya", "rujukan", "ket_rujukan",
-            "kd_dokter", "nm_dokter", "cekjamlap", "cekjamad", "cekjamac"
+            "kd_dokter", "nm_dokter", "cekjamlap", "cekjamad", "cekjamac", "umurpasien"
         }) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -73,7 +73,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         tbDinkes.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tbDinkes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < 27; i++) {
             TableColumn column = tbDinkes.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setMinWidth(0);
@@ -81,9 +81,9 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
             } else if (i == 1) {
                 column.setPreferredWidth(120);
             } else if (i == 2) {
-                column.setPreferredWidth(250);
+                column.setPreferredWidth(270);
             } else if (i == 3) {
-                column.setPreferredWidth(65);
+                column.setPreferredWidth(130);
             } else if (i == 4) {
                 column.setPreferredWidth(160);
             } else if (i == 5) {
@@ -139,6 +139,9 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
             } else if (i == 25) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 26) {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
             }
@@ -261,6 +264,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         TCari.setDocument(new batasInput((byte) 100).getKata(TCari));
         nohp.setDocument(new batasInput((byte) 13).getOnlyAngka(nohp));
         nik.setDocument(new batasInput((byte) 17).getOnlyAngka(nik));
+        umursuami.setDocument(new batasInput((byte) 3).getOnlyAngka(umursuami));
 
         if (koneksiDB.cariCepat().equals("aktif")) {
             TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
@@ -377,6 +381,11 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         Chkjamlapor = new widget.CekBox();
         Chkjamacc = new widget.CekBox();
         jLabel21 = new widget.Label();
+        jLabel19 = new widget.Label();
+        nmsuami = new widget.TextBox();
+        jLabel20 = new widget.Label();
+        umursuami = new widget.TextBox();
+        jLabel23 = new widget.Label();
 
         WindowDataKasus.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         WindowDataKasus.setName("WindowDataKasus"); // NOI18N
@@ -676,7 +685,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         panelGlass10.add(jLabel63);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-11-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "28-11-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -690,7 +699,7 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         panelGlass10.add(jLabel64);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-11-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "28-11-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1184,6 +1193,48 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         FormInput.add(jLabel21);
         jLabel21.setBounds(255, 230, 380, 23);
 
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel19.setText("Nama Suami : ");
+        jLabel19.setName("jLabel19"); // NOI18N
+        FormInput.add(jLabel19);
+        jLabel19.setBounds(249, 174, 85, 23);
+
+        nmsuami.setForeground(new java.awt.Color(0, 0, 0));
+        nmsuami.setHighlighter(null);
+        nmsuami.setName("nmsuami"); // NOI18N
+        nmsuami.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nmsuamiKeyPressed(evt);
+            }
+        });
+        FormInput.add(nmsuami);
+        nmsuami.setBounds(336, 174, 300, 23);
+
+        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel20.setText("Umur Suami : ");
+        jLabel20.setName("jLabel20"); // NOI18N
+        FormInput.add(jLabel20);
+        jLabel20.setBounds(249, 202, 85, 23);
+
+        umursuami.setForeground(new java.awt.Color(0, 0, 0));
+        umursuami.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        umursuami.setHighlighter(null);
+        umursuami.setName("umursuami"); // NOI18N
+        umursuami.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                umursuamiKeyPressed(evt);
+            }
+        });
+        FormInput.add(umursuami);
+        umursuami.setBounds(336, 202, 50, 23);
+
+        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel23.setText("tahun.");
+        jLabel23.setName("jLabel23"); // NOI18N
+        FormInput.add(jLabel23);
+        jLabel23.setBounds(392, 202, 40, 23);
+
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
         internalFrame1.add(PanelInput, java.awt.BorderLayout.PAGE_START);
@@ -1202,6 +1253,12 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         } else if (tabMode1.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "Maaf, Item kasus persalinan masih kosong...!!!!");
             BtnPilihKasus.requestFocus();
+        } else if (nmsuami.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, nama suami masih kosong...!!!!");
+            nmsuami.requestFocus();
+        } else if (umursuami.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, umur suami masih kosong...!!!!");
+            umursuami.requestFocus();
         } else {
             cekjam();
             datakasus = "";
@@ -1223,8 +1280,13 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
                             + "'" + tbKasus.getValueAt(i, 0).toString() + "'", "Detail Kasus Persalinan");
                 }
 
-                Sequel.mengedit("pasien", "no_rkm_medis='" + norm.getText() + "'", "no_tlp='" + nohp.getText() + "', no_ktp='" + nik.getText() + "'");
                 Sequel.simpanReplaceInto("dpjp_ranap", "'" + norawat.getText() + "','" + kddpjp.getText() + "'", "DPJP Rawat Inap");
+                Sequel.mengedit("pasien", "no_rkm_medis='" + norm.getText() + "'",
+                        "no_tlp='" + nohp.getText() + "', "
+                        + "no_ktp='" + nik.getText() + "', "
+                        + "keluarga='SUAMI', "
+                        + "namakeluarga='" + nmsuami.getText() + "',"
+                        + "umur_pj='" + umursuami.getText() + "'");
                 tampil();
                 emptteks();
             }
@@ -1258,6 +1320,12 @@ public class DlgDinkesPersalinan extends javax.swing.JDialog {
         if (norawat.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Klik salah satu dulu nama pasien pada tabel...!!!!");
             tbDinkes.requestFocus();
+        } else if (nmsuami.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, nama suami masih kosong...!!!!");
+            nmsuami.requestFocus();
+        } else if (umursuami.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, umur suami masih kosong...!!!!");
+            umursuami.requestFocus();
         } else {
             if (tabMode.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Maaf, data sudah habis...!!!!");
@@ -1431,94 +1499,95 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             dialog_simpan = "";
             insertDataKeTabelTemporary3();
             dialog_simpan = Valid.openDialog();
-            Valid.MyReportToExcel("SELECT temp2 'No.', temp3 'Tanggal / CM', temp4 'Nama / HP', temp5 'Umur', temp6 'Pemb. Umum/BPJS', "
-                    + "temp7 'Alamat / NIK', temp8 'Rujukan', temp9 'DPJP', temp10 'Jam Msk', temp11 'Jam Lapor', temp12 'Jam Adv', temp13 'Jam ACC', "
-                    + "temp14 '1. Gravida', "
-                    + "temp15 '2. Para', "
-                    + "temp16 '3. Abortus', "
-                    + "temp17 '4. Tunggal', "
-                    + "temp18 '5. Gamely', "
-                    + "temp19 '6. Hamil (mgg)', "
-                    + "temp20 '7. Eklamsia', "
-                    + "temp21 '8. Preeklamsia', "
-                    + "temp22 '9. HT dlm khml', "
-                    + "temp23 '10. Plasenta previa', "
-                    + "temp24 '11. Plas ltk rndah', "
-                    + "temp25 '12. Sol plasenta', "
-                    + "temp26 '13. Rupture uteri', "
-                    + "temp27 '14. TP mnmbung', "
-                    + "temp28 '15. Retensio plst', "
-                    + "temp29 '16. Atonia uteri', "
-                    + "temp30 '17. Laserasi jln lhr', "
-                    + "temp31 '18. Retensi ss plst', "
-                    + "temp32 '19. Inversio uteri', "
-                    + "temp33 '20. Oedema vulva', "
-                    + "temp34 '21. Kala II lama', "
-                    + "temp35 '22. Distosia bahu', "
-                    + "temp36 '23. Partus tak maju', "
-                    + "temp37 '24. Kala I memanjang', "
-                    + "temp38 '25. KDP', "
-                    + "temp39 '26. Oligohidramnion', "
-                    + "temp40 '27. Riwayat SC', "
-                    + "temp41 '28. Sungsang', "
-                    + "temp42 '29. Kelainan Letak', "
-                    + "temp43 '30. CPD', "
-                    + "temp44 '31. PPI', "
-                    + "temp45 '32. Postterm', "
-                    + "temp46 '33. Fetal distress', "
-                    + "temp47 '34. Bayi besar', "
-                    + "temp48 '35. IUFD', "
-                    + "temp49 '36. TBJ<2500gr', "
-                    + "temp50 '37. Inersia Uteri', "
-                    + "temp51 '38. Induksi', "
-                    + "temp52 '39. Gagal Induksi', "
-                    + "temp53 '40. ILO', "
-                    + "temp54 '41. HB', "
-                    + "temp55 '42. Infeksi/Sepsis', "
-                    + "temp56 '43. TB', "
-                    + "temp57 '44. Malaria', "
-                    + "temp58 '45. Jantung', "
-                    + "temp59 '46. DM', "
-                    + "temp60 '47. Gangguan darah', "
-                    + "temp61 '48. Asma', "
-                    + "temp62 '49. KEK', "
-                    + "temp63 '50. Febris', "
-                    + "temp64 '51. Herpes', "
-                    + "temp65 '52. Diare', "
-                    + "temp66 '53. HIV (B20)', "
-                    + "temp67 '54. Hepatitis B', "
-                    + "temp68 '55. Covid 19', "
-                    + "temp69 '56. Konf Cov-19', "
-                    + "temp70 '57. Perawatan', "
-                    + "temp71 '58. Partus Spt BK', "
-                    + "temp72 '59. Pspt Sungsang', "
-                    + "temp73 '60. VE', "
-                    + "temp74 '61. Forceps', "
-                    + "temp75 '62. SC', "
-                    + "temp76 '63. Manual Plasenta', "
-                    + "temp77 '64. Di tlng Bidan', "
-                    + "temp78 '65. Di tlng Sp.OG', "
-                    + "temp79 '66. Di tlng Nakes', "
-                    + "temp80 '67. Kematian perdarahan', "
-                    + "temp81 '68. Kematian PE/', "
-                    + "temp82 '69. Kematian Sepsis', "
-                    + "temp83 '70. Kematian DLL', "
-                    + "temp84 '71. Kematian Hamil', "
-                    + "temp85 '72. Kematian Persalinan', "
-                    + "temp86 '73. Kematian Nifas', "
-                    + "temp87 '74. Pasien Jatuh', "
-                    + "temp88 '75. Asbid Lengkap', "
-                    + "temp89 '76. Px perdarahan', "
-                    + "temp90 '77. Px Tranfusi darah', "
-                    + "temp91 '78. Reaksi Transfusi', "
-                    + "temp92 '79. Px Pasang Infus', "
-                    + "temp93 '80. Px Plebhitis', "
-                    + "temp94 '81. Px pilang APS', "
-                    + "temp95 '82. Px Pulang Sembuh', "
-                    + "temp96 '83. di Rujuk ke RS', "
-                    + "temp97 '84. Dalam Wilayah', "
-                    + "temp98 '85. Luar Wilayah', "
-                    + "temp99 '86. Keterangan' FROM temporary3", dialog_simpan);
+            Valid.MyReportToExcel("SELECT temp2 'No.', temp3 'Tanggal / CM', temp4 'Nama Pasien / HP', temp5 'Umur Pasien', temp6 'Nama Suami', "
+                    + "temp7 'Umur Suami', temp8 'Pemb. Umum/BPJS', temp9 'Alamat / NIK', temp10 'Rujukan', temp11 'DPJP', temp12 'Jam Msk', "
+                    +"temp13 'Jam Lapor', temp14 'Jam Adv', temp15 'Jam ACC', "
+                    + "temp16 '1. Gravida', "
+                    + "temp17 '2. Para', "
+                    + "temp18 '3. Abortus', "
+                    + "temp19 '4. Tunggal', "
+                    + "temp20 '5. Gamely', "
+                    + "temp21 '6. Hamil (mgg)', "
+                    + "temp22 '7. Eklamsia', "
+                    + "temp23 '8. Preeklamsia', "
+                    + "temp24 '9. HT dlm khml', "
+                    + "temp25 '10. Plasenta previa', "
+                    + "temp26 '11. Plas ltk rndah', "
+                    + "temp27 '12. Sol plasenta', "
+                    + "temp28 '13. Rupture uteri', "
+                    + "temp29 '14. TP mnmbung', "
+                    + "temp30 '15. Retensio plst', "
+                    + "temp31 '16. Atonia uteri', "
+                    + "temp32 '17. Laserasi jln lhr', "
+                    + "temp33 '18. Retensi ss plst', "
+                    + "temp34 '19. Inversio uteri', "
+                    + "temp35 '20. Oedema vulva', "
+                    + "temp36 '21. Kala II lama', "
+                    + "temp37 '22. Distosia bahu', "
+                    + "temp38 '23. Partus tak maju', "
+                    + "temp39 '24. Kala I memanjang', "
+                    + "temp40 '25. KDP', "
+                    + "temp41 '26. Oligohidramnion', "
+                    + "temp42 '27. Riwayat SC', "
+                    + "temp43 '28. Sungsang', "
+                    + "temp44 '29. Kelainan Letak', "
+                    + "temp45 '30. CPD', "
+                    + "temp46 '31. PPI', "
+                    + "temp47 '32. Postterm', "
+                    + "temp48 '33. Fetal distress', "
+                    + "temp49 '34. Bayi besar', "
+                    + "temp50 '35. IUFD', "
+                    + "temp51 '36. TBJ<2500gr', "
+                    + "temp52 '37. Inersia Uteri', "
+                    + "temp53 '38. Induksi', "
+                    + "temp54 '39. Gagal Induksi', "
+                    + "temp55 '40. ILO', "
+                    + "temp56 '41. HB', "
+                    + "temp57 '42. Infeksi/Sepsis', "
+                    + "temp58 '43. TB', "
+                    + "temp59 '44. Malaria', "
+                    + "temp60 '45. Jantung', "
+                    + "temp61 '46. DM', "
+                    + "temp62 '47. Gangguan darah', "
+                    + "temp63 '48. Asma', "
+                    + "temp64 '49. KEK', "
+                    + "temp65 '50. Febris', "
+                    + "temp66 '51. Herpes', "
+                    + "temp67 '52. Diare', "
+                    + "temp68 '53. HIV (B20)', "
+                    + "temp69 '54. Hepatitis B', "
+                    + "temp70 '55. Covid 19', "
+                    + "temp71 '56. Konf Cov-19', "
+                    + "temp72 '57. Perawatan', "
+                    + "temp73 '58. Partus Spt BK', "
+                    + "temp74 '59. Pspt Sungsang', "
+                    + "temp75 '60. VE', "
+                    + "temp76 '61. Forceps', "
+                    + "temp77 '62. SC', "
+                    + "temp78 '63. Manual Plasenta', "
+                    + "temp79 '64. Di tlng Bidan', "
+                    + "temp80 '65. Di tlng Sp.OG', "
+                    + "temp81 '66. Di tlng Nakes', "
+                    + "temp82 '67. Kematian perdarahan', "
+                    + "temp83 '68. Kematian PE/', "
+                    + "temp84 '69. Kematian Sepsis', "
+                    + "temp85 '70. Kematian DLL', "
+                    + "temp86 '71. Kematian Hamil', "
+                    + "temp87 '72. Kematian Persalinan', "
+                    + "temp88 '73. Kematian Nifas', "
+                    + "temp89 '74. Pasien Jatuh', "
+                    + "temp90 '75. Asbid Lengkap', "
+                    + "temp91 '76. Px perdarahan', "
+                    + "temp92 '77. Px Tranfusi darah', "
+                    + "temp93 '78. Reaksi Transfusi', "
+                    + "temp94 '79. Px Pasang Infus', "
+                    + "temp95 '80. Px Plebhitis', "
+                    + "temp96 '81. Px pilang APS', "
+                    + "temp97 '82. Px Pulang Sembuh', "
+                    + "temp98 '83. di Rujuk ke RS', "
+                    + "temp99 '84. Dalam Wilayah', "
+                    + "temp100 '85. Luar Wilayah', "
+                    + "temp101 '86. Keterangan' FROM temporary3", dialog_simpan);
 
             JOptionPane.showMessageDialog(null, "Data kasus persalinan permintaan Dinkes Kab. Banjar berhasil diexport menjadi file excel,..!!!");
             tampil();
@@ -1664,6 +1733,14 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         dokter.setVisible(true);
     }//GEN-LAST:event_btnDokterActionPerformed
 
+    private void nmsuamiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nmsuamiKeyPressed
+        Valid.pindah(evt, btnDokter, umursuami);
+    }//GEN-LAST:event_nmsuamiKeyPressed
+
+    private void umursuamiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_umursuamiKeyPressed
+        Valid.pindah(evt, nmsuami, BtnSimpan);
+    }//GEN-LAST:event_umursuamiKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -1734,8 +1811,11 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel16;
     private widget.Label jLabel17;
     private widget.Label jLabel18;
+    private widget.Label jLabel19;
+    private widget.Label jLabel20;
     private widget.Label jLabel21;
     private widget.Label jLabel22;
+    private widget.Label jLabel23;
     private widget.Label jLabel5;
     private widget.Label jLabel59;
     private widget.Label jLabel6;
@@ -1753,6 +1833,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public widget.TextBox nik;
     public widget.TextBox nmdpjp;
     private widget.TextBox nmkasus;
+    public widget.TextBox nmsuami;
     public widget.TextBox nohp;
     public widget.TextBox norawat;
     private widget.TextBox norm;
@@ -1764,6 +1845,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Table tbKasus;
     public widget.TextBox tglmrs;
     public widget.TextBox umur;
+    public widget.TextBox umursuami;
     // End of variables declaration//GEN-END:variables
 
     private void getData() {
@@ -1777,7 +1859,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             tglmrs.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 15).toString());
             jammrs.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 8).toString());
             nohp.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 16).toString());
-            umur.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 3).toString());
+            umur.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 26).toString());
             crbayar.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 4).toString());
             nik.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 17).toString());
             alamat.setText(tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 18).toString());
@@ -1788,6 +1870,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             cJL = tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 23).toString();
             cJADV = tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 24).toString();
             cJACC = tbDinkes.getValueAt(tbDinkes.getSelectedRow(), 25).toString();
+            nmsuami.setText(Sequel.cariIsi("select namakeluarga from pasien where no_rkm_medis='" + norm.getText() + "'"));
+            umursuami.setText(Sequel.cariIsi("select umur_pj from pasien where no_rkm_medis='" + norm.getText() + "'"));
             
             if (cJL.equals("1")) {
                 Chkjamlapor.setSelected(true);
@@ -1857,6 +1941,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         ketrujukan.setText("");
         kddpjp.setText("");
         nmdpjp.setText("");
+        nmsuami.setText("");
+        umursuami.setText("");
 
         Chkjamlapor.setSelected(false);
         Chkjamadv.setSelected(false);
@@ -1877,12 +1963,15 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         Valid.tabelKosong(tabMode);
         try {
             if (cmbLimit.getSelectedIndex() == 7) {
-                ps = koneksi.prepareStatement("select pd.no_rawat, concat(date_format(rp.tgl_registrasi,'%d-%m-%Y'),' / ',p.no_rkm_medis) tglrm, concat(p.nm_pasien,' / ',p.no_tlp) nama, "
-                        + "concat(rp.umurdaftar,' ',rp.sttsumur) umur, pj.png_jawab, concat(concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab),' / ',p.no_ktp) alamat, "
+                ps = koneksi.prepareStatement("select pd.no_rawat, concat(date_format(rp.tgl_registrasi,'%d-%m-%Y'),' / ',p.no_rkm_medis) tglrm, "
+                        + "concat(p.nm_pasien,' / ',p.no_tlp,' / ',if(p.keluarga='SUAMI',ifnull(p.namakeluarga,''),'')) nama, "
+                        + "concat(rp.umurdaftar,' ',rp.sttsumur,' / ',if(p.keluarga='SUAMI',ifnull(p.umur_pj,'-'),''),' Th') umur, pj.png_jawab, "
+                        + "concat(concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab),' / ',p.no_ktp) alamat, "
                         + "concat(pd.rujukan,' - ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, if(cek_jam_lapor='1',pd.jam_lapor,'') jamlap, "
                         + "if(cek_jam_adv='1',pd.jam_adv,'') jamad, if(cek_jam_acc='1',pd.jam_acc,'') jamac, pd.kasus_persalinan, "
                         + "p.no_rkm_medis, p.nm_pasien, date_format(rp.tgl_registrasi,'%d-%m-%Y') tglreg, p.no_tlp, p.no_ktp, concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamatnya, "
-                        + "pd.rujukan rujuknya, pd.ket_rujukan, d.kd_dokter, d.nm_dokter, pd.cek_jam_lapor, pd.cek_jam_adv, pd.cek_jam_acc FROM persalinan_dinkes pd "
+                        + "pd.rujukan rujuknya, pd.ket_rujukan, d.kd_dokter, d.nm_dokter, pd.cek_jam_lapor, pd.cek_jam_adv, pd.cek_jam_acc, "
+                        + "concat(rp.umurdaftar,' ',rp.sttsumur) umurpasien FROM persalinan_dinkes pd "
                         + "INNER JOIN reg_periksa rp ON rp.no_rawat = pd.no_rawat INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis INNER JOIN kelurahan kl ON kl.kd_kel = p.kd_kel "
                         + "INNER JOIN kecamatan kc ON kc.kd_kec = p.kd_kec INNER JOIN kabupaten kb ON kb.kd_kab = p.kd_kab "
                         + "INNER JOIN penjab pj ON pj.kd_pj = rp.kd_pj LEFT JOIN dpjp_ranap dr ON dr.no_rawat = pd.no_rawat LEFT JOIN dokter d ON d.kd_dokter = dr.kd_dokter WHERE "
@@ -1897,12 +1986,15 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         + "rp.tgl_registrasi between ? and ? and d.nm_dokter like ? or "
                         + "rp.tgl_registrasi between ? and ? and pd.kasus_persalinan like ? ORDER BY pd.no_rawat DESC");
             } else {
-                ps = koneksi.prepareStatement("select pd.no_rawat, concat(date_format(rp.tgl_registrasi,'%d-%m-%Y'),' / ',p.no_rkm_medis) tglrm, concat(p.nm_pasien,' / ',p.no_tlp) nama, "
-                        + "concat(rp.umurdaftar,' ',rp.sttsumur) umur, pj.png_jawab, concat(concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab),' / ',p.no_ktp) alamat, "
+                ps = koneksi.prepareStatement("select pd.no_rawat, concat(date_format(rp.tgl_registrasi,'%d-%m-%Y'),' / ',p.no_rkm_medis) tglrm, "
+                        + "concat(p.nm_pasien,' / ',p.no_tlp,' / ',if(p.keluarga='SUAMI',ifnull(p.namakeluarga,''),'')) nama, "
+                        + "concat(rp.umurdaftar,' ',rp.sttsumur,' / ',if(p.keluarga='SUAMI',ifnull(p.umur_pj,'-'),''),' Th') umur, pj.png_jawab, "
+                        + "concat(concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab),' / ',p.no_ktp) alamat, "
                         + "concat(pd.rujukan,' - ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, if(cek_jam_lapor='1',pd.jam_lapor,'') jamlap, "
                         + "if(cek_jam_adv='1',pd.jam_adv,'') jamad, if(cek_jam_acc='1',pd.jam_acc,'') jamac, pd.kasus_persalinan, "
                         + "p.no_rkm_medis, p.nm_pasien, date_format(rp.tgl_registrasi,'%d-%m-%Y') tglreg, p.no_tlp, p.no_ktp, concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamatnya, "
-                        + "pd.rujukan rujuknya, pd.ket_rujukan, d.kd_dokter, d.nm_dokter, pd.cek_jam_lapor, pd.cek_jam_adv, pd.cek_jam_acc FROM persalinan_dinkes pd "
+                        + "pd.rujukan rujuknya, pd.ket_rujukan, d.kd_dokter, d.nm_dokter, pd.cek_jam_lapor, pd.cek_jam_adv, pd.cek_jam_acc, "
+                        + "concat(rp.umurdaftar,' ',rp.sttsumur) umurpasien FROM persalinan_dinkes pd "
                         + "INNER JOIN reg_periksa rp ON rp.no_rawat = pd.no_rawat INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis INNER JOIN kelurahan kl ON kl.kd_kel = p.kd_kel "
                         + "INNER JOIN kecamatan kc ON kc.kd_kec = p.kd_kec INNER JOIN kabupaten kb ON kb.kd_kab = p.kd_kab "
                         + "INNER JOIN penjab pj ON pj.kd_pj = rp.kd_pj LEFT JOIN dpjp_ranap dr ON dr.no_rawat = pd.no_rawat LEFT JOIN dokter d ON d.kd_dokter = dr.kd_dokter WHERE "
@@ -1977,7 +2069,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         rs.getString("nm_dokter"),                        
                         rs.getString("cek_jam_lapor"),
                         rs.getString("cek_jam_adv"),
-                        rs.getString("cek_jam_acc")
+                        rs.getString("cek_jam_acc"),
+                        rs.getString("umurpasien")
                     });
                 }
             } catch (Exception e) {
@@ -2020,7 +2113,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private void isPasien() {
         try {
             ps1 = koneksi.prepareStatement("select p.no_rkm_medis, p.nm_pasien, date_format(rp.tgl_registrasi,'%d-%m-%Y') tglreg, rp.jam_reg, "
-                    + "p.no_tlp, concat(rp.umurdaftar,' ',rp.sttsumur) umur, pj.png_jawab, p.no_ktp, concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamat "
+                    + "p.no_tlp, concat(rp.umurdaftar,' ',rp.sttsumur) umur, pj.png_jawab, p.no_ktp, concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamat, "
+                    + "if(p.keluarga='SUAMI',p.namakeluarga,'') nmsuami, if(p.keluarga='SUAMI',ifnull(p.umur_pj,''),'') umursuami "
                     + "from reg_periksa rp inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis inner join penjab pj on pj.kd_pj=rp.kd_pj "
                     + "inner join kelurahan kl on kl.kd_kel=p.kd_kel inner join kecamatan kc on kc.kd_kec=p.kd_kec "
                     + "inner join kabupaten kb ON kb.kd_kab=p.kd_kab where rp.no_rawat='" + norawat.getText() + "'");
@@ -2038,6 +2132,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     alamat.setText(rs1.getString("alamat"));
                     kddpjp.setText(Sequel.cariIsi("select ifnull(kd_dokter,'') from dpjp_ranap where no_rawat='" + norawat.getText() + "'"));
                     nmdpjp.setText(Sequel.cariIsi("select ifnull(nm_dokter,'') from dokter where kd_dokter='" + kddpjp.getText() + "'"));
+                    nmsuami.setText(rs1.getString("nmsuami"));
+                    umursuami.setText(rs1.getString("umursuami"));
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : " + e);
@@ -2089,7 +2185,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     + "concat(p.nm_pasien,' / ',p.no_tlp) nama, concat(rp.umurdaftar,' ',rp.sttsumur,'.') umur, "
                     + "pj.png_jawab, concat(concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab),' / ',p.no_ktp) alamat, "
                     + "concat(pd.rujukan,' ',pd.ket_rujukan) rujukan, ifnull(d.nm_dokter,'') dpjp, rp.jam_reg, if(cek_jam_lapor='1',pd.jam_lapor,'') jamlap, "
-                    + "if(cek_jam_adv='1',pd.jam_adv,'') jamad, if(cek_jam_acc='1',pd.jam_acc,'') jamac FROM persalinan_dinkes pd "
+                    + "if(cek_jam_adv='1',pd.jam_adv,'') jamad, if(cek_jam_acc='1',pd.jam_acc,'') jamac, if(p.keluarga='SUAMI',p.namakeluarga,'') nmsuami, "
+                    + "if(p.keluarga='SUAMI',concat(ifnull(p.umur_pj,'-'),' ','Th.'),'') umursuami FROM persalinan_dinkes pd "
                     + "INNER JOIN reg_periksa rp ON rp.no_rawat = pd.no_rawat INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
                     + "INNER JOIN kelurahan kl ON kl.kd_kel = p.kd_kel INNER JOIN kecamatan kc ON kc.kd_kec = p.kd_kec "
                     + "INNER JOIN kabupaten kb ON kb.kd_kab = p.kd_kab INNER JOIN penjab pj ON pj.kd_pj = rp.kd_pj "
@@ -2102,12 +2199,14 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     Sequel.AutoComitFalse();
                     if (Sequel.menyimpantf2("temporary3", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
                             + "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
-                            + "?,?,?,?,?,?,?,?,?,?,?,?", "Data Pasien", 100, new String[]{
+                            + "?,?,?,?,?,?,?,?,?,?,?,?,?", "Data Pasien", 101, new String[]{
                                 rs3.getString("no_rawat"),
                                 x + "",
                                 rs3.getString("tgl_rm"),
                                 rs3.getString("nama"),
                                 rs3.getString("umur"),
+                                rs3.getString("nmsuami"),
+                                rs3.getString("umursuami"),
                                 rs3.getString("png_jawab"),
                                 rs3.getString("alamat"),
                                 rs3.getString("rujukan"),
@@ -2119,7 +2218,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                                "", "", "", "", "", "", "", "", "", "", "", ""
+                                "", "", "", "", "", "", "", "", "", "", ""
                             }) == true) {
                         //ngecek kasus persalinan
                         ps4 = koneksi.prepareStatement("select ifnull(d.kode,'') kode from detail_persalinan_dinkes d "
@@ -2128,177 +2227,177 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                             rs4 = ps4.executeQuery();
                             while (rs4.next()) {
                                 if (rs4.getString("kode").equals("001")) {
-                                    Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp14='V'");
-                                } else if (rs4.getString("kode").equals("002")) {
-                                    Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp15='V'");
-                                } else if (rs4.getString("kode").equals("003")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp16='V'");
-                                } else if (rs4.getString("kode").equals("004")) {
+                                } else if (rs4.getString("kode").equals("002")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp17='V'");
-                                } else if (rs4.getString("kode").equals("005")) {
+                                } else if (rs4.getString("kode").equals("003")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp18='V'");
-                                } else if (rs4.getString("kode").equals("006")) {
+                                } else if (rs4.getString("kode").equals("004")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp19='V'");
-                                } else if (rs4.getString("kode").equals("007")) {
+                                } else if (rs4.getString("kode").equals("005")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp20='V'");
-                                } else if (rs4.getString("kode").equals("008")) {
+                                } else if (rs4.getString("kode").equals("006")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp21='V'");
-                                } else if (rs4.getString("kode").equals("009")) {
+                                } else if (rs4.getString("kode").equals("007")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp22='V'");
-                                } else if (rs4.getString("kode").equals("010")) {
+                                } else if (rs4.getString("kode").equals("008")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp23='V'");
-                                } else if (rs4.getString("kode").equals("011")) {
+                                } else if (rs4.getString("kode").equals("009")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp24='V'");
-                                } else if (rs4.getString("kode").equals("012")) {
+                                } else if (rs4.getString("kode").equals("010")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp25='V'");
-                                } else if (rs4.getString("kode").equals("013")) {
+                                } else if (rs4.getString("kode").equals("011")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp26='V'");
-                                } else if (rs4.getString("kode").equals("014")) {
+                                } else if (rs4.getString("kode").equals("012")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp27='V'");
-                                } else if (rs4.getString("kode").equals("015")) {
+                                } else if (rs4.getString("kode").equals("013")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp28='V'");
-                                } else if (rs4.getString("kode").equals("016")) {
+                                } else if (rs4.getString("kode").equals("014")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp29='V'");
-                                } else if (rs4.getString("kode").equals("017")) {
+                                } else if (rs4.getString("kode").equals("015")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp30='V'");
-                                } else if (rs4.getString("kode").equals("018")) {
+                                } else if (rs4.getString("kode").equals("016")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp31='V'");
-                                } else if (rs4.getString("kode").equals("019")) {
+                                } else if (rs4.getString("kode").equals("017")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp32='V'");
-                                } else if (rs4.getString("kode").equals("020")) {
+                                } else if (rs4.getString("kode").equals("018")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp33='V'");
-                                } else if (rs4.getString("kode").equals("021")) {
+                                } else if (rs4.getString("kode").equals("019")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp34='V'");
-                                } else if (rs4.getString("kode").equals("022")) {
+                                } else if (rs4.getString("kode").equals("020")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp35='V'");
-                                } else if (rs4.getString("kode").equals("023")) {
+                                } else if (rs4.getString("kode").equals("021")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp36='V'");
-                                } else if (rs4.getString("kode").equals("024")) {
+                                } else if (rs4.getString("kode").equals("022")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp37='V'");
-                                } else if (rs4.getString("kode").equals("025")) {
+                                } else if (rs4.getString("kode").equals("023")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp38='V'");
-                                } else if (rs4.getString("kode").equals("026")) {
+                                } else if (rs4.getString("kode").equals("024")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp39='V'");
-                                } else if (rs4.getString("kode").equals("027")) {
+                                } else if (rs4.getString("kode").equals("025")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp40='V'");
-                                } else if (rs4.getString("kode").equals("028")) {
+                                } else if (rs4.getString("kode").equals("026")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp41='V'");
-                                } else if (rs4.getString("kode").equals("029")) {
+                                } else if (rs4.getString("kode").equals("027")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp42='V'");
-                                } else if (rs4.getString("kode").equals("030")) {
+                                } else if (rs4.getString("kode").equals("028")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp43='V'");
-                                } else if (rs4.getString("kode").equals("031")) {
+                                } else if (rs4.getString("kode").equals("029")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp44='V'");
-                                } else if (rs4.getString("kode").equals("032")) {
+                                } else if (rs4.getString("kode").equals("030")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp45='V'");
-                                } else if (rs4.getString("kode").equals("033")) {
+                                } else if (rs4.getString("kode").equals("031")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp46='V'");
-                                } else if (rs4.getString("kode").equals("034")) {
+                                } else if (rs4.getString("kode").equals("032")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp47='V'");
-                                } else if (rs4.getString("kode").equals("035")) {
+                                } else if (rs4.getString("kode").equals("033")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp48='V'");
-                                } else if (rs4.getString("kode").equals("036")) {
+                                } else if (rs4.getString("kode").equals("034")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp49='V'");
-                                } else if (rs4.getString("kode").equals("037")) {
+                                } else if (rs4.getString("kode").equals("035")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp50='V'");
-                                } else if (rs4.getString("kode").equals("038")) {
+                                } else if (rs4.getString("kode").equals("036")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp51='V'");
-                                } else if (rs4.getString("kode").equals("039")) {
+                                } else if (rs4.getString("kode").equals("037")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp52='V'");
-                                } else if (rs4.getString("kode").equals("040")) {
+                                } else if (rs4.getString("kode").equals("038")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp53='V'");
-                                } else if (rs4.getString("kode").equals("041")) {
+                                } else if (rs4.getString("kode").equals("039")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp54='V'");
-                                } else if (rs4.getString("kode").equals("042")) {
+                                } else if (rs4.getString("kode").equals("040")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp55='V'");
-                                } else if (rs4.getString("kode").equals("043")) {
+                                } else if (rs4.getString("kode").equals("041")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp56='V'");
-                                } else if (rs4.getString("kode").equals("044")) {
+                                } else if (rs4.getString("kode").equals("042")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp57='V'");
-                                } else if (rs4.getString("kode").equals("045")) {
+                                } else if (rs4.getString("kode").equals("043")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp58='V'");
-                                } else if (rs4.getString("kode").equals("046")) {
+                                } else if (rs4.getString("kode").equals("044")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp59='V'");
-                                } else if (rs4.getString("kode").equals("047")) {
+                                } else if (rs4.getString("kode").equals("045")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp60='V'");
-                                } else if (rs4.getString("kode").equals("048")) {
+                                } else if (rs4.getString("kode").equals("046")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp61='V'");
-                                } else if (rs4.getString("kode").equals("049")) {
+                                } else if (rs4.getString("kode").equals("047")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp62='V'");
-                                } else if (rs4.getString("kode").equals("050")) {
+                                } else if (rs4.getString("kode").equals("048")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp63='V'");
-                                } else if (rs4.getString("kode").equals("051")) {
+                                } else if (rs4.getString("kode").equals("049")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp64='V'");
-                                } else if (rs4.getString("kode").equals("052")) {
+                                } else if (rs4.getString("kode").equals("050")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp65='V'");
-                                } else if (rs4.getString("kode").equals("053")) {
+                                } else if (rs4.getString("kode").equals("051")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp66='V'");
-                                } else if (rs4.getString("kode").equals("054")) {
+                                } else if (rs4.getString("kode").equals("052")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp67='V'");
-                                } else if (rs4.getString("kode").equals("055")) {
+                                } else if (rs4.getString("kode").equals("053")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp68='V'");
-                                } else if (rs4.getString("kode").equals("056")) {
+                                } else if (rs4.getString("kode").equals("054")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp69='V'");
-                                } else if (rs4.getString("kode").equals("057")) {
+                                } else if (rs4.getString("kode").equals("055")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp70='V'");
-                                } else if (rs4.getString("kode").equals("058")) {
+                                } else if (rs4.getString("kode").equals("056")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp71='V'");
-                                } else if (rs4.getString("kode").equals("059")) {
+                                } else if (rs4.getString("kode").equals("057")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp72='V'");
-                                } else if (rs4.getString("kode").equals("060")) {
+                                } else if (rs4.getString("kode").equals("058")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp73='V'");
-                                } else if (rs4.getString("kode").equals("061")) {
+                                } else if (rs4.getString("kode").equals("059")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp74='V'");
-                                } else if (rs4.getString("kode").equals("062")) {
+                                } else if (rs4.getString("kode").equals("060")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp75='V'");
-                                } else if (rs4.getString("kode").equals("063")) {
+                                } else if (rs4.getString("kode").equals("061")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp76='V'");
-                                } else if (rs4.getString("kode").equals("064")) {
+                                } else if (rs4.getString("kode").equals("062")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp77='V'");
-                                } else if (rs4.getString("kode").equals("065")) {
+                                } else if (rs4.getString("kode").equals("063")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp78='V'");
-                                } else if (rs4.getString("kode").equals("066")) {
+                                } else if (rs4.getString("kode").equals("064")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp79='V'");
-                                } else if (rs4.getString("kode").equals("067")) {
+                                } else if (rs4.getString("kode").equals("065")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp80='V'");
-                                } else if (rs4.getString("kode").equals("068")) {
+                                } else if (rs4.getString("kode").equals("066")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp81='V'");
-                                } else if (rs4.getString("kode").equals("069")) {
+                                } else if (rs4.getString("kode").equals("067")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp82='V'");
-                                } else if (rs4.getString("kode").equals("070")) {
+                                } else if (rs4.getString("kode").equals("068")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp83='V'");
-                                } else if (rs4.getString("kode").equals("071")) {
+                                } else if (rs4.getString("kode").equals("069")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp84='V'");
-                                } else if (rs4.getString("kode").equals("072")) {
+                                } else if (rs4.getString("kode").equals("070")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp85='V'");
-                                } else if (rs4.getString("kode").equals("073")) {
+                                } else if (rs4.getString("kode").equals("071")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp86='V'");
-                                } else if (rs4.getString("kode").equals("074")) {
+                                } else if (rs4.getString("kode").equals("072")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp87='V'");
-                                } else if (rs4.getString("kode").equals("075")) {
+                                } else if (rs4.getString("kode").equals("073")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp88='V'");
-                                } else if (rs4.getString("kode").equals("076")) {
+                                } else if (rs4.getString("kode").equals("074")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp89='V'");
-                                } else if (rs4.getString("kode").equals("077")) {
+                                } else if (rs4.getString("kode").equals("075")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp90='V'");
-                                } else if (rs4.getString("kode").equals("078")) {
+                                } else if (rs4.getString("kode").equals("076")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp91='V'");
-                                } else if (rs4.getString("kode").equals("079")) {
+                                } else if (rs4.getString("kode").equals("077")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp92='V'");
-                                } else if (rs4.getString("kode").equals("080")) {
+                                } else if (rs4.getString("kode").equals("078")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp93='V'");
-                                } else if (rs4.getString("kode").equals("081")) {
+                                } else if (rs4.getString("kode").equals("079")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp94='V'");
-                                } else if (rs4.getString("kode").equals("082")) {
+                                } else if (rs4.getString("kode").equals("080")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp95='V'");
-                                } else if (rs4.getString("kode").equals("083")) {
+                                } else if (rs4.getString("kode").equals("081")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp96='V'");
-                                } else if (rs4.getString("kode").equals("084")) {
+                                } else if (rs4.getString("kode").equals("082")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp97='V'");
-                                } else if (rs4.getString("kode").equals("085")) {
+                                } else if (rs4.getString("kode").equals("083")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp98='V'");
-                                } else if (rs4.getString("kode").equals("086")) {
+                                } else if (rs4.getString("kode").equals("084")) {
                                     Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp99='V'");
+                                } else if (rs4.getString("kode").equals("085")) {
+                                    Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp100='V'");
+                                } else if (rs4.getString("kode").equals("086")) {
+                                    Sequel.mengedit("temporary3", "temp1='" + rs3.getString("no_rawat") + "'", "temp101='V'");
                                 } else if (rs4.getString("kode").equals("")) {
                                     System.out.println("Pesan : Item kasus persalinan gagal tersimpan ditabel detail_persalinan_dinkes");
                                 }

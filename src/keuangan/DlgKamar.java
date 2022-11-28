@@ -59,7 +59,7 @@ public final class DlgKamar extends javax.swing.JDialog {
         this.setLocation(10,2);
         setSize(628,674);
         tabMode=new DefaultTableModel(null,new String[]{
-                "P","Nomer Bed","Kode Kamar","Nama Kamar","Kelas","Tarif Kamar","Status Kamar","Status Aktif"
+                "P", "Nomer Bed", "Kode Kamar", "Nama Kamar", "Kelas", "Tarif Kamar", "Status Kamar", "Status Aktif", "Nama Gedung"
             }){
              @Override public boolean isCellEditable(int rowIndex, int colIndex){
                 boolean a = false;
@@ -70,20 +70,20 @@ public final class DlgKamar extends javax.swing.JDialog {
              }
              Class[] types = new Class[] {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, 
-                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class,
+                java.lang.Object.class
              };
              @Override
              public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
              }
         };
+        
         tbKamar.setModel(tabMode);
-
-        //tbKamar.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbKamar.getBackground()));
-        tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
+        tbKamar.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 8; i++) {
+        for (i = 0; i < 9; i++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(20);
@@ -101,11 +101,15 @@ public final class DlgKamar extends javax.swing.JDialog {
                 column.setPreferredWidth(90);
             } else if (i == 7) {
                 column.setPreferredWidth(75);
+            } else if (i == 8) {
+                column.setPreferredWidth(150);
             }
         }
         tbKamar.setDefaultRenderer(Object.class, new WarnaTable());
         
-        tabMode1 = new DefaultTableModel(null, new Object[]{"P","Nomer Bed","Kode Kamar","Nama Kamar","Kelas","Tarif Kamar","Status Kamar","Status Aktif"}) {
+        tabMode1 = new DefaultTableModel(null, new Object[]{
+            "P", "Nomer Bed", "Kode Kamar", "Nama Kamar", "Kelas", "Tarif Kamar", "Status Kamar", "Status Aktif", "Nama Gedung"
+        }) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 boolean a = false;
@@ -116,7 +120,8 @@ public final class DlgKamar extends javax.swing.JDialog {
             }
             Class[] types = new Class[]{
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, 
-                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class,
+                java.lang.Object.class
             };
 
             @Override
@@ -128,7 +133,7 @@ public final class DlgKamar extends javax.swing.JDialog {
         tbKamar1.setPreferredScrollableViewportSize(new Dimension(800, 800));
         tbKamar1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 8; i++) {
+        for (i = 0; i < 9; i++) {
             TableColumn column = tbKamar1.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(20);
@@ -146,6 +151,8 @@ public final class DlgKamar extends javax.swing.JDialog {
                 column.setPreferredWidth(90);
             } else if (i == 7) {
                 column.setPreferredWidth(75);
+            } else if (i == 8) {
+                column.setPreferredWidth(150);
             }
         }
         tbKamar1.setDefaultRenderer(Object.class, new WarnaTable());
@@ -655,7 +662,7 @@ public final class DlgKamar extends javax.swing.JDialog {
         jLabel9.setText("Stts. Kamar :");
         jLabel9.setName("jLabel9"); // NOI18N
         panelGlass4.add(jLabel9);
-        jLabel9.setBounds(440, 12, 90, 23);
+        jLabel9.setBounds(440, 12, 80, 23);
 
         CmbStatus.setForeground(new java.awt.Color(0, 0, 0));
         CmbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ISI", "KOSONG", "RUSAK", "BOOKING" }));
@@ -667,7 +674,7 @@ public final class DlgKamar extends javax.swing.JDialog {
             }
         });
         panelGlass4.add(CmbStatus);
-        CmbStatus.setBounds(534, 12, 85, 23);
+        CmbStatus.setBounds(526, 12, 85, 23);
 
         btnKamar.setForeground(new java.awt.Color(0, 0, 0));
         btnKamar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
@@ -703,7 +710,7 @@ public final class DlgKamar extends javax.swing.JDialog {
         jLabel5.setText("Kelas :");
         jLabel5.setName("jLabel5"); // NOI18N
         panelGlass4.add(jLabel5);
-        jLabel5.setBounds(440, 42, 90, 23);
+        jLabel5.setBounds(440, 42, 80, 23);
 
         Kelas.setForeground(new java.awt.Color(0, 0, 0));
         Kelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kelas 1", "Kelas 2", "Kelas 3", "Kelas Utama", "Kelas VIP", "Kelas VVIP", "Rawat Khusus", "Intensif", "High Care", "Isolasi" }));
@@ -715,7 +722,7 @@ public final class DlgKamar extends javax.swing.JDialog {
             }
         });
         panelGlass4.add(Kelas);
-        Kelas.setBounds(534, 42, 120, 23);
+        Kelas.setBounds(526, 42, 120, 23);
 
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Stts. Aktif :");
@@ -1281,14 +1288,16 @@ private void CmbCrIsiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST
         Valid.tabelKosong(tabMode);
         try {
             ps = koneksi.prepareStatement("select kamar.kd_kamar,kamar.kd_bangsal,bangsal.nm_bangsal, "
-                    + "kamar.kelas,kamar.trf_kamar,kamar.status, if(kamar.statusdata='1','AKTIF','NON AKTIF') statusdata from bangsal inner join kamar "
-                    + "on kamar.kd_bangsal=bangsal.kd_bangsal where kamar.status <> 'RUSAK' AND "
+                    + "kamar.kelas,kamar.trf_kamar,kamar.status, if(kamar.statusdata='1','AKTIF','NON AKTIF') statusdata, "
+                    + "bangsal.nm_gedung from bangsal inner join kamar on kamar.kd_bangsal=bangsal.kd_bangsal where "
+                    + "kamar.status <> 'RUSAK' AND "
                     + "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.kd_kamar like ? or "
                     + "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.kd_bangsal like ? or "
                     + "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and bangsal.nm_bangsal like ? or "
                     + "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.kelas like ? or "
                     + "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.trf_kamar like ? or "
-                    + "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.status like ? "
+                    + "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.status like ? or "
+                    + "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and bangsal.nm_gedung like ? "
                     + "order by bangsal.nm_bangsal");
             try {
                 ps.setString(1, "%" + BangsalCari.getText().trim() + "%");
@@ -1308,17 +1317,23 @@ private void CmbCrIsiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST
                 ps.setString(15, "%" + TCari.getText().trim() + "%");
                 ps.setString(16, "%" + BangsalCari.getText().trim() + "%");
                 ps.setString(17, "%" + CmbCrIsi.getSelectedItem().toString().trim() + "%");
-                ps.setString(18, "%" + TCari.getText().trim() + "%");
+                ps.setString(18, "%" + TCari.getText().trim() + "%");                
+                ps.setString(19, "%" + BangsalCari.getText().trim() + "%");
+                ps.setString(20, "%" + CmbCrIsi.getSelectedItem().toString().trim() + "%");
+                ps.setString(21, "%" + TCari.getText().trim() + "%");
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    tabMode.addRow(new Object[]{false,
+                    tabMode.addRow(new Object[]{
+                        false,
                         rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getDouble(5),
                         rs.getString(6),
-                        rs.getString(7)});
+                        rs.getString(7),
+                        rs.getString(8)
+                    });
                 }
             } catch (Exception e) {
                 System.out.println("Notif Kamar : " + e);
@@ -1340,14 +1355,16 @@ private void CmbCrIsiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST
         Valid.tabelKosong(tabMode1);
         try {
             ps1 = koneksi.prepareStatement("select kamar.kd_kamar,kamar.kd_bangsal,bangsal.nm_bangsal, "
-                    + "kamar.kelas,kamar.trf_kamar,kamar.status, if(kamar.statusdata='1','AKTIF','NON AKTIF') statusdata from bangsal inner join kamar "
-                    + "on kamar.kd_bangsal=bangsal.kd_bangsal where kamar.status <> 'RUSAK' AND "
+                    + "kamar.kelas,kamar.trf_kamar,kamar.status, if(kamar.statusdata='1','AKTIF','NON AKTIF') statusdata, "
+                    + "bangsal.nm_gedung from bangsal inner join kamar on kamar.kd_bangsal=bangsal.kd_bangsal where "
+                    + "kamar.status <> 'RUSAK' AND "
                     + "kamar.statusdata='0' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.kd_kamar like ? or "
                     + "kamar.statusdata='0' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.kd_bangsal like ? or "
                     + "kamar.statusdata='0' and bangsal.nm_bangsal like ? and kamar.status like ? and bangsal.nm_bangsal like ? or "
                     + "kamar.statusdata='0' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.kelas like ? or "
                     + "kamar.statusdata='0' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.trf_kamar like ? or "
-                    + "kamar.statusdata='0' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.status like ? "
+                    + "kamar.statusdata='0' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.status like ? or "
+                    + "kamar.statusdata='0' and bangsal.nm_bangsal like ? and kamar.status like ? and bangsal.nm_gedung like ? "
                     + "order by bangsal.nm_bangsal");
             try {
                 ps1.setString(1, "%" + BangsalCari.getText().trim() + "%");
@@ -1367,17 +1384,22 @@ private void CmbCrIsiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST
                 ps1.setString(15, "%" + TCari.getText().trim() + "%");
                 ps1.setString(16, "%" + BangsalCari.getText().trim() + "%");
                 ps1.setString(17, "%" + CmbCrIsi.getSelectedItem().toString().trim() + "%");
-                ps1.setString(18, "%" + TCari.getText().trim() + "%");
+                ps1.setString(18, "%" + TCari.getText().trim() + "%");                
+                ps1.setString(19, "%" + BangsalCari.getText().trim() + "%");
+                ps1.setString(20, "%" + CmbCrIsi.getSelectedItem().toString().trim() + "%");
+                ps1.setString(21, "%" + TCari.getText().trim() + "%");
                 rs1 = ps1.executeQuery();
                 while (rs1.next()) {
-                    tabMode1.addRow(new Object[]{false,
+                    tabMode1.addRow(new Object[]{
+                        false,
                         rs1.getString(1),
                         rs1.getString(2),
                         rs1.getString(3),
                         rs1.getString(4),
                         rs1.getDouble(5),
                         rs1.getString(6),
-                        rs1.getString(7)
+                        rs1.getString(7),
+                        rs1.getString(8)
                     });
                 }
             } catch (Exception e) {

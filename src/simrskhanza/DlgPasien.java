@@ -106,8 +106,8 @@ public class DlgPasien extends javax.swing.JDialog {
         initComponents();
 
         Object[] row = {"#", "No. RM", "Nama Pasien", "No. SIM/KTP", "J.K.", "Tmp. Lahir", "Tgl. Lahir", "Nama Ibu", "Alamat KTP/KK", "Alamat Domisili",
-            "G.D.", "Pekerjaan", "Stts. Nikah", "Agama", "Tgl. Daftar", "No. Telp/HP", "Umur", "Pendidikan", "Png. Jawab", "Nama Png. Jawab", "Cara Bayar", 
-            "No. Peserta", "Daftar", "Pekerjaan P.J.", "Alamat P.J.", "Suku Pasien", "Bahasa Pasien", "kd_suku", "kd_bahasa"
+            "G.D.", "Pekerjaan", "Stts. Nikah", "Agama", "Tgl. Daftar", "No. Telp/HP", "Umur", "Pendidikan", "Png. Jawab", "Nama Png. Jawab", "Cara Bayar",
+            "No. Peserta", "Daftar", "Pekerjaan P.J.", "Alamat P.J.", "Suku Pasien", "Bahasa Pasien", "kd_suku", "kd_bahasa", "umurPJ", "notlpPJ"
         };
         tabMode = new DefaultTableModel(null, row) {
             @Override
@@ -126,7 +126,7 @@ public class DlgPasien extends javax.swing.JDialog {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class,
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class,
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class,
-                java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             @Override
@@ -134,13 +134,12 @@ public class DlgPasien extends javax.swing.JDialog {
                 return types[columnIndex];
             }
         };
+        
         tbPasien.setModel(tabMode);
-
-        //tbPetugas.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbPetugas.getBackground()));
         tbPasien.setPreferredScrollableViewportSize(new Dimension(800, 800));
         tbPasien.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (z = 0; z < 29; z++) {
+        for (z = 0; z < 31; z++) {
             TableColumn column = tbPasien.getColumnModel().getColumn(z);
             if (z == 0) {
                 column.setPreferredWidth(25);
@@ -208,6 +207,12 @@ public class DlgPasien extends javax.swing.JDialog {
             } else if (z == 28) {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
+            } else if (z == 29) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (z == 30) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
             }
         }
         tbPasien.setDefaultRenderer(Object.class, new WarnaTable());
@@ -240,6 +245,9 @@ public class DlgPasien extends javax.swing.JDialog {
         TNoPeserta.setDocument(new batasInput((byte) 25).getKata(TNoPeserta));
         TCari.setDocument(new batasInput((byte) 100).getKata(TCari));
         TTlp.setDocument(new batasInput((byte) 13).getOnlyAngka(TTlp));
+        umurPjawab.setDocument(new batasInput((byte) 3).getOnlyAngka(umurPjawab));
+        notlpPJ.setDocument(new batasInput((byte) 13).getOnlyAngka(notlpPJ));
+        
         if (koneksiDB.cariCepat().equals("aktif")) {
             TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
                 @Override
@@ -867,6 +875,11 @@ public class DlgPasien extends javax.swing.JDialog {
         KabupatenDom = new widget.TextBox();
         BtnKabupatenDom = new widget.Button();
         ChkSamakan = new widget.CekBox();
+        jLabel38 = new widget.Label();
+        umurPjawab = new widget.TextBox();
+        jLabel39 = new widget.Label();
+        jLabel40 = new widget.Label();
+        notlpPJ = new widget.TextBox();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
@@ -2241,7 +2254,7 @@ public class DlgPasien extends javax.swing.JDialog {
         FormInput.add(jLabel13);
         jLabel13.setBounds(4, 98, 95, 23);
 
-        DTPLahir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        DTPLahir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2022" }));
         DTPLahir.setDisplayFormat("dd-MM-yyyy");
         DTPLahir.setName("DTPLahir"); // NOI18N
         DTPLahir.setOpaque(false);
@@ -2315,7 +2328,7 @@ public class DlgPasien extends javax.swing.JDialog {
         jLabel20.setBounds(402, 156, 90, 23);
 
         jLabel21.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel21.setText("No.Telp :");
+        jLabel21.setText("No.Telp Pasien :");
         jLabel21.setName("jLabel21"); // NOI18N
         FormInput.add(jLabel21);
         jLabel21.setBounds(402, 98, 90, 23);
@@ -2399,7 +2412,7 @@ public class DlgPasien extends javax.swing.JDialog {
         TKtp.setBounds(712, 127, 130, 23);
 
         DTPDaftar.setEditable(false);
-        DTPDaftar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-08-2022" }));
+        DTPDaftar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2022" }));
         DTPDaftar.setDisplayFormat("dd-MM-yyyy");
         DTPDaftar.setEnabled(false);
         DTPDaftar.setName("DTPDaftar"); // NOI18N
@@ -2419,7 +2432,7 @@ public class DlgPasien extends javax.swing.JDialog {
         jLabel22.setBounds(649, 98, 100, 23);
 
         jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("Umur :");
+        jLabel17.setText("Umur Pasien :");
         jLabel17.setName("jLabel17"); // NOI18N
         FormInput.add(jLabel17);
         jLabel17.setBounds(4, 127, 95, 23);
@@ -2978,7 +2991,7 @@ public class DlgPasien extends javax.swing.JDialog {
         jLabel37.setBounds(880, 40, 95, 23);
 
         cmbPngJawab.setForeground(new java.awt.Color(0, 0, 0));
-        cmbPngJawab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SAUDARA", "AYAH", "IBU", "ANAK", "SUAMI", "ISTRI", "SEPUPU", "PASIEN SENDIRI", "PAMAN", "BIBI", "KAKEK", "NENEK", "TEMAN", "TETANGGA", "IPAR", "BESAN", "MENANTU", "MERTUA", "KEPONAKAN", "KAKAK", "ADIK" }));
+        cmbPngJawab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SAUDARA", "AYAH", "IBU", "ANAK", "SUAMI", "ISTRI", "SEPUPU", "PASIEN SENDIRI", "PAMAN", "BIBI", "KAKEK", "NENEK", "TEMAN", "TETANGGA", "IPAR", "BESAN", "MENANTU", "MERTUA", "KEPONAKAN", "KAKAK", "ADIK", "CUCU" }));
         cmbPngJawab.setName("cmbPngJawab"); // NOI18N
         cmbPngJawab.setOpaque(false);
         cmbPngJawab.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2992,7 +3005,7 @@ public class DlgPasien extends javax.swing.JDialog {
             }
         });
         FormInput.add(cmbPngJawab);
-        cmbPngJawab.setBounds(102, 185, 210, 23);
+        cmbPngJawab.setBounds(102, 185, 130, 23);
 
         jLabel36.setForeground(new java.awt.Color(0, 0, 0));
         jLabel36.setText("Alamat Domisili :");
@@ -3151,6 +3164,42 @@ public class DlgPasien extends javax.swing.JDialog {
         FormInput.add(ChkSamakan);
         ChkSamakan.setBounds(850, 243, 250, 23);
 
+        jLabel38.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel38.setText("Umur : ");
+        jLabel38.setName("jLabel38"); // NOI18N
+        FormInput.add(jLabel38);
+        jLabel38.setBounds(232, 185, 50, 23);
+
+        umurPjawab.setForeground(new java.awt.Color(0, 0, 0));
+        umurPjawab.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        umurPjawab.setName("umurPjawab"); // NOI18N
+        umurPjawab.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                umurPjawabKeyPressed(evt);
+            }
+        });
+        FormInput.add(umurPjawab);
+        umurPjawab.setBounds(284, 185, 45, 23);
+
+        jLabel39.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel39.setText("Tahun");
+        jLabel39.setName("jLabel39"); // NOI18N
+        FormInput.add(jLabel39);
+        jLabel39.setBounds(336, 185, 50, 23);
+
+        jLabel40.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel40.setText("No.Telp Png. Jawab :");
+        jLabel40.setName("jLabel40"); // NOI18N
+        FormInput.add(jLabel40);
+        jLabel40.setBounds(845, 185, 130, 23);
+
+        notlpPJ.setForeground(new java.awt.Color(0, 0, 0));
+        notlpPJ.setToolTipText("Harus diisi dengan angka..!!!");
+        notlpPJ.setName("notlpPJ"); // NOI18N
+        FormInput.add(notlpPJ);
+        notlpPJ.setBounds(980, 185, 150, 23);
+
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
         internalFrame1.add(PanelInput, java.awt.BorderLayout.PAGE_START);
@@ -3276,7 +3325,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 } else {
                     Sequel.AutoComitFalse();
 
-                    if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 35, new String[]{
+                    if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 37, new String[]{
                         TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                         Valid.SetTgl(DTPLahir.getSelectedItem() + ""), NmIbu.getText(), Alamat.getText().replaceAll("ALAMAT", ""), CMbGd.getSelectedItem().toString(), 
                         Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(), 
@@ -3288,7 +3337,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                         PekerjaanPj.getText(), AlamatPj.getText(), KelurahanPj.getText(), KecamatanPj.getText(), KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText().replaceAll("ALAMAT", ""),
                         Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText().replaceAll("KELURAHAN", "-")),
                         Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText().replaceAll("KECAMATAN", "-")),
-                        Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-"))
+                        Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-")), umurPjawab.getText(), notlpPJ.getText()
                     }) == true) {
                         if (akses.getform().equals("DlgReg")) {
                             TCari.setText(TNo.getText());
@@ -3301,7 +3350,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                         emptTeks();
                     } else {
                         autoNomor();
-                        if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 35, new String[]{
+                        if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 37, new String[]{
                             TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                             Valid.SetTgl(DTPLahir.getSelectedItem() + ""), NmIbu.getText(),
                             Alamat.getText().replaceAll("ALAMAT", ""), CMbGd.getSelectedItem().toString(), Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(),
@@ -3313,7 +3362,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                             PekerjaanPj.getText(), AlamatPj.getText(), KelurahanPj.getText(), KecamatanPj.getText(), KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText().replaceAll("ALAMAT", ""),
                             Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText().replaceAll("KELURAHAN", "-")),
                             Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText().replaceAll("KECAMATAN", "-")),
-                            Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-"))
+                            Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-")), umurPjawab.getText(), notlpPJ.getText()
                         }) == true) {
                             if (akses.getform().equals("DlgReg")) {
                                 TCari.setText(TNo.getText());
@@ -3326,7 +3375,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                             emptTeks();
                         } else {
                             autoNomor();
-                            if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 35, new String[]{
+                            if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 37, new String[]{
                                 TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                                 Valid.SetTgl(DTPLahir.getSelectedItem() + ""), NmIbu.getText(),
                                 Alamat.getText().replaceAll("ALAMAT", ""), CMbGd.getSelectedItem().toString(), Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(),
@@ -3338,7 +3387,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                 PekerjaanPj.getText(), AlamatPj.getText(), KelurahanPj.getText(), KecamatanPj.getText(), KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText().replaceAll("ALAMAT", ""),
                                 Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText().replaceAll("KELURAHAN", "-")),
                                 Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText().replaceAll("KECAMATAN", "-")),
-                                Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-"))
+                                Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-")), umurPjawab.getText(), notlpPJ.getText()
                             }) == true) {
                                 if (akses.getform().equals("DlgReg")) {
                                     TCari.setText(TNo.getText());
@@ -3351,7 +3400,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                 emptTeks();
                             } else {
                                 autoNomor();
-                                if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 35, new String[]{
+                                if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 37, new String[]{
                                     TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                                     Valid.SetTgl(DTPLahir.getSelectedItem() + ""), NmIbu.getText(),
                                     Alamat.getText().replaceAll("ALAMAT", ""), CMbGd.getSelectedItem().toString(), Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(),
@@ -3363,7 +3412,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                     PekerjaanPj.getText(), AlamatPj.getText(), KelurahanPj.getText(), KecamatanPj.getText(), KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText().replaceAll("ALAMAT", ""),
                                     Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText().replaceAll("KELURAHAN", "-")),
                                     Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText().replaceAll("KECAMATAN", "-")),
-                                    Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-"))
+                                    Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-")), umurPjawab.getText(), notlpPJ.getText()
                                 }) == true) {
                                     if (akses.getform().equals("DlgReg")) {
                                         TCari.setText(TNo.getText());
@@ -3376,7 +3425,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                     emptTeks();
                                 } else {
                                     autoNomor();
-                                    if (Sequel.menyimpantf("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 35, new String[]{
+                                    if (Sequel.menyimpantf("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 37, new String[]{
                                         TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                                         Valid.SetTgl(DTPLahir.getSelectedItem() + ""), NmIbu.getText(),
                                         Alamat.getText().replaceAll("ALAMAT", ""), CMbGd.getSelectedItem().toString(), Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(),
@@ -3388,7 +3437,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                         PekerjaanPj.getText(), AlamatPj.getText(), KelurahanPj.getText(), KecamatanPj.getText(), KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText().replaceAll("ALAMAT", ""),
                                         Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText().replaceAll("KELURAHAN", "-")),
                                         Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText().replaceAll("KECAMATAN", "-")),
-                                        Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-"))
+                                        Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-")), umurPjawab.getText(), notlpPJ.getText()
                                     }) == true) {
                                         if (akses.getform().equals("DlgReg")) {
                                             TCari.setText(TNo.getText());
@@ -3415,7 +3464,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             } else {
                 Sequel.AutoComitFalse();
 
-                if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 35, new String[]{
+                if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 37, new String[]{
                     TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                     Valid.SetTgl(DTPLahir.getSelectedItem() + ""), NmIbu.getText(),
                     Alamat.getText().replaceAll("ALAMAT", ""), CMbGd.getSelectedItem().toString(), Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(),
@@ -3427,7 +3476,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     PekerjaanPj.getText(), AlamatPj.getText(), KelurahanPj.getText(), KecamatanPj.getText(), KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText().replaceAll("ALAMAT", ""),
                     Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText().replaceAll("KELURAHAN", "-")),
                     Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText().replaceAll("KECAMATAN", "-")),
-                    Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-"))
+                    Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-")), umurPjawab.getText(), notlpPJ.getText()
                 }) == true) {
                     if (akses.getform().equals("DlgReg")) {
                         TCari.setText(TNo.getText());
@@ -3440,7 +3489,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     emptTeks();
                 } else {
                     autoNomor();
-                    if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 35, new String[]{
+                    if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 37, new String[]{
                         TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                         Valid.SetTgl(DTPLahir.getSelectedItem() + ""), NmIbu.getText(),
                         Alamat.getText().replaceAll("ALAMAT", ""), CMbGd.getSelectedItem().toString(), Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(),
@@ -3452,7 +3501,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                         PekerjaanPj.getText(), AlamatPj.getText(), KelurahanPj.getText(), KecamatanPj.getText(), KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText().replaceAll("ALAMAT", ""),
                         Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText().replaceAll("KELURAHAN", "-")),
                         Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText().replaceAll("KECAMATAN", "-")),
-                        Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-"))
+                        Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-")), umurPjawab.getText(), notlpPJ.getText()
                     }) == true) {
                         if (akses.getform().equals("DlgReg")) {
                             TCari.setText(TNo.getText());
@@ -3465,7 +3514,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                         emptTeks();
                     } else {
                         autoNomor();
-                        if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 35, new String[]{
+                        if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 37, new String[]{
                             TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                             Valid.SetTgl(DTPLahir.getSelectedItem() + ""), NmIbu.getText(),
                             Alamat.getText().replaceAll("ALAMAT", ""), CMbGd.getSelectedItem().toString(), Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(),
@@ -3477,7 +3526,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                             PekerjaanPj.getText(), AlamatPj.getText(), KelurahanPj.getText(), KecamatanPj.getText(), KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText().replaceAll("ALAMAT", ""),
                             Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText().replaceAll("KELURAHAN", "-")),
                             Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText().replaceAll("KECAMATAN", "-")),
-                            Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-"))
+                            Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-")), umurPjawab.getText(), notlpPJ.getText()
                         }) == true) {
                             if (akses.getform().equals("DlgReg")) {
                                 TCari.setText(TNo.getText());
@@ -3490,7 +3539,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                             emptTeks();
                         } else {
                             autoNomor();
-                            if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 35, new String[]{
+                            if (Sequel.menyimpantf2("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 37, new String[]{
                                 TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                                 Valid.SetTgl(DTPLahir.getSelectedItem() + ""), NmIbu.getText(),
                                 Alamat.getText().replaceAll("ALAMAT", ""), CMbGd.getSelectedItem().toString(), Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(),
@@ -3502,7 +3551,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                 PekerjaanPj.getText(), AlamatPj.getText(), KelurahanPj.getText(), KecamatanPj.getText(), KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText().replaceAll("ALAMAT", ""),
                                 Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText().replaceAll("KELURAHAN", "-")),
                                 Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText().replaceAll("KECAMATAN", "-")),
-                                Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-"))
+                                Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-")), umurPjawab.getText(), notlpPJ.getText()
                             }) == true) {
                                 if (akses.getform().equals("DlgReg")) {
                                     TCari.setText(TNo.getText());
@@ -3515,7 +3564,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                 emptTeks();
                             } else {
                                 autoNomor();
-                                if (Sequel.menyimpantf("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 35, new String[]{
+                                if (Sequel.menyimpantf("pasien", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rekam Medis Pasien", 37, new String[]{
                                     TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                                     Valid.SetTgl(DTPLahir.getSelectedItem() + ""), NmIbu.getText(),
                                     Alamat.getText().replaceAll("ALAMAT", ""), CMbGd.getSelectedItem().toString(), Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(),
@@ -3527,7 +3576,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                     PekerjaanPj.getText(), AlamatPj.getText(), KelurahanPj.getText(), KecamatanPj.getText(), KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText().replaceAll("ALAMAT", ""),
                                     Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText().replaceAll("KELURAHAN", "-")),
                                     Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText().replaceAll("KECAMATAN", "-")),
-                                    Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-"))
+                                    Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText().replaceAll("KABUPATEN", "-")), umurPjawab.getText(), notlpPJ.getText()
                                 }) == true) {
                                     if (akses.getform().equals("DlgReg")) {
                                         TCari.setText(TNo.getText());
@@ -3676,7 +3725,7 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     + "tgl_lahir=?,alamat=?,gol_darah=?,pekerjaan=?,stts_nikah=?,agama=?,tgl_daftar=?,no_tlp=?,umur=?"
                     + ",pnd=?,keluarga=?,namakeluarga=?,kd_pj=?,no_peserta=?,kd_kel=?,kd_kec=?,kd_kab=?,nm_ibu=?,pekerjaanpj=?,"
                     + "alamatpj=?,kelurahanpj=?,kecamatanpj=?,kabupatenpj=?,tinggi_badan=?,suku_bangsa=?,bahasa_pasien=?,"
-                    + "alamat_domisili_pasien=?,kd_kel_domisili_pasien=?,kd_kec_domisili_pasien=?,kd_kab_domisili_pasien=?", 36,
+                    + "alamat_domisili_pasien=?,kd_kel_domisili_pasien=?,kd_kec_domisili_pasien=?,kd_kab_domisili_pasien=?,umur_pj=?,no_tlp_pj=?", 38,
                     new String[]{TNo.getText(), TNm.getText(), TKtp.getText(), CmbJk.getSelectedItem().toString().substring(0, 1), TTmp.getText(),
                         Valid.SetTgl(DTPLahir.getSelectedItem() + ""),
                         Alamat.getText(), CMbGd.getSelectedItem().toString(), Pekerjaan.getText(), CmbStts.getSelectedItem().toString(), cmbAgama.getSelectedItem().toString(),
@@ -3689,7 +3738,8 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                         KabupatenPj.getText(), "0", kdsuku.getText(), kdbahasa.getText(), AlamatDomisili.getText(), 
                         Sequel.cariIsi("select kelurahan.kd_kel from kelurahan where kelurahan.nm_kel=?", KelurahanDom.getText()),
                         Sequel.cariIsi("select kecamatan.kd_kec from kecamatan where kecamatan.nm_kec=?", KecamatanDom.getText()),
-                        Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText()), Kd2.getText()});
+                        Sequel.cariIsi("select kabupaten.kd_kab from kabupaten where kabupaten.nm_kab=?", KabupatenDom.getText()), 
+                        umurPjawab.getText(), notlpPJ.getText(), Kd2.getText()});
             Sequel.AutoComitTrue();
             if (tabMode.getRowCount() != 0) {
                 tampil();
@@ -4590,7 +4640,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             Valid.MyReport("rptRM1.jasper", "report", "::[ Identitas Pasien (Lembar RM 1)]::",
                     "SELECT p.no_rkm_medis, p.nm_pasien, p.no_ktp, IF(p.jk='L','Laki-laki','Perempuan') jk, p.tmp_lahir, p.tgl_lahir,p.nm_ibu, "
                     + "CONCAT(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamat, p.gol_darah, p.pekerjaan, "
-                    + "p.stts_nikah,p.agama,p.tgl_daftar,p.no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga,pj.png_jawab,p.pekerjaanpj, "
+                    + "p.stts_nikah,p.agama,p.tgl_daftar,ifnull(p.no_tlp_pj,p.no_tlp) no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga,pj.png_jawab,p.pekerjaanpj, "
                     + "CONCAT(IF(p.alamatpj='alamat','-',p.alamatpj),', ',IF(p.kelurahanpj='kelurahan','-',p.kelurahanpj),', ',IF(p.kecamatanpj='kecamatan','-', "
                     + "p.kecamatanpj),', ',IF(p.kabupatenpj='kabupaten','-',p.kabupatenpj)) alamatpj FROM pasien p INNER JOIN kelurahan kl ON kl.kd_kel=p.kd_kel "
                     + "INNER JOIN kecamatan kc ON kc.kd_kec=p.kd_kec INNER JOIN kabupaten kb ON kb.kd_kab=p.kd_kab "
@@ -4604,7 +4654,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     }//GEN-LAST:event_formWindowOpened
 
     private void NmIbuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmIbuKeyPressed
-        Valid.pindah(evt, CMbPnd, Saudara);
+        Valid.pindah(evt, CMbPnd, cmbPngJawab);
     }//GEN-LAST:event_NmIbuKeyPressed
 
     private void NoRmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoRmKeyPressed
@@ -4966,7 +5016,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             Valid.MyReport("rptRM5.jasper", "report", "::[ Identitas Pasien (Lembar RM 1) ]::",
                     "SELECT p.no_rkm_medis, p.nm_pasien, p.no_ktp, IF(p.jk='L','Laki-laki','Perempuan') jk, p.tmp_lahir, p.tgl_lahir,p.nm_ibu, "
                     + "CONCAT(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamat, p.gol_darah, p.pekerjaan, p.no_peserta, "
-                    + "p.stts_nikah,p.agama,p.tgl_daftar,p.no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga,pj.png_jawab,p.pekerjaanpj, "
+                    + "p.stts_nikah,p.agama,p.tgl_daftar,ifnull(p.no_tlp_pj,p.no_tlp) no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga,pj.png_jawab,p.pekerjaanpj, "
                     + "CONCAT(IF(p.alamatpj='alamat','-',p.alamatpj),', ',IF(p.kelurahanpj='kelurahan','-',p.kelurahanpj),', ',IF(p.kecamatanpj='kecamatan','-', "
                     + "p.kecamatanpj),', ',IF(p.kabupatenpj='kabupaten','-',p.kabupatenpj)) alamatpj FROM pasien p INNER JOIN kelurahan kl ON kl.kd_kel=p.kd_kel "
                     + "INNER JOIN kecamatan kc ON kc.kd_kec=p.kd_kec INNER JOIN kabupaten kb ON kb.kd_kab=p.kd_kab "
@@ -5140,7 +5190,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             Valid.MyReport("rptRM10.jasper", "report", "::[ Identitas Pasien (Lembar RM 1) ]::",
                     "SELECT p.no_rkm_medis, p.nm_pasien, p.no_ktp, IF(p.jk='L','Laki-laki','Perempuan') jk, p.tmp_lahir, p.tgl_lahir,p.nm_ibu, "
                     + "CONCAT(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamat, p.gol_darah, p.pekerjaan, p.no_peserta, "
-                    + "p.stts_nikah,p.agama,p.tgl_daftar,p.no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga,pj.png_jawab,p.pekerjaanpj, "
+                    + "p.stts_nikah,p.agama,p.tgl_daftar,ifnull(p.no_tlp_pj,p.no_tlp) no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga,pj.png_jawab,p.pekerjaanpj, "
                     + "CONCAT(IF(p.alamatpj='alamat','-',p.alamatpj),', ',IF(p.kelurahanpj='kelurahan','-',p.kelurahanpj),', ',IF(p.kecamatanpj='kecamatan','-', "
                     + "p.kecamatanpj),', ',IF(p.kabupatenpj='kabupaten','-',p.kabupatenpj)) alamatpj FROM pasien p INNER JOIN kelurahan kl ON kl.kd_kel=p.kd_kel "
                     + "INNER JOIN kecamatan kc ON kc.kd_kec=p.kd_kec INNER JOIN kabupaten kb ON kb.kd_kab=p.kd_kab "
@@ -5875,6 +5925,10 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         }
     }//GEN-LAST:event_MnPrinterBaru2ActionPerformed
 
+    private void umurPjawabKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_umurPjawabKeyPressed
+        Valid.pindah(evt, cmbPngJawab, Saudara);
+    }//GEN-LAST:event_umurPjawabKeyPressed
+
     /**
      * @data args the command line arguments
      */
@@ -6077,7 +6131,10 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private widget.Label jLabel35;
     private widget.Label jLabel36;
     private widget.Label jLabel37;
+    private widget.Label jLabel38;
+    private widget.Label jLabel39;
     private widget.Label jLabel4;
+    private widget.Label jLabel40;
     private widget.Label jLabel6;
     private widget.Label jLabel7;
     private widget.Label jLabel8;
@@ -6095,6 +6152,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private widget.TextBox nmbahasa;
     private widget.TextBox nmpnj;
     private widget.TextBox nmsukubangsa;
+    private widget.TextBox notlpPJ;
     private widget.PanelBiasa panelBiasa2;
     private widget.panelisi panelGlass8;
     private widget.panelisi panelGlass9;
@@ -6108,6 +6166,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JMenuItem ppRegistrasi;
     private javax.swing.JMenuItem ppRiwayat;
     private widget.Table tbPasien;
+    private widget.TextBox umurPjawab;
     // End of variables declaration//GEN-END:variables
 
     public void tampil() {
@@ -6116,8 +6175,8 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             ps = koneksi.prepareStatement("SELECT p.no_rkm_medis, p.nm_pasien, p.no_ktp, p.jk, p.tmp_lahir, p.tgl_lahir, p.nm_ibu, concat(p.alamat,', ',kl1.nm_kel,', ',kc1.nm_kec,', ',kb1.nm_kab) AS alamat, "
                     + "p.gol_darah, p.pekerjaan, p.stts_nikah, p.agama, p.tgl_daftar, p.no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga, pj.png_jawab, p.no_peserta, p.pekerjaanpj, "
                     + "concat(p.alamatpj,', ',p.kelurahanpj,', ',p.kecamatanpj,', ',p.kabupatenpj) almt_pj, sb.nama_suku_bangsa, bp.nama_bahasa, sb.id id_suku, bp.id id_bhs, "
-                    + "concat(p.alamat_domisili_pasien,', ',kl2.nm_kel,', ',kc2.nm_kec,', ',kb2.nm_kab) AS alamat_dom FROM pasien p INNER JOIN kelurahan kl1 ON kl1.kd_kel=p.kd_kel "
-                    + "INNER JOIN kecamatan kc1 ON kc1.kd_kec=p.kd_kec INNER JOIN kabupaten kb1 ON kb1.kd_kab=p.kd_kab "
+                    + "concat(p.alamat_domisili_pasien,', ',kl2.nm_kel,', ',kc2.nm_kec,', ',kb2.nm_kab) AS alamat_dom, ifnull(p.umur_pj,'') umurpj, "
+                    + "ifnull(p.no_tlp_pj,'') notlppj FROM pasien p INNER JOIN kelurahan kl1 ON kl1.kd_kel=p.kd_kel INNER JOIN kecamatan kc1 ON kc1.kd_kec=p.kd_kec INNER JOIN kabupaten kb1 ON kb1.kd_kab=p.kd_kab "
                     + "INNER JOIN penjab pj ON pj.kd_pj=p.kd_pj INNER JOIN bahasa_pasien bp ON bp.id=p.bahasa_pasien INNER JOIN suku_bangsa sb ON sb.id=p.suku_bangsa "
                     + "INNER JOIN kelurahan kl2 ON kl2.kd_kel = p.kd_kel_domisili_pasien INNER JOIN kecamatan kc2 ON kc2.kd_kec = p.kd_kec_domisili_pasien INNER JOIN kabupaten kb2 ON kb2.kd_kab = p.kd_kab_domisili_pasien WHERE "
                     + "concat(p.alamat,', ',kl1.nm_kel,', ',kc1.nm_kec,', ',kb1.nm_kab) LIKE ? AND p.no_rkm_medis LIKE ? "
@@ -6143,8 +6202,8 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             ps2 = koneksi.prepareStatement("SELECT p.no_rkm_medis, p.nm_pasien, p.no_ktp, p.jk, p.tmp_lahir, p.tgl_lahir, p.nm_ibu, concat(p.alamat,', ',kl1.nm_kel,', ',kc1.nm_kec,', ',kb1.nm_kab) AS alamat, "
                     + "p.gol_darah, p.pekerjaan, p.stts_nikah, p.agama, p.tgl_daftar, p.no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga, pj.png_jawab, p.no_peserta, p.pekerjaanpj, "
                     + "concat(p.alamatpj,', ',p.kelurahanpj,', ',p.kecamatanpj,', ',p.kabupatenpj) almt_pj, sb.nama_suku_bangsa, bp.nama_bahasa, sb.id id_suku, bp.id id_bhs, "
-                    + "concat(p.alamat_domisili_pasien,', ',kl2.nm_kel,', ',kc2.nm_kec,', ',kb2.nm_kab) AS alamat_dom FROM pasien p INNER JOIN kelurahan kl1 ON kl1.kd_kel=p.kd_kel "
-                    + "INNER JOIN kecamatan kc1 ON kc1.kd_kec=p.kd_kec INNER JOIN kabupaten kb1 ON kb1.kd_kab=p.kd_kab "
+                    + "concat(p.alamat_domisili_pasien,', ',kl2.nm_kel,', ',kc2.nm_kec,', ',kb2.nm_kab) AS alamat_dom, ifnull(p.umur_pj,'') umurpj, "
+                    + "ifnull(p.no_tlp_pj,'') notlppj FROM pasien p INNER JOIN kelurahan kl1 ON kl1.kd_kel=p.kd_kel INNER JOIN kecamatan kc1 ON kc1.kd_kec=p.kd_kec INNER JOIN kabupaten kb1 ON kb1.kd_kab=p.kd_kab "
                     + "INNER JOIN penjab pj ON pj.kd_pj=p.kd_pj INNER JOIN bahasa_pasien bp ON bp.id=p.bahasa_pasien INNER JOIN suku_bangsa sb ON sb.id=p.suku_bangsa "
                     + "INNER JOIN kelurahan kl2 ON kl2.kd_kel = p.kd_kel_domisili_pasien INNER JOIN kecamatan kc2 ON kc2.kd_kec = p.kd_kec_domisili_pasien INNER JOIN kabupaten kb2 ON kb2.kd_kab = p.kd_kab_domisili_pasien WHERE "
                     + "concat(p.alamat,', ',kl1.nm_kel,', ',kc1.nm_kec,', ',kb1.nm_kab) LIKE ? AND p.no_rkm_medis LIKE ? "
@@ -6279,7 +6338,9 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
                         rs.getString("nama_suku_bangsa"),
                         rs.getString("nama_bahasa"),
                         rs.getString("id_suku"),
-                        rs.getString("id_bhs")
+                        rs.getString("id_bhs"),
+                        rs.getString("umurpj"),
+                        rs.getString("notlppj")
                     });
                 }
             } catch (Exception e) {
@@ -6328,6 +6389,8 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         nmsukubangsa.setText("");
         kdbahasa.setText("");
         nmbahasa.setText("");
+        umurPjawab.setText("");
+        notlpPJ.setText("");
         Kelurahan.setText("KELURAHAN");
         Kecamatan.setText("KECAMATAN");
         Kabupaten.setText("KABUPATEN");
@@ -6370,6 +6433,8 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
                 TKtp.setText(tbPasien.getValueAt(tbPasien.getSelectedRow(), 3).toString());
                 kdsuku.setText(tbPasien.getValueAt(tbPasien.getSelectedRow(), 27).toString());
                 kdbahasa.setText(tbPasien.getValueAt(tbPasien.getSelectedRow(), 28).toString());
+                umurPjawab.setText(tbPasien.getValueAt(tbPasien.getSelectedRow(), 29).toString());
+                notlpPJ.setText(tbPasien.getValueAt(tbPasien.getSelectedRow(), 30).toString());
                 Sequel.cariIsi("select nama_suku_bangsa from suku_bangsa where id=?", nmsukubangsa, kdsuku.getText());
                 Sequel.cariIsi("select nama_bahasa from bahasa_pasien where id=?", nmbahasa, kdbahasa.getText());
 

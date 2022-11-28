@@ -189,7 +189,8 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         }
         tbBayi.setDefaultRenderer(Object.class, new WarnaTable());
         
-        tabMode1 = new DefaultTableModel(null, new Object[]{"No. Rawat", "No. RM", "Nama Ibu Bayinya","Tgl. Masuk"}) {
+        tabMode1 = new DefaultTableModel(null, new Object[]{
+            "No. Rawat", "No. RM", "Nama Ibu Bayinya", "Tgl. Masuk", "Nama Ayahnya", "Umur Ayah", "umurayah"}) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false;
@@ -199,7 +200,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         tbPasienBersalin.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tbPasienBersalin.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 7; i++) {
             TableColumn column = tbPasienBersalin.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(130);
@@ -209,6 +210,13 @@ public class DlgIKBBayi extends javax.swing.JDialog {
                 column.setPreferredWidth(300);
             } else if (i == 3) {
                 column.setPreferredWidth(75);
+            } else if (i == 4) {
+                column.setPreferredWidth(200);
+            } else if (i == 5) {
+                column.setPreferredWidth(75);
+            } else if (i == 6) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
             } 
         }
         tbPasienBersalin.setDefaultRenderer(Object.class, new WarnaTable());
@@ -268,8 +276,8 @@ public class DlgIKBBayi extends javax.swing.JDialog {
                     if (member.getTable().getSelectedRow() != -1) {
                         NoRm.setText(member.getTable().getValueAt(member.getTable().getSelectedRow(), 1).toString());
                         NmBayi.setText(member.getTable().getValueAt(member.getTable().getSelectedRow(), 2).toString());
-                        NmAyah.setText("");
-                        UmurAyah.setText("");
+                        NmAyah.setText(Sequel.cariIsi("select if(keluarga='AYAH',namakeluarga,'') from pasien where no_rkm_medis='" + NoRm.getText() + "'"));
+                        UmurAyah.setText(Sequel.cariIsi("select if(keluarga='AYAH',ifnull(umur_pj,''),'') from pasien where no_rkm_medis='" + NoRm.getText() + "'"));
                         Valid.SetTgl(Lahir, member.getTable().getValueAt(member.getTable().getSelectedRow(), 6).toString());
                         Valid.SetTgl(Daftar, member.getTable().getValueAt(member.getTable().getSelectedRow(), 13).toString());
 
@@ -554,6 +562,8 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         nmpejabat = new widget.TextBox();
         BtnPejabat = new widget.Button();
         label60 = new widget.Label();
+        label23 = new widget.Label();
+        label61 = new widget.Label();
 
         Popup.setName("Popup"); // NOI18N
 
@@ -951,7 +961,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-11-2022" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2022" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -971,7 +981,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-11-2022" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2022" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -2420,6 +2430,22 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         FormInput.add(label60);
         label60.setBounds(423, 132, 30, 23);
 
+        label23.setForeground(new java.awt.Color(0, 0, 0));
+        label23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label23.setText("thn.");
+        label23.setName("label23"); // NOI18N
+        label23.setPreferredSize(new java.awt.Dimension(65, 23));
+        FormInput.add(label23);
+        label23.setBounds(440, 72, 25, 23);
+
+        label61.setForeground(new java.awt.Color(0, 0, 0));
+        label61.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label61.setText("thn.");
+        label61.setName("label61"); // NOI18N
+        label61.setPreferredSize(new java.awt.Dimension(65, 23));
+        FormInput.add(label61);
+        label61.setBounds(440, 102, 25, 23);
+
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
         internalFrame1.add(PanelInput, java.awt.BorderLayout.PAGE_START);
@@ -3476,6 +3502,8 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     Nmibu.setText(tbPasienBersalin.getValueAt(tbPasienBersalin.getSelectedRow(), 2).toString());
                     AlamatIbu.setText(Sequel.cariIsi("select alamat from pasien where no_rkm_medis='" + NoRmIbu.getText() + "'"));
                     UmurIbu.setText(Sequel.cariIsi("select umurdaftar from reg_periksa where no_rawat='" + norwtIbu + "'"));
+                    NmAyah.setText(tbPasienBersalin.getValueAt(tbPasienBersalin.getSelectedRow(), 4).toString());
+                    UmurAyah.setText(tbPasienBersalin.getValueAt(tbPasienBersalin.getSelectedRow(), 6).toString());
                     WindowPasienIbuBersalin.dispose();
                     NmAyah.requestFocus();
                 }
@@ -3494,6 +3522,8 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     Nmibu.setText(tbPasienBersalin.getValueAt(tbPasienBersalin.getSelectedRow(), 2).toString());
                     AlamatIbu.setText(Sequel.cariIsi("select alamat from pasien where no_rkm_medis='" + NoRmIbu.getText() + "'"));
                     UmurIbu.setText(Sequel.cariIsi("select umurdaftar from reg_periksa where no_rawat='" + norwtIbu + "'"));
+                    NmAyah.setText(tbPasienBersalin.getValueAt(tbPasienBersalin.getSelectedRow(), 4).toString());
+                    UmurAyah.setText(tbPasienBersalin.getValueAt(tbPasienBersalin.getSelectedRow(), 6).toString());
                     WindowPasienIbuBersalin.dispose();
                     NmAyah.requestFocus();
                 } catch (java.lang.NullPointerException e) {
@@ -3700,6 +3730,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private widget.Label label20;
     private widget.Label label21;
     private widget.Label label22;
+    private widget.Label label23;
     private widget.Label label24;
     private widget.Label label25;
     private widget.Label label26;
@@ -3737,6 +3768,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private widget.Label label58;
     private widget.Label label59;
     private widget.Label label60;
+    private widget.Label label61;
     private widget.Label label9;
     private widget.ComboBox menit;
     private widget.ComboBox menit1;
@@ -4152,6 +4184,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         
         if (Sequel.cariIsi("select keluarga from pasien where no_rkm_medis=?", no_rm).equals("AYAH")) {
             Sequel.cariIsi("select namakeluarga from pasien where no_rkm_medis=?", NmAyah, no_rm);
+            Sequel.cariIsi("select ifnull(umur_pj,'') from pasien where no_rkm_medis=?", UmurAyah, no_rm);
         }
         
         if (Sequel.cariIsi("select jk from pasien where no_rkm_medis=?", no_rm).toString().equals("L")) {
@@ -4386,7 +4419,8 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private void tampilPersalinan() {
         Valid.tabelKosong(tabMode1);
         try {
-            ps = koneksi.prepareStatement("SELECT DISTINCT rp.no_rawat, p.no_rkm_medis, p.nm_pasien, date_format(rp.tgl_registrasi,'%d-%m-%Y') tgl_msk FROM kamar_inap ki "
+            ps = koneksi.prepareStatement("SELECT DISTINCT rp.no_rawat, p.no_rkm_medis, p.nm_pasien, date_format(rp.tgl_registrasi,'%d-%m-%Y') tgl_msk, "
+                    + "if(p.keluarga='SUAMI',p.namakeluarga,'') nmsuami, concat(ifnull(p.umur_pj,''),' ','thn.') umursuami, ifnull(p.umur_pj,'') umurangka FROM kamar_inap ki "
                     + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
                     + "INNER JOIN reg_periksa rp on rp.no_rawat=ki.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
                     + "rp.tgl_registrasi BETWEEN ? and ? and (b.nm_bangsal LIKE '%obg%' or b.nm_bangsal LIKE '%intan%' or "
@@ -4394,7 +4428,9 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     + "rp.tgl_registrasi BETWEEN ? and ? and (b.nm_bangsal LIKE '%obg%' or b.nm_bangsal LIKE '%intan%' or "
                     + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE '%isolasi%') and p.jk='P' and rp.sttsumur='Th' and p.no_rkm_medis like ? or "
                     + "rp.tgl_registrasi BETWEEN ? and ? and (b.nm_bangsal LIKE '%obg%' or b.nm_bangsal LIKE '%intan%' or "
-                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE '%isolasi%') and p.jk='P' and rp.sttsumur='Th' and p.nm_pasien like ? "
+                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE '%isolasi%') and p.jk='P' and rp.sttsumur='Th' and p.nm_pasien like ? or "
+                    + "rp.tgl_registrasi BETWEEN ? and ? and (b.nm_bangsal LIKE '%obg%' or b.nm_bangsal LIKE '%intan%' or "
+                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE '%isolasi%') and p.jk='P' and rp.sttsumur='Th' and if(p.keluarga='SUAMI',p.namakeluarga,'') like ? "
                     + "order by p.nm_pasien");
             try {
                 ps.setString(1, Valid.SetTgl(tgl1.getSelectedItem() + ""));
@@ -4405,14 +4441,20 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 ps.setString(6, "%" + TCari1.getText().trim() + "%");
                 ps.setString(7, Valid.SetTgl(tgl1.getSelectedItem() + ""));
                 ps.setString(8, Valid.SetTgl(tgl2.getSelectedItem() + ""));
-                ps.setString(9, "%" + TCari1.getText().trim() + "%");
+                ps.setString(9, "%" + TCari1.getText().trim() + "%");                
+                ps.setString(10, Valid.SetTgl(tgl1.getSelectedItem() + ""));
+                ps.setString(11, Valid.SetTgl(tgl2.getSelectedItem() + ""));
+                ps.setString(12, "%" + TCari1.getText().trim() + "%");
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     tabMode1.addRow(new Object[]{
                         rs.getString("no_rawat"),
                         rs.getString("no_rkm_medis"),
                         rs.getString("nm_pasien"),
-                        rs.getString("tgl_msk")
+                        rs.getString("tgl_msk"),
+                        rs.getString("nmsuami"),
+                        rs.getString("umursuami"),
+                        rs.getString("umurangka")
                     });
                 }
                 this.setCursor(Cursor.getDefaultCursor());
