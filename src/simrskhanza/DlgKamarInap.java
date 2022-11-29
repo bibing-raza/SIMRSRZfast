@@ -9494,8 +9494,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         tampil();
-        stts_bridging.setText(Sequel.cariIsi("select if(status_aktif='Ya','AKTIF','NON AKTIF') from setting_bridging where "
-                + "kd_bridging='2' and status_aktif='Ya' and tgl_non_aktif<>'0000-00-00'"));
+        stts_bridging.setText(Sequel.cariIsi("select if(status_aktif='Ya','AKTIF','NON AKTIF') from setting_bridging where kd_bridging='2'"));
     }//GEN-LAST:event_formWindowOpened
 
     private void MnInputResepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnInputResepActionPerformed
