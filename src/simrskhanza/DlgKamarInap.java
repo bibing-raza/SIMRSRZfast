@@ -11,6 +11,7 @@
  */
 package simrskhanza;
 
+import bridging.BPJSApi;
 import inventory.DlgResepObat;
 import laporan.DlgDataHAIs;
 import bridging.BPJSDataSEP;
@@ -23,6 +24,8 @@ import bridging.DlgSKDPBPJS;
 import bridging.INACBGPerawatanCorona;
 import bridging.InhealthDataSJP;
 import bridging.SisruteRujukanKeluar;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import laporan.DlgDiagnosaPenyakit;
 import informasi.InformasiAnalisaKamin;
 import keuangan.DlgKamar;
@@ -63,6 +66,10 @@ import keuangan.DlgBilingRanap;
 import keuangan.DlgLhtPiutang;
 import laporan.DlgDataDietRanap;
 import laporan.DlgKaruRanap;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import rekammedis.DlgAssesmenGiziHarian;
 import rekammedis.DlgAssesmenGiziUlang;
 import rekammedis.DlgMonevAsuhanGizi;
@@ -83,6 +90,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
     public DlgIKBBayi ikb = new DlgIKBBayi(null, false);
     public DlgKamar kamar = new DlgKamar(null, false);
     public DlgReg reg = new DlgReg(null, false);
+    private BPJSApi api = new BPJSApi();
     public DlgBilingRanap billing = new DlgBilingRanap(null, false);
     public DlgRujukMasuk rujukmasuk = new DlgRujukMasuk(null, false);
     public DlgRingkasanPulangRanap ringkasan = new DlgRingkasanPulangRanap(null, false);
@@ -105,9 +113,9 @@ public class DlgKamarInap extends javax.swing.JDialog {
             g = 0, gb = 0, cekBonGZ = 0, cekjampersal = 0, cekjamkesda = 0, cekPXbpjs = 0, cekInapDRPR = 0;
     private double lama = Sequel.cariIsiAngka("select lamajam from set_jam_minimal"), persenbayi = Sequel.cariInteger("select bayi from set_jam_minimal");
     private String dokterranap = "", bangsal = "", diagnosa_akhir = Sequel.cariIsi("select diagnosaakhir from set_jam_minimal"), cekKelamin = "",
-            namakamar = "", umur = "0", sttsumur = "Th", cekAPS = "", norawatAPS = "", cekdokter = "", dpjpObgyn = "",
-            kdAPS = "", diagnosa_ok = "", cekDataPersalinan = "", cekRMbayi = "", kamarCovid = "", 
-            cekHR = "", nmgedung = "", sepJKD = "", pilihMenu = "", noRwNew = "";
+            namakamar = "", umur = "0", sttsumur = "Th", cekAPS = "", norawatAPS = "", cekdokter = "", dpjpObgyn = "", noSrtMati = "", usernya = "",
+            kdAPS = "", diagnosa_ok = "", cekDataPersalinan = "", cekRMbayi = "", kamarCovid = "", cekHR = "", nmgedung = "", sepJKD = "", noLPJiun = "",
+            pilihMenu = "", noRwNew = "", kdSttsPlg = "", desSttsPlg = "", tglJiun = "", utc = "", URL = "", requestJson, tglplgbpjs = "";
 
     /**
      * Creates new form DlgKamarInap
@@ -813,6 +821,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis=? ", TPasien, TNoRM.getText());
             }
         });
+        
         try {
             if (diagnosa_akhir.equals("Yes")) {
                 diagnosaakhir.setEditable(true);
@@ -821,6 +830,20 @@ public class DlgKamarInap extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             diagnosaakhir.setEditable(false);
+        }
+
+        try {
+            if (akses.getkode().equals("Admin Utama")) {
+                usernya = "AdminUtama";
+            } else {
+                usernya = akses.getnamauser().replace(" ", "").substring(0, 10);
+            }
+        } catch (Exception e) {
+            if (akses.getkode().equals("Admin Utama")) {
+                usernya = "AdminUtama";
+            } else {
+                usernya = akses.getnamauser();
+            }
         }
         userLap();
     }
@@ -881,6 +904,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
         cmbMnt1 = new widget.ComboBox();
         cmbDtk1 = new widget.ComboBox();
         panelGlass5 = new widget.panelisi();
+        jLabel30 = new widget.Label();
+        stts_bridging = new widget.Label();
         BtnSimpan = new widget.Button();
         BtnBatal = new widget.Button();
         BtnCloseIn = new widget.Button();
@@ -1810,7 +1835,21 @@ public class DlgKamarInap extends javax.swing.JDialog {
 
         panelGlass5.setName("panelGlass5"); // NOI18N
         panelGlass5.setPreferredSize(new java.awt.Dimension(55, 50));
-        panelGlass5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 9, 9));
+        panelGlass5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 9, 9));
+
+        jLabel30.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel30.setText("Status Bridging BPJS :");
+        jLabel30.setName("jLabel30"); // NOI18N
+        jLabel30.setPreferredSize(new java.awt.Dimension(110, 23));
+        panelGlass5.add(jLabel30);
+
+        stts_bridging.setForeground(new java.awt.Color(0, 0, 0));
+        stts_bridging.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        stts_bridging.setText("stts_bridging");
+        stts_bridging.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        stts_bridging.setName("stts_bridging"); // NOI18N
+        stts_bridging.setPreferredSize(new java.awt.Dimension(120, 23));
+        panelGlass5.add(stts_bridging);
 
         BtnSimpan.setForeground(new java.awt.Color(0, 0, 0));
         BtnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
@@ -7490,7 +7529,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                         BtnCari.requestFocus();
                                     }
 
-                                    //jika pulang dengan dirujuk
+                                //jika pulang dengan dirujuk
                                 } else if (cmbStatus.getSelectedItem().equals("Dirujuk")) {
                                     DlgRujuk dlgrjk = new DlgRujuk(null, false);
                                     dlgrjk.setSize(987, 547);
@@ -7502,26 +7541,26 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     dlgrjk.setVisible(true);
                                     dlgrjk.btnFaskes.requestFocus();
 
-                                    //jika pulang dengan APS
+                                //jika pulang dengan APS
                                 } else if (cmbStatus.getSelectedItem().equals("APS")) {
                                     Sequel.menyimpan("ranap_aps", "'" + norawat.getText() + "','" + kdAPS + "','" + ketAPS.getText() + "'");
                                     JOptionPane.showMessageDialog(null, "Data berhasil tersimpan, utk. mencetak surat pernyataan APS klik tombol cetak...!!!!");
                                 }
 
                                 //update tanggal pulang didata bridging sep
-                                if (cekPXbpjs >= 1) {
-                                    Sequel.mengedit("bridging_sep", "no_rawat='" + norawat.getText() + "' and jnspelayanan='1'",
-                                            "tglpulang='" + CmbTahun.getSelectedItem() + "-" + CmbBln.getSelectedItem() + "-" + CmbTgl.getSelectedItem() + " "
-                                            + cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem() + "'");
-                                }
+                                if (stts_bridging.getText().equals("AKTIF")) {
+                                    if (cekPXbpjs >= 1) {
+                                        dataPulangBPJS();                                    
+                                    }
+                                }                                
 
                                 Sequel.mengedit("kamar", "kd_kamar='" + kdkamar.getText() + "'", "status='KOSONG'");
                                 Sequel.menyimpan("history_user", "Now(),'" + norawat.getText() + "','" + akses.getkode() + "','Pasien Pulang','Simpan'");
 
                                 WindowInputKamar.dispose();
                                 emptTeks();
-
                             }
+                            
                         } else {
                             Sequel.mengedit("kamar_inap", "no_rawat='" + norawat.getText() + "' and kd_kamar='" + kdkamar.getText() + "' and tgl_masuk='" + TIn.getText() + "' and jam_masuk='" + JamMasuk.getText() + "'",
                                     "tgl_keluar='" + CmbTahun.getSelectedItem() + "-" + CmbBln.getSelectedItem() + "-" + CmbTgl.getSelectedItem()
@@ -7542,7 +7581,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     BtnCari.requestFocus();
                                 }
 
-                                //jika pulang dengan dirujuk
+                            //jika pulang dengan dirujuk
                             } else if (cmbStatus.getSelectedItem().equals("Dirujuk")) {
                                 DlgRujuk dlgrjk = new DlgRujuk(null, false);
                                 dlgrjk.setSize(987, 547);
@@ -7554,17 +7593,17 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 dlgrjk.setVisible(true);
                                 dlgrjk.btnFaskes.requestFocus();
 
-                                //jika pulang dengan APS
+                            //jika pulang dengan APS
                             } else if (cmbStatus.getSelectedItem().equals("APS")) {
                                 Sequel.menyimpan("ranap_aps", "'" + norawat.getText() + "','" + kdAPS + "','" + ketAPS.getText() + "'");
                                 JOptionPane.showMessageDialog(null, "Data berhasil tersimpan, utk. mencetak surat pernyataan APS klik tombol cetak...!!!!");
                             }
 
                             //update tanggal pulang didata bridging sep
-                            if (cekPXbpjs >= 1) {
-                                Sequel.mengedit("bridging_sep", "no_rawat='" + norawat.getText() + "' and jnspelayanan='1'",
-                                        "tglpulang='" + CmbTahun.getSelectedItem() + "-" + CmbBln.getSelectedItem() + "-" + CmbTgl.getSelectedItem() + " "
-                                        + cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem() + "'");
+                            if (stts_bridging.getText().equals("AKTIF")) {
+                                if (cekPXbpjs >= 1) {
+                                    dataPulangBPJS();
+                                }
                             }
 
                             Sequel.mengedit("kamar", "kd_kamar='" + kdkamar.getText() + "'", "status='KOSONG'");
@@ -9455,6 +9494,8 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         tampil();
+        stts_bridging.setText(Sequel.cariIsi("select if(status_aktif='Ya','AKTIF','NON AKTIF') from setting_bridging where "
+                + "kd_bridging='2' and status_aktif='Ya' and tgl_non_aktif<>'0000-00-00'"));
     }//GEN-LAST:event_formWindowOpened
 
     private void MnInputResepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnInputResepActionPerformed
@@ -14408,6 +14449,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.Label jLabel28;
     private widget.Label jLabel29;
     private widget.Label jLabel3;
+    private widget.Label jLabel30;
     private widget.Label jLabel31;
     private widget.Label jLabel32;
     private widget.Label jLabel33;
@@ -14542,6 +14584,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.TextBox statusSELISIH;
     private widget.TextBox statusSEP;
     private widget.TextBox status_pulang;
+    private widget.Label stts_bridging;
     private widget.TextBox tarifkls1;
     private widget.TextBox tarifkls2;
     private widget.TextBox tarifkls3;
@@ -15930,9 +15973,9 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         cekOperasi2 = Sequel.cariInteger("select count(1) test from kamar_inap p inner join operasi o on o.no_rawat = p.no_rawat "
                 + "where p.diagnosa_awal like 'g%p%a' and kd_kamar not like 'BD%' and p.no_rawat = '" + norawat.getText() + "'");
         dokterranap = Sequel.cariIsi("select no_rawat from dpjp_ranap where no_rawat='" + norawat.getText() + "'");
-        cekPXbpjs = Sequel.cariInteger("select count(1) cek from bridging_sep where jnspelayanan='1' and no_rawat='" + norawat.getText() + "'");
+        cekPXbpjs = Sequel.cariInteger("select count(1) from bridging_sep where jnspelayanan='1' and no_rawat='" + norawat.getText() + "'");
         dpjpObgyn = Sequel.cariIsi("select s.kd_sps from dpjp_ranap dr inner join dokter d on d.kd_dokter=dr.kd_dokter "
-                + "inner join spesialis s on s.kd_sps=d.kd_sps where dr.no_rawat='" + norawat.getText() + "'");
+                + "inner join spesialis s on s.kd_sps=d.kd_sps where dr.no_rawat='" + norawat.getText() + "'");        
 
         if (cekKamar > 0) {
             if (cekDr > 0 || cekPr > 0 || cekDrPr > 0 || cekOperasi > 0) {
@@ -16838,5 +16881,97 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private void isNumber(String tgl) {
         noRwNew = "";
         noRwNew = Valid.autoNomer3("select ifnull(MAX(CONVERT(RIGHT(no_rawat,6),signed)),0) from reg_periksa where tgl_registrasi='" + tgl + "' ", tgl + "/", 6);
+    }
+    
+    private void dataPulangBPJS() {
+        kdSttsPlg = "";
+        tglJiun = "";        
+        desSttsPlg = "";
+        noSrtMati = "";
+        noLPJiun = "";
+        tglplgbpjs = "";
+        tglplgbpjs = CmbTahun.getSelectedItem() + "-" + CmbBln.getSelectedItem() + "-" + CmbTgl.getSelectedItem() + " " + cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem();
+        
+        if (cmbSttsPlg.getSelectedIndex() == 0 || cmbSttsPlg.getSelectedIndex() == 4) {
+            kdSttsPlg = "1";
+            desSttsPlg = "Atas Persetujuan Dokter";
+            tglJiun = "";
+            noSrtMati = "";
+        } else if (cmbSttsPlg.getSelectedIndex() == 1) {
+            kdSttsPlg = "3";
+            desSttsPlg = "Atas Permintaan Sendiri";
+            tglJiun = "";
+            noSrtMati = "";
+        } else if (cmbSttsPlg.getSelectedIndex() == 2 || cmbSttsPlg.getSelectedIndex() == 3) {
+            kdSttsPlg = "4";
+            desSttsPlg = "Meninggal";
+            tglJiun = Sequel.cariIsi("select tanggal from pasien_mati where no_rkm_medis='" + TNoRM.getText() + "'");
+            noSrtMati = Sequel.cariIsi("select ifnull(concat('474.3/',no_surat),'') from pasien_mati where no_rkm_medis='" + TNoRM.getText() + "' AND no_surat<>''");
+        } else if (cmbSttsPlg.getSelectedIndex() == 5) {
+            kdSttsPlg = "5";
+            desSttsPlg = "Lain-lain";
+            tglJiun = "";
+            noSrtMati = "";
+        }
+        
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+            headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+            headers.add("X-Timestamp", utc);
+            headers.add("X-Signature", api.getHmac(utc));
+            headers.add("user_key", koneksiDB.USERKEYAPIBPJS());
+            URL = prop.getProperty("URLAPIBPJS") + "/SEP/2.0/updtglplg";
+
+            requestJson = "{"
+                    + "\"request\":{"
+                    + "\"t_sep\":{"
+                    + "\"noSep\":\"" + Sequel.cariIsi("select no_sep from bridging_sep where no_rawat='" + norawat.getText() + "' and jnspelayanan='1'") + "\","
+                    + "\"statusPulang\":\"" + kdSttsPlg + "\","
+                    + "\"noSuratMeninggal\":\"" + noSrtMati + "\","
+                    + "\"tglMeninggal\":\"" + tglJiun + "\","
+                    + "\"tglPulang\":\"" + tglplgbpjs + "\","
+                    + "\"noLPManual\":\"" + noLPJiun + "\","
+                    + "\"user\":\"" + usernya + "\""
+                    + "}"
+                    + "}"
+                    + "}";
+
+            System.out.println("Ini mengirim : " + requestJson);
+            HttpEntity requestEntity = new HttpEntity(requestJson, headers);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.PUT, requestEntity, String.class).getBody());
+            JsonNode nameNode = root.path("metaData");
+            System.out.println("code : " + nameNode.path("code").asText());
+            System.out.println("message : " + nameNode.path("message").asText());
+//                JsonNode response = root.path("response");
+
+            if (nameNode.path("code").asText().equals("200")) {
+                Sequel.mengedit("bridging_sep", 
+                        "no_sep='" + Sequel.cariIsi("select no_sep from bridging_sep where no_rawat='" + norawat.getText() + "' and jnspelayanan='1'") + "'",
+                        "tglpulang='" + tglplgbpjs + "'");
+
+                Sequel.simpanReplaceInto("bridging_sep_tgl_pulang",
+                        "'" + Sequel.cariIsi("select no_sep from bridging_sep where no_rawat='" + norawat.getText() + "' and jnspelayanan='1'") + "','"
+                        + norawat.getText() + "','"
+                        + kdSttsPlg + "','"
+                        + desSttsPlg + "','"
+                        + noSrtMati + "','"
+                        + tglJiun + "','"
+                        + tglplgbpjs + "','"
+                        + noLPJiun + "','"
+                        + usernya + "'", "Menyimpan tanggal & status pulang");
+                             
+                System.out.println("Notifikasi WS VClaim 2.0 : Kode : " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText());
+            } else {
+                System.out.println("Notifikasi WS VClaim 2.0 : Kode : " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText());
+            }
+        } catch (Exception ex) {
+            System.out.println("Notifikasi Bridging : " + ex);
+            if (ex.toString().contains("UnknownHostException")) {
+                System.out.println("Koneksi ke server BPJS terputus...!");
+            }
+        }
     }
 }
