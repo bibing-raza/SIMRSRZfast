@@ -56,8 +56,10 @@ import permintaan.DlgPermintaanLaboratorium;
 import permintaan.DlgPermintaanRadiologi;
 import rekammedis.RMPenilaianAwalKeperawatanKebidanan;
 import rekammedis.RMPenilaianAwalKeperawatanRalan;
+import rekammedis.RMPenilaianAwalMedisRalanGeriatri;
 import rekammedis.RMPenilaianAwalMedisRalanKandungan;
 import rekammedis.RMPenilaianAwalMedisRalanTHT;
+import rekammedis.RMPenilaianTambahanGeriatri;
 
 /**
  *
@@ -1116,6 +1118,8 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         MnHapusPeriksaRadiologi = new javax.swing.JMenuItem();
         MnRekamMedis = new javax.swing.JMenu();
         MnPenilaianAwalKeperawatanRalan = new javax.swing.JMenuItem();
+        MnPenilaianTambahanGeriatri = new javax.swing.JMenuItem();
+        MnPenilaianAwalMedisRalanGeriatri = new javax.swing.JMenuItem();
         MnPenilaianAwalKeperawatanKebidanan = new javax.swing.JMenuItem();
         MnPenilaianAwalMedisKebidananRalan = new javax.swing.JMenuItem();
         MnPenilaianAwalMedisRalanTHT = new javax.swing.JMenuItem();
@@ -1621,6 +1625,40 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             }
         });
         MnRekamMedis.add(MnPenilaianAwalKeperawatanRalan);
+
+        MnPenilaianTambahanGeriatri.setBackground(new java.awt.Color(255, 255, 254));
+        MnPenilaianTambahanGeriatri.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnPenilaianTambahanGeriatri.setForeground(new java.awt.Color(50, 50, 50));
+        MnPenilaianTambahanGeriatri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnPenilaianTambahanGeriatri.setText("Penilaian Tambahan Pasien Geriatri");
+        MnPenilaianTambahanGeriatri.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnPenilaianTambahanGeriatri.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnPenilaianTambahanGeriatri.setIconTextGap(5);
+        MnPenilaianTambahanGeriatri.setName("MnPenilaianTambahanGeriatri"); // NOI18N
+        MnPenilaianTambahanGeriatri.setPreferredSize(new java.awt.Dimension(300, 26));
+        MnPenilaianTambahanGeriatri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnPenilaianTambahanGeriatriActionPerformed(evt);
+            }
+        });
+        MnRekamMedis.add(MnPenilaianTambahanGeriatri);
+
+        MnPenilaianAwalMedisRalanGeriatri.setBackground(new java.awt.Color(255, 255, 254));
+        MnPenilaianAwalMedisRalanGeriatri.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnPenilaianAwalMedisRalanGeriatri.setForeground(new java.awt.Color(50, 50, 50));
+        MnPenilaianAwalMedisRalanGeriatri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnPenilaianAwalMedisRalanGeriatri.setText("Penilaian Awal Medis Geriatri");
+        MnPenilaianAwalMedisRalanGeriatri.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnPenilaianAwalMedisRalanGeriatri.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnPenilaianAwalMedisRalanGeriatri.setIconTextGap(5);
+        MnPenilaianAwalMedisRalanGeriatri.setName("MnPenilaianAwalMedisRalanGeriatri"); // NOI18N
+        MnPenilaianAwalMedisRalanGeriatri.setPreferredSize(new java.awt.Dimension(300, 26));
+        MnPenilaianAwalMedisRalanGeriatri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnPenilaianAwalMedisRalanGeriatriActionPerformed(evt);
+            }
+        });
+        MnRekamMedis.add(MnPenilaianAwalMedisRalanGeriatri);
 
         MnPenilaianAwalKeperawatanKebidanan.setBackground(new java.awt.Color(255, 255, 254));
         MnPenilaianAwalKeperawatanKebidanan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -2487,7 +2525,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         });
 
         TglKunRwt.setEditable(false);
-        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-10-2022" }));
+        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-11-2022" }));
         TglKunRwt.setDisplayFormat("dd-MM-yyyy");
         TglKunRwt.setName("TglKunRwt"); // NOI18N
         TglKunRwt.setOpaque(false);
@@ -2703,7 +2741,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass9.add(ChkTanggal);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-10-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-11-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2718,7 +2756,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-10-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-11-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -4587,7 +4625,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel23.setBounds(645, 34, 60, 23);
 
         DTPTgl.setEditable(false);
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-10-2022" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-11-2022" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -7494,6 +7532,47 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             }
         }        
     }//GEN-LAST:event_ChkPrmrjActionPerformed
+
+    private void MnPenilaianAwalMedisRalanGeriatriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPenilaianAwalMedisRalanGeriatriActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu dengan menklik data pada tabel...!!!");
+            TCari.requestFocus();
+        } else if (!polinya.equals("006")) {
+            JOptionPane.showMessageDialog(null, "Fitur ini hanya untuk pasien yg. terdaftar dipoliklinik Geriatri...!!!");
+            TCari.requestFocus();
+        } else {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            RMPenilaianAwalMedisRalanGeriatri form = new RMPenilaianAwalMedisRalanGeriatri(null, false);
+            form.isCek();
+            form.emptTeks();
+            form.setNoRm(TNoRw.getText(), DTPCari2.getDate(), KdDok.getText(), TDokter.getText());
+            form.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+            form.setLocationRelativeTo(internalFrame1);
+            form.setVisible(true);
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_MnPenilaianAwalMedisRalanGeriatriActionPerformed
+
+    private void MnPenilaianTambahanGeriatriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPenilaianTambahanGeriatriActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu dengan menklik data pada tabel...!!!");
+            TCari.requestFocus();
+        } else if (!polinya.equals("006")) {
+            JOptionPane.showMessageDialog(null, "Fitur ini hanya untuk pasien yg. terdaftar dipoliklinik Geriatri...!!!");
+            TCari.requestFocus();
+        } else {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            RMPenilaianTambahanGeriatri form = new RMPenilaianTambahanGeriatri(null, false);
+            form.isCek();
+            form.emptTeks();
+            form.setNoRm(TNoRw.getText(), DTPCari2.getDate(), KdDok.getText(), TDokter.getText());
+            form.tampil();
+            form.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+            form.setLocationRelativeTo(internalFrame1);
+            form.setVisible(true);
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_MnPenilaianTambahanGeriatriActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -7582,7 +7661,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private javax.swing.JMenuItem MnPenilaianAwalKeperawatanKebidanan;
     private javax.swing.JMenuItem MnPenilaianAwalKeperawatanRalan;
     private javax.swing.JMenuItem MnPenilaianAwalMedisKebidananRalan;
+    private javax.swing.JMenuItem MnPenilaianAwalMedisRalanGeriatri;
     private javax.swing.JMenuItem MnPenilaianAwalMedisRalanTHT;
+    private javax.swing.JMenuItem MnPenilaianTambahanGeriatri;
     private javax.swing.JMenuItem MnPeriksaRadiologi;
     private javax.swing.JMenuItem MnPermintaanLab;
     private javax.swing.JMenu MnPermintaanPenunjang;
@@ -8094,6 +8175,8 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         MnPenilaianAwalMedisKebidananRalan.setEnabled(akses.getpenilaian_awal_medis_ralan_kebidanan());
         MnPenilaianAwalKeperawatanKebidanan.setEnabled(akses.getpenilaian_awal_keperawatan_kebidanan());
         MnPenilaianAwalMedisRalanTHT.setEnabled(akses.getpenilaian_awal_medis_ralan_tht());  
+        MnPenilaianAwalMedisRalanGeriatri.setEnabled(akses.getpenilaian_pasien_geriatri()); 
+        MnPenilaianTambahanGeriatri.setEnabled(akses.getpenilaian_pasien_geriatri()); 
         
         MnStatusPasienPerKunjungan.setEnabled(akses.getpenilaian_awal_keperawatan_ralan());
         MnStatusPasienAllKunjungan.setEnabled(akses.getpenilaian_awal_keperawatan_ralan());

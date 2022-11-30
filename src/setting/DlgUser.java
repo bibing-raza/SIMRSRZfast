@@ -117,7 +117,8 @@ public class DlgUser extends javax.swing.JDialog {
                     "[K]Bridging Eklaim INACBG RAZA","[K]Pengajuan Klaim INACBG RAZA","[A]Copy Pemeriksaan Dokter Ke Perawat/Bidan","[K]INACBG JKN Belum Diklaim","[L]Input Kode ICD",
                     "[L]Indikator Mutu Unit","[K]Kendali Mutu Kendali Biaya INACBG","[D]Dashboard e-Resep","[K]Cek SEP Internal BPJS","[K]Kemenkes SITB","[K]Rencana Kontrol JKN","[K]SPRI JKN",
                     "[K]Hapus SEP","[L]Penilaian Awal Medis Kebidanan & Kandungan Ralan","[L]Penilaian Awal Keperawatan Kebidanan Ralan","[L]Ikhtisar Perawatan HIV & Terapi ART",
-                    "[L]Survey Kepuasan","[K]Kemenkes Kanker","[O]Set Bridging","[O]Operator Antrian","[L]Penilaian Awal Medis Ralan THT","[I]Rekam Psikologis"
+                    "[L]Survey Kepuasan","[K]Kemenkes Kanker","[O]Set Bridging","[O]Operator Antrian","[L]Penilaian Awal Medis Ralan THT","[I]Rekam Psikologis",
+                    "[L]Penilaian Awal Medis & Tambahan Pasien Geriatri"
         };
         
         tabMode=new DefaultTableModel(null,row){
@@ -224,7 +225,7 @@ public class DlgUser extends javax.swing.JDialog {
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class,
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class,
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class,
-                java.lang.Boolean.class
+                java.lang.Boolean.class, java.lang.Boolean.class
              };
              @Override
              public Class getColumnClass(int columnIndex) {
@@ -236,7 +237,7 @@ public class DlgUser extends javax.swing.JDialog {
         tbUser.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbUser.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 372; i++) {
+        for (i = 0; i < 373; i++) {
             TableColumn column = tbUser.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(130);
@@ -616,6 +617,8 @@ public class DlgUser extends javax.swing.JDialog {
                 column.setPreferredWidth(170);
             } else if (i == 371) {
                 column.setPreferredWidth(100);
+            } else if (i == 372) {
+                column.setPreferredWidth(270);
             } else {
                 column.setPreferredWidth(130);
             }
@@ -1431,7 +1434,7 @@ public class DlgUser extends javax.swing.JDialog {
                     + "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false',"
                     + "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false',"
                     + "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false',"
-                    + "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false'", "User") == true) {
+                    + "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false'", "User") == true) {
                 tampil();
                 emptTeks();
             }
@@ -1447,13 +1450,13 @@ public class DlgUser extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnSimpanKeyPressed
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
-        if(tabMode.getRowCount()==0){
-            JOptionPane.showMessageDialog(null,"Maaf, data sudah habis...!!!!");
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, data sudah habis...!!!!");
             TKd.requestFocus();
-        }else if(TPass.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(null,"Maaf, Gagal menghapus. Pilih dulu data yang mau dihapus. Klik data pada tabel untuk memilih...!!!!");
-        }else if(! TPass.getText().trim().equals("")){
-            Sequel.queryu("delete from user where id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')");
+        } else if (TPass.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Gagal menghapus. Pilih dulu data yang mau dihapus. Klik data pada tabel untuk memilih...!!!!");
+        } else if (!TPass.getText().trim().equals("")) {
+            Sequel.queryu("delete from user where id_user=AES_ENCRYPT('" + TKd.getText() + "','nur')");
             tampil();
             emptTeks();
         }
@@ -1845,7 +1848,8 @@ public class DlgUser extends javax.swing.JDialog {
                         + "aktivasi_bridging='" + tbUser.getValueAt(i, 368).toString() + "',"
                         + "operator_antrian='" + tbUser.getValueAt(i, 369).toString() + "',"
                         + "penilaian_awal_medis_ralan_tht='" + tbUser.getValueAt(i, 370).toString() + "',"
-                        + "rekam_psikologis='" + tbUser.getValueAt(i, 371).toString() + "'");
+                        + "rekam_psikologis='" + tbUser.getValueAt(i, 371).toString() + "',"
+                        + "penilaian_pasien_geriatri='" + tbUser.getValueAt(i, 372).toString() + "'");
             }
             tampil();
             emptTeks();
@@ -2374,7 +2378,7 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                     + "pengajuan_klaim_inacbg_raza,copy_pemeriksaan_dokter_kepetugas_ralan,jkn_belum_diproses_klaim,input_kode_icd,indikator_mutu_unit,"
                     + "kendali_Mutu_kendali_Biaya_INACBG,dashboard_eResep,bpjs_sep_internal,kemenkes_sitt,rencana_kontrol_jkn,spri_jkn,hapus_sep,"
                     + "penilaian_awal_medis_ralan_kebidanan,penilaian_awal_keperawatan_kebidanan,ikhtisar_perawatan_hiv,survey_kepuasan,kemenkes_kanker,"
-                    + "aktivasi_bridging,operator_antrian,penilaian_awal_medis_ralan_tht,rekam_psikologis from user order by AES_DECRYPT(id_user,'nur')");
+                    + "aktivasi_bridging,operator_antrian,penilaian_awal_medis_ralan_tht,rekam_psikologis,penilaian_pasien_geriatri from user order by AES_DECRYPT(id_user,'nur')");
             try {
                 rs=ps.executeQuery();
                 while(rs.next()){
@@ -2757,7 +2761,8 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                 rs.getBoolean("aktivasi_bridging"),
                                 rs.getBoolean("operator_antrian"),
                                 rs.getBoolean("penilaian_awal_medis_ralan_tht"),
-                                rs.getBoolean("rekam_psikologis")
+                                rs.getBoolean("rekam_psikologis"),
+                                rs.getBoolean("penilaian_pasien_geriatri")
                             });
                         }
                     } catch (Exception e) {
@@ -3130,7 +3135,8 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                             rs.getBoolean("aktivasi_bridging"),
                             rs.getBoolean("operator_antrian"),
                             rs.getBoolean("penilaian_awal_medis_ralan_tht"),
-                            rs.getBoolean("rekam_psikologis")
+                            rs.getBoolean("rekam_psikologis"),
+                            rs.getBoolean("penilaian_pasien_geriatri")
                         });
                     }                                             
                  }

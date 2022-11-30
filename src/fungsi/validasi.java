@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -88,6 +89,8 @@ import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import widget.ComboBox;
+import widget.TextArea;
 
 /**
  *
@@ -111,19 +114,18 @@ public final class validasi {
     private final int year = (now.get(Calendar.YEAR));
     private static final Properties prop = new Properties();
     private final sekuel Sequel = new sekuel();
-    private static String cekNmPrwtn = "", cekNmPtgs = "", cekKdPtgs = "", cek_string = "";
+    private static String cekNmPrwtn = "", cekNmPtgs = "", cekKdPtgs = "", cek_string = "", ipPrint = "";
 
     public validasi() {
         super();
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
             PEMBULATANHARGAOBAT = prop.getProperty("PEMBULATANHARGAOBAT");
+            ipPrint = prop.getProperty("IPPRINTER");
         } catch (Exception e) {
             PEMBULATANHARGAOBAT = "no";
         }
-    }
-
-    ;
+    };
 
     public void autoNomer(DefaultTableModel tabMode, String strAwal, Integer pnj, javax.swing.JTextField teks) {
         s = Integer.toString(tabMode.getRowCount() + 1);
@@ -1105,6 +1107,14 @@ public final class validasi {
             kiri.requestFocus();
         }
     }
+    
+    public void pindah2(KeyEvent evt, TextArea kiri, ComboBox kanan) {
+        if (evt.getKeyCode() == KeyEvent.VK_TAB) {
+            kanan.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
+            kiri.requestFocus();
+        }
+    }
 
     public void pindah(java.awt.event.KeyEvent evt, JComboBox kiri, JComboBox kanan) {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -1870,6 +1880,13 @@ public final class validasi {
         String[] subRptDir = fullPath.split(reportName);
         String reportDir = subRptDir[0];
         try {
+            InetAddress iAddress = InetAddress.getLocalHost();
+                String currentIp = iAddress.getHostAddress();
+                
+                if(!currentIp.equals(ipPrint)){
+                   printernama =  "\\\\"+ipPrint+"\\"+printernama;
+                }
+                
             ps = connect.prepareStatement(qry);
             try {
                 String namafile = "./" + reportDirName + "/" + reportName;

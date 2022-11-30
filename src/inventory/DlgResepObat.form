@@ -228,7 +228,6 @@
                 </LineBorder>
               </Border>
               <Font PropertyName="font" name="Tahoma" size="12" style="1"/>
-              <Color PropertyName="color" blue="0" green="0" red="0" type="rgb"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -452,7 +451,7 @@
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
-                        <StringItem index="0" value="24-11-2022"/>
+                        <StringItem index="0" value="30-11-2022"/>
                       </StringArray>
                     </Property>
                     <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -815,7 +814,6 @@
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                         <TitledBorder title=":: Tagihan Biaya Resep Obat ::">
                           <Font PropertyName="font" name="Tahoma" size="13" style="0"/>
-                          <Color PropertyName="color" blue="0" green="0" red="0" type="rgb"/>
                         </TitledBorder>
                       </Border>
                     </Property>
@@ -1102,7 +1100,7 @@
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
-                        <StringItem index="0" value="24-11-2022"/>
+                        <StringItem index="0" value="30-11-2022"/>
                       </StringArray>
                     </Property>
                     <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -1131,7 +1129,7 @@
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
-                        <StringItem index="0" value="24-11-2022"/>
+                        <StringItem index="0" value="30-11-2022"/>
                       </StringArray>
                     </Property>
                     <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>

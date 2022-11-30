@@ -836,13 +836,13 @@ public class DlgKamarInap extends javax.swing.JDialog {
             if (akses.getkode().equals("Admin Utama")) {
                 usernya = "AdminUtama";
             } else {
-                usernya = akses.getnamauser().replace(" ", "").substring(0, 10);
+                usernya = akses.getkode();
             }
         } catch (Exception e) {
             if (akses.getkode().equals("Admin Utama")) {
                 usernya = "AdminUtama";
             } else {
-                usernya = akses.getnamauser();
+                usernya = akses.getkode();
             }
         }
         userLap();

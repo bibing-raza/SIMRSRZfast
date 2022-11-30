@@ -54,7 +54,7 @@ public final class DlgCariObat2 extends javax.swing.JDialog {
     private ResultSet rsobat, carikapasitas, rsstok, rsrekening;
     private Jurnal jur = new Jurnal();
     private double x = 0, y = 0, embalase, kenaikan, tuslah, stokbarang, ttlhpp, ttljual, stokbarang2;
-    private int jml = 0, i = 0;
+    private int jml = 0, i = 0, urut = 0;
     private boolean[] pilih;
     private double[] jumlah, harga, eb, ts, stok, beli;
     private String[] kodebarang, namabarang, kodesatuan, letakbarang, namajenis, industri, aturan, kategori, golongan;
@@ -864,6 +864,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             koneksi.setAutoCommit(false);
             ttlhpp = 0;
             ttljual = 0;
+            urut = 0;
             for (i = 0; i < tbObat.getRowCount(); i++) {
                 if (Valid.SetAngka(tbObat.getValueAt(i, 1).toString()) > 0) {
                     if ((tbObat.getValueAt(i, 1).toString()) == null || (tbObat.getValueAt(i, 1).toString()).equals("")) {
@@ -883,7 +884,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                         tbObat.setValueAt("", tbObat.getSelectedRow(), 1);
                         ppBersihkanActionPerformed(evt);
                     } else {
-
+                        urut++;
                         if (tbObat.getValueAt(i, 0).toString().equals("true")) {
                             pscarikapasitas = koneksi.prepareStatement("select IFNULL(kapasitas,1) from databarang where kode_brng=?");
                             try {
@@ -896,12 +897,12 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 //                                        tbObat.getValueAt(i, 8).toString(), tbObat.getValueAt(i, 9).toString(), "" + Valid.SetAngka2(Double.parseDouble(tbObat.getValueAt(i, 8).toString())
 //                                        + Double.parseDouble(tbObat.getValueAt(i, 9).toString()) + (Double.parseDouble(tbObat.getValueAt(i, 6).toString())
 //                                        * (Double.parseDouble(tbObat.getValueAt(i, 1).toString()) / carikapasitas.getDouble(1)))), "Ranap", bangsal
-                                    if (Sequel.menyimpantf2("detail_pemberian_obat", "?,?,?,?,?,?,?,?,?,?,?,?,?,?", "data", 14, new String[]{
+                                    if (Sequel.menyimpantf2("detail_pemberian_obat", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "data", 15, new String[]{
                                         Valid.SetTgl(DTPTgl.getSelectedItem() + ""), cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem(), TNoRw.getText(), tbObat.getValueAt(i, 2).toString(), tbObat.getValueAt(i, 12).toString(),
                                         tbObat.getValueAt(i, 6).toString(), "" + (Double.parseDouble(tbObat.getValueAt(i, 1).toString()) / carikapasitas.getDouble(1)),
                                         tbObat.getValueAt(i, 8).toString(), tbObat.getValueAt(i, 9).toString(), "" + (Double.parseDouble(tbObat.getValueAt(i, 8).toString())
                                         + Double.parseDouble(tbObat.getValueAt(i, 9).toString()) + (Double.parseDouble(tbObat.getValueAt(i, 6).toString())
-                                        * (Double.parseDouble(tbObat.getValueAt(i, 1).toString()) / carikapasitas.getDouble(1)))), "Ranap", bangsal, "Belum", "-"
+                                        * (Double.parseDouble(tbObat.getValueAt(i, 1).toString()) / carikapasitas.getDouble(1)))), "Ranap", bangsal, "Belum", "-",String.valueOf(urut)
                                     }) == true) {
                                         isRawat();
                                         ttljual = ttljual + Double.parseDouble(tbObat.getValueAt(i, 8).toString())
@@ -924,12 +925,12 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 //                                        tbObat.getValueAt(i, 8).toString(), tbObat.getValueAt(i, 9).toString(), "" + (Double.parseDouble(tbObat.getValueAt(i, 8).toString())
 //                                        + Double.parseDouble(tbObat.getValueAt(i, 9).toString()) + (Double.parseDouble(tbObat.getValueAt(i, 6).toString())
 //                                        * Double.parseDouble(tbObat.getValueAt(i, 1).toString()))), "Ranap", bangsal
-                                    if (Sequel.menyimpantf("detail_pemberian_obat", "?,?,?,?,?,?,?,?,?,?,?,?,?,?", "data", 14, new String[]{
+                                    if (Sequel.menyimpantf("detail_pemberian_obat", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "data", 15, new String[]{
                                         Valid.SetTgl(DTPTgl.getSelectedItem() + ""), cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem(), TNoRw.getText(), tbObat.getValueAt(i, 2).toString(), tbObat.getValueAt(i, 12).toString(),
                                         tbObat.getValueAt(i, 6).toString(), "" + Double.parseDouble(tbObat.getValueAt(i, 1).toString()),
                                         tbObat.getValueAt(i, 8).toString(), tbObat.getValueAt(i, 9).toString(), "" + (Double.parseDouble(tbObat.getValueAt(i, 8).toString())
                                         + Double.parseDouble(tbObat.getValueAt(i, 9).toString()) + (Double.parseDouble(tbObat.getValueAt(i, 6).toString())
-                                        * Double.parseDouble(tbObat.getValueAt(i, 1).toString()))), "Ranap", bangsal, "Belum", "-"
+                                        * Double.parseDouble(tbObat.getValueAt(i, 1).toString()))), "Ranap", bangsal, "Belum", "-",String.valueOf(urut)
                                     }) == true) {
                                         isRawat();
                                         ttljual = ttljual + Double.parseDouble(tbObat.getValueAt(i, 8).toString())
@@ -960,12 +961,12 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 //                                tbObat.getValueAt(i, 8).toString(), tbObat.getValueAt(i, 9).toString(), "" + (Double.parseDouble(tbObat.getValueAt(i, 8).toString())
 //                                + Double.parseDouble(tbObat.getValueAt(i, 9).toString()) + (Double.parseDouble(tbObat.getValueAt(i, 6).toString())
 //                                * Double.parseDouble(tbObat.getValueAt(i, 1).toString()))), "Ranap", bangsal
-                            if (Sequel.menyimpantf("detail_pemberian_obat", "?,?,?,?,?,?,?,?,?,?,?,?,?,?", "data", 14, new String[]{
+                            if (Sequel.menyimpantf("detail_pemberian_obat", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "data", 15, new String[]{
                                 Valid.SetTgl(DTPTgl.getSelectedItem() + ""), cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem(), TNoRw.getText(), tbObat.getValueAt(i, 2).toString(), tbObat.getValueAt(i, 12).toString(),
                                 tbObat.getValueAt(i, 6).toString(), "" + Double.parseDouble(tbObat.getValueAt(i, 1).toString()),
                                 tbObat.getValueAt(i, 8).toString(), tbObat.getValueAt(i, 9).toString(), "" + (Double.parseDouble(tbObat.getValueAt(i, 8).toString())
                                 + Double.parseDouble(tbObat.getValueAt(i, 9).toString()) + (Double.parseDouble(tbObat.getValueAt(i, 6).toString())
-                                * Double.parseDouble(tbObat.getValueAt(i, 1).toString()))), "Ranap", bangsal, "Belum", "-"
+                                * Double.parseDouble(tbObat.getValueAt(i, 1).toString()))), "Ranap", bangsal, "Belum", "-",String.valueOf(urut)
                             }) == true) {
                                 isRawat();
                                 ttljual = ttljual + Valid.roundUp(Double.parseDouble(tbObat.getValueAt(i, 8).toString())

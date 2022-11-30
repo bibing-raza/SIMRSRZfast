@@ -64,4 +64,5 @@
 	<entry key="PASSKANKER">password rs kanker dienkrip dulu</entry>
 	<entry key="NAMAPRINTER1">POS-80C</entry>
 	<entry key="NAMAPRINTER2">EPSON L120 Series</entry>
+	<entry key="IPPRINTER">diisi dengan ip printer sharing, contoh penulisanya langsung ketik ip nya 192.168.0.154</entry>
 </properties>

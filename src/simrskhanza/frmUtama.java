@@ -342,8 +342,10 @@ import rekammedis.MasterTriaseSkala4;
 import rekammedis.MasterTriaseSkala5;
 import rekammedis.RMPenilaianAwalKeperawatanKebidanan;
 import rekammedis.RMPenilaianAwalKeperawatanRalan;
+import rekammedis.RMPenilaianAwalMedisRalanGeriatri;
 import rekammedis.RMPenilaianAwalMedisRalanKandungan;
 import rekammedis.RMPenilaianAwalMedisRalanTHT;
+import rekammedis.RMPenilaianTambahanGeriatri;
 import rekammedis.RMTriaseIGD;
 import setting.DlgClosingKasir;
 import setting.DlgSetBridging;
@@ -896,6 +898,8 @@ public class frmUtama extends javax.swing.JFrame {
         btnMasterAturanPakai = new widget.ButtonBig();
         btnMasterKasusPersalinanDinkes = new widget.ButtonBig();
         btnKasusPersalinanDinkes = new widget.ButtonBig();
+        btnPenilaianTambahanGeriatri = new widget.ButtonBig();
+        btnPenilaianAwalMedisRalanGeriatri = new widget.ButtonBig();
         tanggal = new widget.Tanggal();
         btnDataPenjualan = new widget.ButtonBig();
         btnInputPenjualan = new widget.ButtonBig();
@@ -6019,6 +6023,32 @@ public class frmUtama extends javax.swing.JFrame {
         });
         Panelmenu.add(btnKasusPersalinanDinkes);
 
+        btnPenilaianTambahanGeriatri.setForeground(new java.awt.Color(0, 0, 0));
+        btnPenilaianTambahanGeriatri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/6141440_boy_man_old_people_elderly and kid_icon.png"))); // NOI18N
+        btnPenilaianTambahanGeriatri.setText("Penilaian Tambahan Pasien Geriatri");
+        btnPenilaianTambahanGeriatri.setIconTextGap(0);
+        btnPenilaianTambahanGeriatri.setName("btnPenilaianTambahanGeriatri"); // NOI18N
+        btnPenilaianTambahanGeriatri.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnPenilaianTambahanGeriatri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPenilaianTambahanGeriatriActionPerformed(evt);
+            }
+        });
+        Panelmenu.add(btnPenilaianTambahanGeriatri);
+
+        btnPenilaianAwalMedisRalanGeriatri.setForeground(new java.awt.Color(0, 0, 0));
+        btnPenilaianAwalMedisRalanGeriatri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/5964799_ill_old man_patient_sick_sore throat_icon.png"))); // NOI18N
+        btnPenilaianAwalMedisRalanGeriatri.setText("Awal Medis Ralan Geriatri");
+        btnPenilaianAwalMedisRalanGeriatri.setIconTextGap(0);
+        btnPenilaianAwalMedisRalanGeriatri.setName("btnPenilaianAwalMedisRalanGeriatri"); // NOI18N
+        btnPenilaianAwalMedisRalanGeriatri.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnPenilaianAwalMedisRalanGeriatri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPenilaianAwalMedisRalanGeriatriActionPerformed(evt);
+            }
+        });
+        Panelmenu.add(btnPenilaianAwalMedisRalanGeriatri);
+
         scrollPane2.setViewportView(Panelmenu);
 
         panelMenu.add(scrollPane2, java.awt.BorderLayout.CENTER);
@@ -6027,7 +6057,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22/11/2022" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29/11/2022" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -12309,6 +12339,34 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnKasusPersalinanDinkesActionPerformed
 
+    private void btnPenilaianTambahanGeriatriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPenilaianTambahanGeriatriActionPerformed
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        RMPenilaianTambahanGeriatri aplikasi = new RMPenilaianTambahanGeriatri(this, false);
+        aplikasi.isCek();
+        aplikasi.emptTeks();
+        aplikasi.setTampil();
+        aplikasi.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        aplikasi.setLocationRelativeTo(PanelUtama);
+        aplikasi.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnPenilaianTambahanGeriatriActionPerformed
+
+    private void btnPenilaianAwalMedisRalanGeriatriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPenilaianAwalMedisRalanGeriatriActionPerformed
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        RMPenilaianAwalMedisRalanGeriatri aplikasi = new RMPenilaianAwalMedisRalanGeriatri(this, false);
+        aplikasi.isCek();
+        aplikasi.emptTeks();
+        aplikasi.setTampil();
+        aplikasi.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        aplikasi.setLocationRelativeTo(PanelUtama);
+        aplikasi.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnPenilaianAwalMedisRalanGeriatriActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -12588,7 +12646,9 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnPenilaianAwalKeperawatanKebidananRalan;
     private widget.ButtonBig btnPenilaianAwalKeperawatanRalan;
     private widget.ButtonBig btnPenilaianAwalMedisKebidananRalan;
+    private widget.ButtonBig btnPenilaianAwalMedisRalanGeriatri;
     private widget.ButtonBig btnPenilaianAwalMedisRalanTHT;
+    private widget.ButtonBig btnPenilaianTambahanGeriatri;
     private widget.ButtonBig btnPenjualan;
     private widget.ButtonBig btnPenjualanPerTanggal;
     private widget.ButtonBig btnPenyakitPD3I;
@@ -14420,6 +14480,16 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 Panelmenu.add(btnMutasiBerkas);
                 jmlmenu++;
             }
+            
+            if (akses.getpenilaian_pasien_geriatri() == true) {
+                Panelmenu.add(btnPenilaianTambahanGeriatri);
+                jmlmenu++;
+            }
+            
+            if (akses.getpenilaian_pasien_geriatri() == true) {
+                Panelmenu.add(btnPenilaianAwalMedisRalanGeriatri);
+                jmlmenu++;
+            }
 
             if (akses.getberkas_digital_perawatan() == true) {
                 Panelmenu.add(btnBerkasDigitalPerawatan);
@@ -14860,6 +14930,16 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
 
         if (akses.getikhtisar_perawatan_hiv() == true) {
             Panelmenu.add(btnIkhtisarPerawatanHIV);
+            jmlmenu++;
+        }
+        
+        if (akses.getpenilaian_pasien_geriatri() == true) {
+            Panelmenu.add(btnPenilaianTambahanGeriatri);
+            jmlmenu++;
+        }
+        
+        if (akses.getpenilaian_pasien_geriatri() == true) {
+            Panelmenu.add(btnPenilaianAwalMedisRalanGeriatri);
             jmlmenu++;
         }
 
@@ -16667,6 +16747,20 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         if (akses.getadmin() == true) {
             if (btnMasterAturanPakai.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
                 Panelmenu.add(btnMasterAturanPakai);
+                jmlmenu++;
+            }
+        }
+        
+        if (akses.getpenilaian_pasien_geriatri() == true) {
+            if (btnPenilaianTambahanGeriatri.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnPenilaianTambahanGeriatri);
+                jmlmenu++;
+            }
+        }
+        
+        if (akses.getpenilaian_pasien_geriatri() == true) {
+            if (btnPenilaianAwalMedisRalanGeriatri.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnPenilaianAwalMedisRalanGeriatri);
                 jmlmenu++;
             }
         }

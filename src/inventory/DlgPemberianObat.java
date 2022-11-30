@@ -636,6 +636,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
         BtnSimpan.setMnemonic('S');
         BtnSimpan.setText("Simpan");
         BtnSimpan.setToolTipText("Alt+S");
+        BtnSimpan.setEnabled(false);
         BtnSimpan.setName("BtnSimpan"); // NOI18N
         BtnSimpan.setPreferredSize(new java.awt.Dimension(100, 30));
         BtnSimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -791,7 +792,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
         panelGlass9.add(jLabel14);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-11-2019" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-11-2022" }));
         DTPCari1.setToolTipText("");
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
@@ -807,7 +808,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-11-2019" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-11-2022" }));
         DTPCari2.setToolTipText("");
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
@@ -991,7 +992,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
         jLabel9.setBounds(-2, 102, 80, 23);
 
         DTPBeri.setEditable(false);
-        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-11-2019" }));
+        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-11-2022" }));
         DTPBeri.setDisplayFormat("dd-MM-yyyy");
         DTPBeri.setName("DTPBeri"); // NOI18N
         DTPBeri.setOpaque(false);
@@ -2388,7 +2389,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         sql = "select detail_pemberian_obat.tgl_perawatan,detail_pemberian_obat.jam,"
                 + "detail_pemberian_obat.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,"
                 + "detail_pemberian_obat.kode_brng,databarang.nama_brng,detail_pemberian_obat.embalase,detail_pemberian_obat.tuslah,"
-                + "detail_pemberian_obat.jml,detail_pemberian_obat.biaya_obat,detail_pemberian_obat.total,detail_pemberian_obat.h_beli,bangsal.nm_bangsal  "
+                + "detail_pemberian_obat.jml,detail_pemberian_obat.biaya_obat,detail_pemberian_obat.total,detail_pemberian_obat.h_beli,bangsal.nm_bangsal,detail_pemberian_obat.urutan  "
                 + "from detail_pemberian_obat inner join reg_periksa inner join pasien inner join databarang "
                 + "on detail_pemberian_obat.no_rawat=reg_periksa.no_rawat "
                 + "and reg_periksa.no_rkm_medis=pasien.no_rkm_medis "
@@ -2407,7 +2408,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 + tgl + "and bangsal.nm_bangsal like ? "
                 + " union all "
                 + "select p.tgl_jual tgl_perawatan,'00:00:00' jam,'Penjualan Langsung' no_rawat,p.no_rkm_medis, p.nm_pasien,j.kode_brng, d.nama_brng, "
-                + "0 embalase, j.tambahan tuslah,j.jumlah jml,j.h_jual biaya_obat, j.total, j.h_beli, b.nm_bangsal "
+                + "0 embalase, j.tambahan tuslah,j.jumlah jml,j.h_jual biaya_obat, j.total, j.h_beli, b.nm_bangsal,'' as urutan "
                 + "from penjualan p "
                 + "inner join detailjual j on j.nota_jual = p.nota_jual "
                 + "inner join databarang d on d.kode_brng = j.kode_brng "
@@ -2417,7 +2418,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 + "p.tgl_jual BETWEEN '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' and p.nm_pasien like ? or "
                 + "p.tgl_jual BETWEEN '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' and d.nama_brng like ? or "
                 + "p.tgl_jual BETWEEN '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' and b.nm_bangsal like ? "
-                + "order by tgl_perawatan,jam";
+                + "order by tgl_perawatan,jam,urutan";
 
 //        sql = "select detail_pemberian_obat.tgl_perawatan,detail_pemberian_obat.jam,"
 //                + "detail_pemberian_obat.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,"
@@ -2567,7 +2568,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     }
 
     public void isCek() {
-        BtnSimpan.setEnabled(akses.getberi_obat());
+//        BtnSimpan.setEnabled(akses.getberi_obat());
         BtnHapus.setEnabled(akses.getberi_obat());
         BtnEdit.setEnabled(akses.getberi_obat());
         BtnPrint.setEnabled(akses.getberi_obat());

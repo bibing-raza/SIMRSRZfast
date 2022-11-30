@@ -80,7 +80,7 @@ public final class akses {
             copy_pemeriksaan_dokter_kepetugas_ralan = false, jkn_belum_diproses_klaim = false, input_kode_icd = false, kendali_Mutu_kendali_Biaya_INACBG = false, dashboard_eResep = false, bpjs_sep_internal = false,
             kemenkes_sitt = false, rencana_kontrol_jkn = false, spri_jkn = false, hapus_sep = false, penilaian_awal_medis_ralan_kebidanan = false, penilaian_awal_keperawatan_kebidanan = false,
             ikhtisar_perawatan_hiv = false, survey_kepuasan = false, kemenkes_kanker = false, aktivasi_bridging = false, operator_antrian = false, penilaian_awal_medis_ralan_tht = false,
-            rekam_psikologis = false;
+            rekam_psikologis = false, penilaian_pasien_geriatri = false;
 
     public static void setData(String user, String pass) {
         try {
@@ -470,6 +470,7 @@ public final class akses {
                     akses.operator_antrian=true;
                     akses.penilaian_awal_medis_ralan_tht=true;
                     akses.rekam_psikologis=true;
+                    akses.penilaian_pasien_geriatri=true;
                 } else if (rs.getRow() >= 1) {
                     akses.kode = "Admin Utama";
                     akses.penyakit = true;
@@ -836,6 +837,7 @@ public final class akses {
                     akses.operator_antrian = true;
                     akses.penilaian_awal_medis_ralan_tht = true;
                     akses.rekam_psikologis = true;
+                    akses.penilaian_pasien_geriatri = true;
                 } else if (rs2.getRow() >= 1) {
                     rs2.beforeFirst();
                     rs2.next();
@@ -1205,6 +1207,7 @@ public final class akses {
                     akses.operator_antrian = rs2.getBoolean("operator_antrian");
                     akses.penilaian_awal_medis_ralan_tht = rs2.getBoolean("penilaian_awal_medis_ralan_tht");
                     akses.rekam_psikologis = rs2.getBoolean("rekam_psikologis");
+                    akses.penilaian_pasien_geriatri = rs2.getBoolean("penilaian_pasien_geriatri");
                 } else if ((rs.getRow() == 0) && (rs2.getRow() == 0)) {
                     akses.kode = "";
                     akses.penyakit = false;
@@ -1572,6 +1575,7 @@ public final class akses {
                     akses.operator_antrian = false;
                     akses.penilaian_awal_medis_ralan_tht = false;
                     akses.rekam_psikologis = false;
+                    akses.penilaian_pasien_geriatri = false;
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : " + e);
@@ -2912,4 +2916,5 @@ public final class akses {
         public static boolean getOperator_antrian(){return akses.operator_antrian;}
         public static boolean getpenilaian_awal_medis_ralan_tht(){return akses.penilaian_awal_medis_ralan_tht;}
         public static boolean getrekam_psikologis(){return akses.rekam_psikologis;}
+        public static boolean getpenilaian_pasien_geriatri(){return akses.penilaian_pasien_geriatri;}
 }
