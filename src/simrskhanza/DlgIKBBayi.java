@@ -961,7 +961,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2022" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-12-2022" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -981,7 +981,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2022" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-12-2022" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -2110,7 +2110,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
 
         jns_penolong.setBackground(new java.awt.Color(248, 253, 243));
         jns_penolong.setForeground(new java.awt.Color(0, 0, 0));
-        jns_penolong.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Bidan", "Dokter Spesialis" }));
+        jns_penolong.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "-", "Bidan", "Dokter Spesialis" }));
         jns_penolong.setName("jns_penolong"); // NOI18N
         jns_penolong.setPreferredSize(new java.awt.Dimension(100, 23));
         jns_penolong.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2891,7 +2891,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         Valid.textKosong(jns_alamat, "jenis alamat");
     } else if (cara_lahir.getSelectedItem().equals(" ")) {
         Valid.textKosong(cara_lahir, "cara lahir");
-    } else if (jns_penolong.getSelectedItem().equals(" ")) {
+    } else if (jns_penolong.getSelectedIndex() == 0) {
         Valid.textKosong(jns_penolong, "jenis penolong");
     } else if (menit1.getSelectedItem().equals(" ")) {
         Valid.textKosong(menit1, "apgus score menit 1");
@@ -2961,7 +2961,7 @@ private void BtnEditActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRS
         Valid.textKosong(jns_alamat, "jenis alamat");
     } else if (cara_lahir.getSelectedItem().equals(" ")) {
         Valid.textKosong(cara_lahir, "cara lahir");
-    } else if (jns_penolong.getSelectedItem().equals(" ")) {
+    } else if (jns_penolong.getSelectedIndex() == 0) {
         Valid.textKosong(jns_penolong, "jenis penolong");
     } else if (menit1.getSelectedItem().equals(" ")) {
         Valid.textKosong(menit1, "apgus score menit 1");
@@ -3100,6 +3100,7 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         tampil();
+        autoSKL();
     }//GEN-LAST:event_formWindowOpened
 
     private void MnInformasiBayiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnInformasiBayiActionPerformed
@@ -3271,8 +3272,10 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 param.put("nippejabat", nip.getText());
                 param.put("nmpejabat", nmpejabat.getText());
                 if (jns_penolong.getSelectedIndex() == 1) {
-                    param.put("jnspenolong", "Bidan yang menolong");
+                    param.put("jnspenolong", "Dokter / Bidan yang menolong");
                 } else if (jns_penolong.getSelectedIndex() == 2) {
+                    param.put("jnspenolong", "Bidan yang menolong");
+                } else if (jns_penolong.getSelectedIndex() == 3) {
                     param.put("jnspenolong", "Dokter yang menolong");
                 }
                 
@@ -3304,8 +3307,10 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 param.put("nippejabat", nip.getText());
                 param.put("nmpejabat", nmpejabat.getText());
                 if (jns_penolong.getSelectedIndex() == 1) {
-                    param.put("jnspenolong", "Bidan yang menolong");
+                    param.put("jnspenolong", "Dokter / Bidan yang menolong");
                 } else if (jns_penolong.getSelectedIndex() == 2) {
+                    param.put("jnspenolong", "Bidan yang menolong");
+                } else if (jns_penolong.getSelectedIndex() == 3) {
                     param.put("jnspenolong", "Dokter yang menolong");
                 }
                 Valid.MyReport("rptSKL3.jasper", "report", "::[ Surat Kelahiran Bayi ]::",
@@ -3592,11 +3597,13 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             Nmibu.setText("");
             AlamatIbu.setText("-");
             UmurIbu.setText("");
+            jns_penolong.setSelectedIndex(1);
         } else {            
             NoRmIbu.setText("");
             Nmibu.setText("");
             AlamatIbu.setText("");
             UmurIbu.setText("");
+            jns_penolong.setSelectedIndex(0);
         }
     }//GEN-LAST:event_chkIbuActionPerformed
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="443" leftMargin="76" rightMargin="76" topMargin="76" bottomMargin="76">
-	<property name="ireport.zoom" value="1.5026296018031557"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="443" leftMargin="76" rightMargin="76" topMargin="76" bottomMargin="56">
+	<property name="ireport.zoom" value="1.3660269107301415"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="269"/>
+	<property name="ireport.y" value="330"/>
 	<parameter name="namars" class="java.lang.String"/>
 	<parameter name="alamatrs" class="java.lang.String"/>
 	<parameter name="kotars" class="java.lang.String"/>
@@ -18,6 +18,8 @@
 	<parameter name="penolong" class="java.lang.String"/>
 	<parameter name="umuribu" class="java.lang.String"/>
 	<parameter name="umurayah" class="java.lang.String"/>
+	<parameter name="nippejabat" class="java.lang.String"/>
+	<parameter name="nmpejabat" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select if(p.jk='L','Laki-laki','Perempuan') jk, concat(format(CONVERT(pb.berat_badan_benar,DOUBLE),0),' gram') bb, 
 pb.panjang_badan pb, TIME_FORMAT(pb.jam_lahir,'%H:%i') jamlahir, concat(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',nm_kab) almt, 
@@ -43,7 +45,7 @@ INNER JOIN kecamatan kc on kc.kd_kec=p.kd_kec INNER JOIN kabupaten kb on kb.kd_k
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<title>
-		<band height="690" splitType="Stretch">
+		<band height="710" splitType="Stretch">
 			<textField>
 				<reportElement x="129" y="287" width="314" height="14"/>
 				<textElement verticalAlignment="Top" lineSpacing="Single">
@@ -155,6 +157,24 @@ INNER JOIN kecamatan kc on kc.kd_kec=p.kd_kec INNER JOIN kabupaten kb on kb.kd_k
 					<font fontName="Tahoma" size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{tgllahir}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center">
+				<reportElement x="265" y="639" width="121" height="53"/>
+				<imageExpression class="java.lang.String"><![CDATA["setting/ttd_kabid_yanmed.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="230" y="692" width="209" height="14"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Tahoma" size="10" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["NIP. "+$P{nippejabat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="680" width="209" height="14"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Tahoma" size="10" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{nmpejabat}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

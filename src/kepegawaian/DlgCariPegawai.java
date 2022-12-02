@@ -115,7 +115,7 @@ public final class DlgCariPegawai extends javax.swing.JDialog {
                     + "stts_aktif in ('aktif','tenaga luar') and indexins like ? or "
                     + "stts_aktif in ('aktif','tenaga luar') and bpd like ? or "
                     + "stts_aktif in ('aktif','tenaga luar') and rekening like ? or "
-                    + "stts_aktif in ('aktif','tenaga luar') and no_ktp like ? order by id ASC");
+                    + "stts_aktif in ('aktif','tenaga luar') and no_ktp like ? order by nik");
         } catch (Exception e) {
             System.out.println(e);
         }
