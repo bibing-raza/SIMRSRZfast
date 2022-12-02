@@ -831,20 +831,6 @@ public class DlgKamarInap extends javax.swing.JDialog {
         } catch (Exception e) {
             diagnosaakhir.setEditable(false);
         }
-
-        try {
-            if (akses.getkode().equals("Admin Utama")) {
-                usernya = "AdminUtama";
-            } else {
-                usernya = akses.getkode();
-            }
-        } catch (Exception e) {
-            if (akses.getkode().equals("Admin Utama")) {
-                usernya = "AdminUtama";
-            } else {
-                usernya = akses.getkode();
-            }
-        }
         userLap();
     }
 
@@ -16889,7 +16875,9 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         noSrtMati = "";
         noLPJiun = "";
         tglplgbpjs = "";
-        tglplgbpjs = CmbTahun.getSelectedItem() + "-" + CmbBln.getSelectedItem() + "-" + CmbTgl.getSelectedItem() + " " + cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem();
+        usernya = "";
+        tglplgbpjs = CmbTahun.getSelectedItem() + "-" + CmbBln.getSelectedItem() + "-" + CmbTgl.getSelectedItem();
+        usernya = "user_" + akses.getkode();
         
         if (cmbSttsPlg.getSelectedIndex() == 0 || cmbSttsPlg.getSelectedIndex() == 4) {
             kdSttsPlg = "1";
@@ -16949,7 +16937,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             if (nameNode.path("code").asText().equals("200")) {
                 Sequel.mengedit("bridging_sep", 
                         "no_sep='" + Sequel.cariIsi("select no_sep from bridging_sep where no_rawat='" + norawat.getText() + "' and jnspelayanan='1'") + "'",
-                        "tglpulang='" + tglplgbpjs + "'");
+                        "tglpulang='" + tglplgbpjs + " " + cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem() + "'");
 
                 Sequel.simpanReplaceInto("bridging_sep_tgl_pulang",
                         "'" + Sequel.cariIsi("select no_sep from bridging_sep where no_rawat='" + norawat.getText() + "' and jnspelayanan='1'") + "','"
@@ -16958,7 +16946,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                         + desSttsPlg + "','"
                         + noSrtMati + "','"
                         + tglJiun + "','"
-                        + tglplgbpjs + "','"
+                        + tglplgbpjs + " " + cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem() + "','"
                         + noLPJiun + "','"
                         + usernya + "'", "Menyimpan tanggal & status pulang");
                              
