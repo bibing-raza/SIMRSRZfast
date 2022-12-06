@@ -6149,7 +6149,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                 x = JOptionPane.showConfirmDialog(rootPane, "Terakhir plg. rawat inap " + tglPulangInap + ". Apakah No. SEP nya akan dipakai utk. No. Rujukan kontrol rawat jalan..?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
                 if (x == JOptionPane.YES_OPTION) {
                     NoRujukan.setText(Sequel.cariIsi("select ifnull(no_sep,'no. sep tidak ditemukan') from bridging_sep where nomr='" + TNoRM.getText() + "' "
-                            + "and jnsPelayanan='1' and tglpulang<>'0000-00-00 00:00:00' order by tglsep desc limit 1"));
+                            + "and jnsPelayanan='1' order by tglsep desc limit 1"));
                 } else {
                     NoRujukan.setText("");
                 }
