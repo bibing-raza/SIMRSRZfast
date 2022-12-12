@@ -438,6 +438,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppRekapPemesananExcel = new javax.swing.JMenuItem();
         ppRingkasanRekapPemesananExcel = new javax.swing.JMenuItem();
         ppInOutGudangExcel = new javax.swing.JMenuItem();
+        ppCetakPemesananExcel = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
         scrollPane1 = new widget.ScrollPane();
         tbPemesanan = new widget.Table();
@@ -614,6 +615,22 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
             }
         });
         jPopupMenu1.add(ppInOutGudangExcel);
+
+        ppCetakPemesananExcel.setBackground(new java.awt.Color(255, 255, 255));
+        ppCetakPemesananExcel.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppCetakPemesananExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/export-excel.png"))); // NOI18N
+        ppCetakPemesananExcel.setText("Cetak Rekap Pemesanan Ke Excel");
+        ppCetakPemesananExcel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppCetakPemesananExcel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppCetakPemesananExcel.setIconTextGap(8);
+        ppCetakPemesananExcel.setName("ppCetakPemesananExcel"); // NOI18N
+        ppCetakPemesananExcel.setPreferredSize(new java.awt.Dimension(260, 25));
+        ppCetakPemesananExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppCetakPemesananExcelActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(ppCetakPemesananExcel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -1629,15 +1646,15 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                         + "where p.tgl_pesan like concat(date_format('" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "','%Y-%m'),'%') "
                         + "group by g.kode_brng) as b on b.kode_brng = a.kode_brng "
                         + "left join "
-                        + "(select kode_brng,sum(jml) jml from mutasibarang where kd_bangsaldari =  '"+ kdgudang.getText() +"' and tanggal like concat(date_format('" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "','%Y-%m'),'%') group by kode_brng) as c on c.kode_brng = a.kode_brng "
+                        + "(select kode_brng,sum(jml) jml from mutasibarang where kd_bangsaldari =  '" + kdgudang.getText() + "' and tanggal like concat(date_format('" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "','%Y-%m'),'%') group by kode_brng) as c on c.kode_brng = a.kode_brng "
                         + "left join  "
-                        + "(select kode_brng, sum(jml) jml from utd_pengambilan_medis where kd_bangsal_dr =  '"+ kdgudang.getText() +"' and tanggal like concat(date_format('" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "','%Y-%m'),'%') group by kode_brng) as d on d.kode_brng = a.kode_brng "
+                        + "(select kode_brng, sum(jml) jml from utd_pengambilan_medis where kd_bangsal_dr =  '" + kdgudang.getText() + "' and tanggal like concat(date_format('" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "','%Y-%m'),'%') group by kode_brng) as d on d.kode_brng = a.kode_brng "
                         + "left join "
-                        + "(select kode_brng, stok_awal 'stok' from stok_bulanan where kd_bangsal =  '"+ kdgudang.getText() +"' and periode = date_format('" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "','%Y-%m')) as e on e.kode_brng = a.kode_brng "
+                        + "(select kode_brng, stok_awal 'stok' from stok_bulanan where kd_bangsal =  '" + kdgudang.getText() + "' and periode = date_format('" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "','%Y-%m')) as e on e.kode_brng = a.kode_brng "
                         + "left join "
                         + "(select d.kode_brng,d.jml_retur jml from returbeli r "
                         + "inner join detreturbeli d on d.no_retur_beli = r.no_retur_beli "
-                        + "where r.tgl_retur like concat(date_format('" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "','%Y-%m'),'%') and r.kd_bangsal =  '"+ kdgudang.getText() +"' group by d.kode_brng "
+                        + "where r.tgl_retur like concat(date_format('" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "','%Y-%m'),'%') and r.kd_bangsal =  '" + kdgudang.getText() + "' group by d.kode_brng "
                         + ") as f on f.kode_brng = a.kode_brng "
                         + ") order by a.nama_brng", dialog_simpan) == true) {
                     JOptionPane.showMessageDialog(null, "Data berhasil diexport menjadi file excel,..!!!");
@@ -1695,6 +1712,70 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             }
         }
     }//GEN-LAST:event_tbPemesananKeyPressed
+
+    private void ppCetakPemesananExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppCetakPemesananExcelActionPerformed
+        // TODO add your handling code here:
+        if (chkFree.isSelected() == true) {
+
+            par = "";
+            if (kdsup.getText().equals("") && kdbar.getText().equals("")) {
+                par = "";
+            } else if (!kdsup.getText().equals("") && !kdbar.getText().equals("")) {
+                par = " and (s.kode_suplier='" + kdsup.getText() + "' AND b.kode_brng='" + kdbar.getText() + "')";
+            } else if (kdsup.getText().equals("") && !kdbar.getText().equals("")) {
+                par = " and (b.kode_brng='" + kdbar.getText() + "')";
+            } else if (!kdsup.getText().equals("") && kdbar.getText().equals("")) {
+                par = " and (s.kode_suplier='" + kdsup.getText() + "')";
+            }
+
+            dialog_simpan = "";
+            dialog_simpan = Valid.openDialog();
+            if (!dialog_simpan.equals("the user cancelled the operation")) {
+                if (Valid.MyReportToExcelBoolean("SELECT p.no_faktur 'No Faktur', DATE_FORMAT(p.tgl_faktur,'%d-%m-%Y') 'Tgl. Faktur', "
+                        + "b.nama_brng 'Nama Obat/Alkes', s.nama_suplier 'Nama Supplier', d.kode_sat 'Satuan', sum( d.jumlah ) 'Qty', round(d.h_pesan) 'Hrg. Satuan', "
+                        + "round(sum(d.subtotal)) 'Sub Total', d.besardis 'Diskon', round(sum(d.total)) 'Total',if(p.ppn = 0,0,(round((sum(d.total)))*0.1)) 'PPN', "
+                        + "if(p.ppn = 0,round(sum(d.total)), round(sum(d.total))+(round(round((sum(d.total)))*0.1))) 'Grand Total', DATE_FORMAT(p.tgl_pesan,'%d-%m-%Y') 'Tgl. Pesan' "
+                        + "FROM detailpesan d INNER JOIN pemesanan p ON p.no_faktur = d.no_faktur INNER JOIN databarang b ON b.kode_brng = d.kode_brng "
+                        + "INNER JOIN datasuplier s ON s.kode_suplier = p.kode_suplier "
+                        + "INNER JOIN bangsal g ON g.kd_bangsal = p.kd_bangsal "
+                        + "WHERE g.kd_bangsal = '" + kdgudang.getText() + "' and p.tgl_pesan BETWEEN '" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(TglBeli2.getSelectedItem() + "") + "'" + par + " "
+                        + "GROUP BY p.no_faktur, d.kode_brng, s.kode_suplier, d.h_pesan ORDER BY b.nama_brng", dialog_simpan) == true) {
+                    JOptionPane.showMessageDialog(null, "Data berhasil diexport menjadi file excel,..!!!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data gagal diexport menjadi file excel,..!!!");
+                }
+            }
+
+        } else {
+            par = "";
+            if (kdsup.getText().equals("") && kdbar.getText().equals("")) {
+                par = "";
+            } else if (!kdsup.getText().equals("") && !kdbar.getText().equals("")) {
+                par = " and (s.kode_suplier='" + kdsup.getText() + "' AND b.kode_brng='" + kdbar.getText() + "')";
+            } else if (kdsup.getText().equals("") && !kdbar.getText().equals("")) {
+                par = " and (b.kode_brng='" + kdbar.getText() + "')";
+            } else if (!kdsup.getText().equals("") && kdbar.getText().equals("")) {
+                par = " and (s.kode_suplier='" + kdsup.getText() + "')";
+            }
+
+            dialog_simpan = "";
+            dialog_simpan = Valid.openDialog();
+            if (!dialog_simpan.equals("the user cancelled the operation")) {
+                if (Valid.MyReportToExcelBoolean("SELECT p.no_faktur 'No Faktur', DATE_FORMAT(p.tgl_faktur,'%d-%m-%Y') 'Tgl. Faktur', "
+                        + "b.nama_brng 'Nama Obat/Alkes', s.nama_suplier 'Nama Supplier', d.kode_sat 'Satuan', sum( d.jumlah ) 'Qty', round(d.h_pesan) 'Hrg. Satuan', "
+                        + "round(sum(d.subtotal)) 'Sub Total', d.besardis 'Diskon', round(sum(d.total)) 'Total',if(p.ppn = 0,0,(round((sum(d.total)))*0.1)) 'PPN', "
+                        + "if(p.ppn = 0,round(sum(d.total)), round(sum(d.total))+(round(round((sum(d.total)))*0.1))) 'Grand Total', DATE_FORMAT(p.tgl_pesan,'%d-%m-%Y') 'Tgl. Pesan' "
+                        + "FROM detailpesan d INNER JOIN pemesanan p ON p.no_faktur = d.no_faktur INNER JOIN databarang b ON b.kode_brng = d.kode_brng "
+                        + "INNER JOIN datasuplier s ON s.kode_suplier = p.kode_suplier "
+                        + "WHERE p.tgl_pesan BETWEEN '" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(TglBeli2.getSelectedItem() + "") + "'" + par + " "
+                        + "GROUP BY p.no_faktur, d.kode_brng, s.kode_suplier, d.h_pesan ORDER BY b.nama_brng", dialog_simpan) == true) {
+                    JOptionPane.showMessageDialog(null, "Data berhasil diexport menjadi file excel,..!!!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data gagal diexport menjadi file excel,..!!!");
+                }
+            }
+        }
+    }//GEN-LAST:event_ppCetakPemesananExcelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1760,6 +1841,7 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private widget.panelisi panelisi4;
     private javax.swing.JMenuItem ppBayar;
     private javax.swing.JMenuItem ppCetakPemesanan;
+    private javax.swing.JMenuItem ppCetakPemesananExcel;
     private javax.swing.JMenuItem ppCetakSuratPesanan;
     private javax.swing.JMenuItem ppHapus;
     private javax.swing.JMenuItem ppInOutGudangExcel;
@@ -2039,9 +2121,9 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private void isStok(String a, String b) {
         stokbarang2 = Sequel.cariIsiAngka("select ifnull(stok,'0') from gudangbarang where kd_bangsal='" + b + "' and kode_brng='" + a + "'");
     }
-    
+
     private void getData() {
-        no_Faktur = "";        
+        no_Faktur = "";
         if (tbPemesanan.getSelectedRow() != -1) {
             no_Faktur = tbPemesanan.getValueAt(tbPemesanan.getSelectedRow(), 1).toString();
         }
