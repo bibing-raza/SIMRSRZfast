@@ -43,7 +43,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
     private PreparedStatement ps2;
     private ResultSet rs2;
     private int i = 0;
-    private String pinNya = "", kdInformasi = "", tglnya = "";
+    private String pinNya = "", tglnya = "";
 
     /** Creates new form DlgAdmin */
     public DlgRunTeks(java.awt.Frame parent, boolean modal) {
@@ -114,6 +114,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
         pinPetugas.setDocument(new batasInput((int) 4).getOnlyAngka(pinPetugas));
         pinAdmin.setDocument(new batasInput((int) 4).getOnlyAngka(pinAdmin));
         taun.setDocument(new batasInput((int) 4).getOnlyAngka(taun));
+        kode.setDocument(new batasInput((int) 2).getOnlyAngka(kode));
     }
     
     /** This method is called from within the constructor to
@@ -145,6 +146,8 @@ public class DlgRunTeks extends javax.swing.JDialog {
         ketLibur = new widget.TextBox();
         label39 = new widget.Label();
         urlVideoPlaylist = new widget.TextBox();
+        label40 = new widget.Label();
+        kode = new widget.TextBox();
         internalFrame2 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbDisplay = new widget.Table();
@@ -350,6 +353,19 @@ public class DlgRunTeks extends javax.swing.JDialog {
         urlVideoPlaylist.setPreferredSize(new java.awt.Dimension(207, 23));
         panelGlass1.add(urlVideoPlaylist);
         urlVideoPlaylist.setBounds(150, 160, 570, 23);
+
+        label40.setForeground(new java.awt.Color(0, 0, 0));
+        label40.setText("Kode : ");
+        label40.setName("label40"); // NOI18N
+        label40.setPreferredSize(new java.awt.Dimension(35, 23));
+        panelGlass1.add(label40);
+        label40.setBounds(0, 38, 50, 23);
+
+        kode.setForeground(new java.awt.Color(0, 0, 0));
+        kode.setName("kode"); // NOI18N
+        kode.setPreferredSize(new java.awt.Dimension(207, 23));
+        panelGlass1.add(kode);
+        kode.setBounds(50, 38, 50, 23);
 
         internalFrame1.add(panelGlass1, java.awt.BorderLayout.PAGE_START);
 
@@ -616,11 +632,11 @@ public class DlgRunTeks extends javax.swing.JDialog {
             } else if (urlVideoPlaylist.getText().trim().equals("")) {
                 Valid.textKosong(urlVideoPlaylist, "URL Video Playlist Youtube");
                 urlVideoPlaylist.requestFocus();
-            } else if (kdInformasi.equals("")) {
+            } else if (kode.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Silahkan pilih salah satu datanya pada tabel yg. akan diperbaiki...!!!!");
                 tbDisplay.requestFocus();
             } else {
-                Sequel.mengedit("antrian_informasi", "kode='" + kdInformasi + "'",
+                Sequel.mengedit("antrian_informasi", "kode='" + kode.getText() + "'",
                             "url_video_player='" + urlVideoPlayer.getText() + "',kalimat='" + TTeks.getText() + "',url_playlist='" + urlVideoPlaylist.getText() + "'");
                 tampil();
                 emptTeks();
@@ -694,13 +710,14 @@ public class DlgRunTeks extends javax.swing.JDialog {
                 } else if (urlVideoPlaylist.getText().trim().equals("")) {
                     Valid.textKosong(urlVideoPlaylist, "URL Video Playlist Youtube");
                     urlVideoPlaylist.requestFocus();
-                } else if (tabMode.getRowCount() == 0) {
-                    Sequel.mengedit("antrian_informasi", "kode='" + kdInformasi + "'",
-                            "url_video_player='" + urlVideoPlayer.getText() + "',kalimat='" + TTeks.getText() + "',url_playlist='" + urlVideoPlaylist.getText() + "'");
+                } else {
+                    Sequel.menyimpan("antrian_informasi",
+                            "'" + kode.getText() + "',"
+                            + "'" + urlVideoPlayer.getText() + "',"
+                            + "'" + TTeks.getText() + "',"
+                            + "'" + urlVideoPlaylist.getText() + "'", "Informasi Antrian");
                     tampil();
                     emptTeks();
-                } else if (tabMode.getRowCount() > 0) {
-                    JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu display antrian...!!!!");
                 }
             }
 
@@ -949,10 +966,12 @@ public class DlgRunTeks extends javax.swing.JDialog {
     private widget.Label jLabel7;
     private javax.swing.JPopupMenu jPopupMenu1;
     private widget.TextBox ketLibur;
+    private widget.TextBox kode;
     private widget.Label label14;
     private widget.Label label15;
     private widget.Label label38;
     private widget.Label label39;
+    private widget.Label label40;
     private widget.panelGlass panelGlass1;
     private widget.panelisi panelisi1;
     private widget.panelisi panelisi2;
@@ -979,7 +998,6 @@ public class DlgRunTeks extends javax.swing.JDialog {
     }
     
     private void prosesCari(String sql) {
-        kdInformasi = "";
         Valid.tabelKosong(tabMode);
         try {
             java.sql.Statement stat = koneksi.createStatement();            
@@ -1039,15 +1057,14 @@ public class DlgRunTeks extends javax.swing.JDialog {
         LCount.setText("" + tabMode2.getRowCount() + " hari libur ditemukan.");
     }
 
-    private void getData() {
-        kdInformasi = "";
-        if (tbDisplay.getSelectedRow() != -1) {
-            kdInformasi = tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 0).toString();
+    private void getData() {        
+        if (tbDisplay.getSelectedRow() != -1) {            
+            kode.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 0).toString());
             urlVideoPlayer.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 1).toString());
             urlVideoPlaylist.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 2).toString());
             TTeks.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 3).toString());
 
-            if (!kdInformasi.equals("")) {
+            if (!kode.getText().equals("")) {
                 ChkTeks.setSelected(true);
             } else {
                 ChkTeks.setSelected(false);
@@ -1096,6 +1113,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
         urlVideoPlaylist.setText("");
         tglLibur.setDate(new Date());
         ketLibur.setText("");
+        kode.setText("");
         TTeks.requestFocus();
         taun.setText(Sequel.cariIsi("SELECT YEAR(NOW())"));
         tampil();
