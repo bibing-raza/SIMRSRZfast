@@ -293,6 +293,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         tbIbuBayi.setDefaultRenderer(Object.class, new WarnaTable());
 
         TCari1.setDocument(new batasInput((byte) 100).getKata(TCari1));
+        TCarinorm.setDocument(new batasInput((byte) 6).getOnlyAngka(TCarinorm));
+        
         if (koneksiDB.cariCepat().equals("aktif")) {
             TCari1.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
                 @Override
@@ -376,7 +378,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         cmbJnsRawat1 = new widget.ComboBox();
         panelGlass13 = new widget.panelisi();
         jLabel22 = new widget.Label();
-        TCari3 = new widget.TextBox();
+        TCarinorm = new widget.TextBox();
         BtnCari3 = new widget.Button();
         BtnAll3 = new widget.Button();
         BtnKeluar3 = new widget.Button();
@@ -462,7 +464,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-06-2022" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -482,7 +484,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-06-2022" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -654,7 +656,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass12.add(jLabel19);
 
         tgl3.setEditable(false);
-        tgl3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
+        tgl3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-06-2022" }));
         tgl3.setDisplayFormat("dd-MM-yyyy");
         tgl3.setName("tgl3"); // NOI18N
         tgl3.setOpaque(false);
@@ -669,7 +671,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass12.add(jLabel20);
 
         tgl4.setEditable(false);
-        tgl4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
+        tgl4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-06-2022" }));
         tgl4.setDisplayFormat("dd-MM-yyyy");
         tgl4.setName("tgl4"); // NOI18N
         tgl4.setOpaque(false);
@@ -724,20 +726,20 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass13.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel22.setText("Key Word : ");
+        jLabel22.setText("Cari No. RM :");
         jLabel22.setName("jLabel22"); // NOI18N
         jLabel22.setPreferredSize(new java.awt.Dimension(70, 23));
         panelGlass13.add(jLabel22);
 
-        TCari3.setForeground(new java.awt.Color(0, 0, 0));
-        TCari3.setName("TCari3"); // NOI18N
-        TCari3.setPreferredSize(new java.awt.Dimension(250, 23));
-        TCari3.addKeyListener(new java.awt.event.KeyAdapter() {
+        TCarinorm.setForeground(new java.awt.Color(0, 0, 0));
+        TCarinorm.setName("TCarinorm"); // NOI18N
+        TCarinorm.setPreferredSize(new java.awt.Dimension(90, 23));
+        TCarinorm.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                TCari3KeyPressed(evt);
+                TCarinormKeyPressed(evt);
             }
         });
-        panelGlass13.add(TCari3);
+        panelGlass13.add(TCarinorm);
 
         BtnCari3.setForeground(new java.awt.Color(0, 0, 0));
         BtnCari3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
@@ -840,7 +842,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass14.add(jLabel24);
 
         tgl5.setEditable(false);
-        tgl5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
+        tgl5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-06-2022" }));
         tgl5.setDisplayFormat("dd-MM-yyyy");
         tgl5.setName("tgl5"); // NOI18N
         tgl5.setOpaque(false);
@@ -855,7 +857,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass14.add(jLabel25);
 
         tgl6.setEditable(false);
-        tgl6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
+        tgl6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-06-2022" }));
         tgl6.setDisplayFormat("dd-MM-yyyy");
         tgl6.setName("tgl6"); // NOI18N
         tgl6.setOpaque(false);
@@ -1179,7 +1181,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass10.add(Chktgl);
 
         tglA.setEditable(false);
-        tglA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
+        tglA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-06-2022" }));
         tglA.setDisplayFormat("dd-MM-yyyy");
         tglA.setName("tglA"); // NOI18N
         tglA.setOpaque(false);
@@ -1194,7 +1196,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass10.add(jLabel18);
 
         tglB.setEditable(false);
-        tglB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
+        tglB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-06-2022" }));
         tglB.setDisplayFormat("dd-MM-yyyy");
         tglB.setName("tglB"); // NOI18N
         tglB.setOpaque(false);
@@ -1387,8 +1389,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
             tgl4.setDate(new Date());
             jns_klaim.setText("Jns. Klaim : " + cmbJnsKlaim.getSelectedItem());
             cmbLimit2.setSelectedIndex(0);            
-            TCari3.setText("");
-            TCari3.requestFocus();
+            TCarinorm.setText("");
+            TCarinorm.requestFocus();
             if (cmbJnsKlaim.getSelectedItem().equals("JAMINAN COVID-19") || cmbJnsKlaim.getSelectedItem().equals("JAMINAN CO-INSIDENSE")) {
                 cmbJnsRawat1.setSelectedIndex(2);
             } else {
@@ -1564,18 +1566,18 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbLimit2KeyPressed
 
-    private void TCari3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCari3KeyPressed
+    private void TCarinormKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCarinormKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             BtnCari3ActionPerformed(null);
         }
-    }//GEN-LAST:event_TCari3KeyPressed
+    }//GEN-LAST:event_TCarinormKeyPressed
 
     private void BtnCari3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCari3ActionPerformed
         tampilReg();
     }//GEN-LAST:event_BtnCari3ActionPerformed
 
     private void BtnAll3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAll3ActionPerformed
-        TCari3.setText("");
+        TCarinorm.setText("");
         tampilReg();
     }//GEN-LAST:event_BtnAll3ActionPerformed
 
@@ -1864,8 +1866,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
     private widget.ScrollPane Scroll3;
     private widget.TextBox TCari1;
     private widget.TextBox TCari2;
-    private widget.TextBox TCari3;
     private widget.TextBox TCari4;
+    private widget.TextBox TCarinorm;
     private javax.swing.JDialog WindowIBUBAYI;
     private javax.swing.JDialog WindowRegistrasi;
     private javax.swing.JDialog WindowSEPbpjs;
@@ -2199,15 +2201,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         + "p.no_ktp nik, p.no_peserta noka_bpjs, p.no_rkm_medis, p.nm_pasien, IF(p.jk='L','Laki-laki','Perempuan') jk, IF(rp.status_lanjut='Ralan','R. JALAN','R. INAP') jns_rwt, "
                         + "rp.tgl_registrasi, IF(rp.status_lanjut='Ralan','2','1') jRawat, CONCAT(p.tgl_lahir,' ','00:00:00') tgllhr, IF(p.jk='L','1','2') jkel FROM reg_periksa rp "
                         + "INNER JOIN pasien p ON p.no_rkm_medis=rp.no_rkm_medis INNER JOIN poliklinik poli ON poli.kd_poli=rp.kd_poli WHERE "
-                        + "rp.tgl_registrasi BETWEEN '" + Valid.SetTgl(tgl3.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(tgl4.getSelectedItem() + "") + "' AND rp.status_lanjut like '" + nilaiRWT + "' and "
-                        + "(rp.no_rawat LIKE ? OR "
-                        + "p.no_ktp LIKE ? OR "
-                        + "p.no_peserta LIKE ? OR "
-                        + "p.no_rkm_medis LIKE ? OR "
-                        + "p.nm_pasien LIKE ? OR "
-                        + "IF(rp.status_lanjut='Ralan',concat('Poli/Inst. ',poli.nm_poli),(SELECT concat('Rg. ',b.nm_bangsal) FROM kamar_inap ki "
-                        + "LEFT JOIN kamar k ON k.kd_kamar=ki.kd_kamar LEFT JOIN bangsal b ON b.kd_bangsal=k.kd_bangsal WHERE ki.no_rawat=rp.no_rawat AND ki.stts_pulang<>'Pindah Kamar')) LIKE ?) "
-                        + "ORDER BY rp.tgl_registrasi DESC, rp.no_rawat DESC");
+                        + "rp.tgl_registrasi BETWEEN '" + Valid.SetTgl(tgl3.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(tgl4.getSelectedItem() + "") + "' "
+                        + "AND rp.status_lanjut like '" + nilaiRWT + "' and p.no_rkm_medis LIKE '%" + TCarinorm.getText().trim() + "%' ORDER BY rp.tgl_registrasi DESC, rp.no_rawat DESC");
             } else {
                 ps2 = koneksi.prepareStatement("SELECT rp.no_rawat, DATE_FORMAT(rp.tgl_registrasi,'%d-%m-%Y') tgl_kunjungan, "
                         + "IF(rp.status_lanjut='Ralan',concat('Poli/Inst. ',poli.nm_poli),(SELECT concat('Rg. ',b.nm_bangsal) FROM kamar_inap ki "
@@ -2215,23 +2210,11 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         + "p.no_ktp nik, p.no_peserta noka_bpjs, p.no_rkm_medis, p.nm_pasien, IF(p.jk='L','Laki-laki','Perempuan') jk, IF(rp.status_lanjut='Ralan','R. JALAN','R. INAP') jns_rwt, "
                         + "rp.tgl_registrasi, IF(rp.status_lanjut='Ralan','2','1') jRawat, CONCAT(p.tgl_lahir,' ','00:00:00') tgllhr, IF(p.jk='L','1','2') jkel FROM reg_periksa rp "
                         + "INNER JOIN pasien p ON p.no_rkm_medis=rp.no_rkm_medis INNER JOIN poliklinik poli ON poli.kd_poli=rp.kd_poli WHERE "
-                        + "rp.tgl_registrasi BETWEEN '" + Valid.SetTgl(tgl3.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(tgl4.getSelectedItem() + "") + "' AND rp.status_lanjut like '" + nilaiRWT + "' and "
-                        + "(rp.no_rawat LIKE ? OR "
-                        + "p.no_ktp LIKE ? OR "
-                        + "p.no_peserta LIKE ? OR "
-                        + "p.no_rkm_medis LIKE ? OR "
-                        + "p.nm_pasien LIKE ? OR "
-                        + "IF(rp.status_lanjut='Ralan',concat('Poli/Inst. ',poli.nm_poli),(SELECT concat('Rg. ',b.nm_bangsal) FROM kamar_inap ki "
-                        + "LEFT JOIN kamar k ON k.kd_kamar=ki.kd_kamar LEFT JOIN bangsal b ON b.kd_bangsal=k.kd_bangsal WHERE ki.no_rawat=rp.no_rawat AND ki.stts_pulang<>'Pindah Kamar')) LIKE ?) "
+                        + "rp.tgl_registrasi BETWEEN '" + Valid.SetTgl(tgl3.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(tgl4.getSelectedItem() + "") + "' "
+                        + "AND rp.status_lanjut like '" + nilaiRWT + "' and p.no_rkm_medis LIKE '%" + TCarinorm.getText().trim() + "%' "
                         + "ORDER BY rp.tgl_registrasi DESC, rp.no_rawat DESC limit " + cmbLimit2.getSelectedItem().toString() + "");
             }
-            try {
-                ps2.setString(1, "%" + TCari3.getText().trim() + "%");
-                ps2.setString(2, "%" + TCari3.getText().trim() + "%");
-                ps2.setString(3, "%" + TCari3.getText().trim() + "%");
-                ps2.setString(4, "%" + TCari3.getText().trim() + "%");
-                ps2.setString(5, "%" + TCari3.getText().trim() + "%");
-                ps2.setString(6, "%" + TCari3.getText().trim() + "%");
+            try {                
                 rs2 = ps2.executeQuery();
                 while (rs2.next()) {
                     tabMode2.addRow(new Object[]{
