@@ -251,9 +251,6 @@ public final class DlgKunjunganRalan extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -296,7 +293,6 @@ public final class DlgKunjunganRalan extends javax.swing.JDialog {
 
         Tgl1.setBackground(new java.awt.Color(245, 250, 240));
         Tgl1.setEditable(false);
-        Tgl1.setForeground(new java.awt.Color(0, 0, 0));
         Tgl1.setDisplayFormat("dd-MM-yyyy");
         Tgl1.setName("Tgl1"); // NOI18N
         Tgl1.setPreferredSize(new java.awt.Dimension(90, 23));
@@ -316,7 +312,6 @@ public final class DlgKunjunganRalan extends javax.swing.JDialog {
 
         Tgl2.setBackground(new java.awt.Color(245, 250, 240));
         Tgl2.setEditable(false);
-        Tgl2.setForeground(new java.awt.Color(0, 0, 0));
         Tgl2.setDisplayFormat("dd-MM-yyyy");
         Tgl2.setName("Tgl2"); // NOI18N
         Tgl2.setPreferredSize(new java.awt.Dimension(90, 23));
@@ -518,10 +513,6 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
 }//GEN-LAST:event_BtnCariKeyPressed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        //tampil();
-    }//GEN-LAST:event_formWindowOpened
-
     private void TCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCariKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
             BtnCariActionPerformed(null);
@@ -544,11 +535,6 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             
         }
     }//GEN-LAST:event_BtnAllKeyPressed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        //tampil();
-
-    }//GEN-LAST:event_formWindowActivated
 
     private void MnKunSemuaPoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnKunSemuaPoliActionPerformed
         if (akses.getkode().equals("Admin Utama") || (akses.getkode().equals("PPRM"))) {
@@ -657,6 +643,19 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             Tgl1.requestFocus();
         }
     }//GEN-LAST:event_MnKunPoliPerBulanActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if (akses.getregistrasi() == true || akses.getkode().equals("PPRM")) {
+            BtnUnit.setEnabled(true);
+            BtnCari.setEnabled(true);
+            BtnAll.setEnabled(true);
+            cekSemuaPoli.setSelected(true);
+            cekSemuaPoli.setEnabled(true);
+            kdpoli.setText("");
+            TPoli.setText("");
+            tampil();
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
     * @param args the command line arguments
@@ -847,7 +846,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             cekSemuaPoli.setEnabled(false);
             cekSemuaPoli.setSelected(false);
             
-        } else if ((userBerizin.getText().equals("Admin Utama")) || (userBerizin.getText().equals("PPRM"))) {
+        } else if (userBerizin.getText().equals("Admin Utama")) {
             BtnUnit.setEnabled(true);
             BtnCari.setEnabled(true);
             BtnAll.setEnabled(true);

@@ -660,7 +660,18 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
 }//GEN-LAST:event_BtnCariKeyPressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        tampil();
+        if (akses.getregistrasi() == true || akses.getkode().equals("PPRM") || akses.getkode().equals("PR13")) {
+            BtnCari.setEnabled(true);
+            cmbRuangan.setSelectedIndex(0);
+            cmbRuangan.setEnabled(true);
+            cmbRuangan.setVisible(true);
+            cmbRuangKhusus1.setVisible(false);
+            cmbRuangKhusus2.setVisible(false);
+            cmbRuangKhusus3.setVisible(false);
+            cmbRuangKhusus4.setVisible(false);
+            cmbRuangKhusus5.setVisible(false);
+            tampil();
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void TCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCariKeyPressed
@@ -675,7 +686,6 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         tampil();
-
     }//GEN-LAST:event_formWindowActivated
 
     private void TabRawatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabRawatMouseClicked
@@ -1277,7 +1287,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             cmbRuangKhusus5.setVisible(false);
             kdAkses.setText("");
             
-        } else if (userBerizin.getText().equals("Admin Utama") || (userBerizin.getText().equals("PPRM") || (userBerizin.getText().equals("PR13")))) {
+        } else if (userBerizin.getText().equals("Admin Utama")) {
             BtnCari.setEnabled(true);            
             cmbRuangan.setSelectedIndex(0);
             cmbRuangan.setEnabled(true);
