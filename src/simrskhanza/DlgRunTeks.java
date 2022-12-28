@@ -51,7 +51,8 @@ public class DlgRunTeks extends javax.swing.JDialog {
         initComponents();
         this.setLocation(10,10);
         
-        Object[] row = {"Kode", "URL Video Player Youtube", "URL Video Playlist Youtube","Kalimat Informasi"};
+        Object[] row = {"Kode", "URL Video Player Youtube", "URL Video Playlist Youtube", 
+            "Kalimat Informasi", "Jam Shutdown TV Antrian"};
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -60,7 +61,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
         tbDisplay.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             TableColumn column = tbDisplay.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(50);
@@ -70,6 +71,8 @@ public class DlgRunTeks extends javax.swing.JDialog {
                 column.setPreferredWidth(300);
             } else if (i == 3) {
                 column.setPreferredWidth(400);
+            } else if (i == 4) {
+                column.setPreferredWidth(140);
             }
         }
 
@@ -148,6 +151,10 @@ public class DlgRunTeks extends javax.swing.JDialog {
         urlVideoPlaylist = new widget.TextBox();
         label40 = new widget.Label();
         kode = new widget.TextBox();
+        label41 = new widget.Label();
+        cmbJam = new widget.ComboBox();
+        cmbMnt = new widget.ComboBox();
+        cmbDtk = new widget.ComboBox();
         internalFrame2 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbDisplay = new widget.Table();
@@ -321,7 +328,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
         ChkHariLibur.setBounds(0, 220, 128, 23);
 
         tglLibur.setEditable(false);
-        tglLibur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-06-2022" }));
+        tglLibur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-12-2022" }));
         tglLibur.setDisplayFormat("dd-MM-yyyy");
         tglLibur.setName("tglLibur"); // NOI18N
         tglLibur.setOpaque(false);
@@ -366,6 +373,49 @@ public class DlgRunTeks extends javax.swing.JDialog {
         kode.setPreferredSize(new java.awt.Dimension(207, 23));
         panelGlass1.add(kode);
         kode.setBounds(50, 38, 50, 23);
+
+        label41.setForeground(new java.awt.Color(0, 0, 0));
+        label41.setText("Jam Shutdown TV Antrian : ");
+        label41.setName("label41"); // NOI18N
+        label41.setPreferredSize(new java.awt.Dimension(35, 23));
+        panelGlass1.add(label41);
+        label41.setBounds(720, 10, 150, 23);
+
+        cmbJam.setForeground(new java.awt.Color(0, 0, 0));
+        cmbJam.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        cmbJam.setName("cmbJam"); // NOI18N
+        cmbJam.setOpaque(false);
+        cmbJam.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmbJamKeyPressed(evt);
+            }
+        });
+        panelGlass1.add(cmbJam);
+        cmbJam.setBounds(870, 10, 45, 23);
+
+        cmbMnt.setForeground(new java.awt.Color(0, 0, 0));
+        cmbMnt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        cmbMnt.setName("cmbMnt"); // NOI18N
+        cmbMnt.setOpaque(false);
+        cmbMnt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmbMntKeyPressed(evt);
+            }
+        });
+        panelGlass1.add(cmbMnt);
+        cmbMnt.setBounds(920, 10, 45, 23);
+
+        cmbDtk.setForeground(new java.awt.Color(0, 0, 0));
+        cmbDtk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        cmbDtk.setName("cmbDtk"); // NOI18N
+        cmbDtk.setOpaque(false);
+        cmbDtk.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmbDtkKeyPressed(evt);
+            }
+        });
+        panelGlass1.add(cmbDtk);
+        cmbDtk.setBounds(970, 10, 45, 23);
 
         internalFrame1.add(panelGlass1, java.awt.BorderLayout.PAGE_START);
 
@@ -637,7 +687,9 @@ public class DlgRunTeks extends javax.swing.JDialog {
                 tbDisplay.requestFocus();
             } else {
                 Sequel.mengedit("antrian_informasi", "kode='" + kode.getText() + "'",
-                            "url_video_player='" + urlVideoPlayer.getText() + "',kalimat='" + TTeks.getText() + "',url_playlist='" + urlVideoPlaylist.getText() + "'");
+                        "url_video_player='" + urlVideoPlayer.getText() + "',kalimat='" + TTeks.getText() + "',"
+                        + "url_playlist='" + urlVideoPlaylist.getText() + "',"
+                        + "shutdown_tv_antrian='" + cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem() + "'");
                 tampil();
                 emptTeks();
             }
@@ -715,7 +767,8 @@ public class DlgRunTeks extends javax.swing.JDialog {
                             "'" + kode.getText() + "',"
                             + "'" + urlVideoPlayer.getText() + "',"
                             + "'" + TTeks.getText() + "',"
-                            + "'" + urlVideoPlaylist.getText() + "'", "Informasi Antrian");
+                            + "'" + urlVideoPlaylist.getText() + "',"
+                            + "'" + cmbJam.getSelectedItem() + ":" + cmbMnt.getSelectedItem() + ":" + cmbDtk.getSelectedItem() + "'", "Informasi Antrian");
                     tampil();
                     emptTeks();
                 }
@@ -922,6 +975,18 @@ public class DlgRunTeks extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_taunKeyPressed
 
+    private void cmbJamKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbJamKeyPressed
+        Valid.pindah(evt, TTeks, cmbMnt);
+    }//GEN-LAST:event_cmbJamKeyPressed
+
+    private void cmbMntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbMntKeyPressed
+        Valid.pindah(evt, cmbJam, cmbDtk);
+    }//GEN-LAST:event_cmbMntKeyPressed
+
+    private void cmbDtkKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbDtkKeyPressed
+        Valid.pindah(evt, cmbMnt, urlVideoPlayer);
+    }//GEN-LAST:event_cmbDtkKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -958,6 +1023,9 @@ public class DlgRunTeks extends javax.swing.JDialog {
     private widget.ScrollPane Scroll3;
     private widget.TextBox TCari;
     private widget.TextArea TTeks;
+    private widget.ComboBox cmbDtk;
+    private widget.ComboBox cmbJam;
+    private widget.ComboBox cmbMnt;
     private widget.InternalFrame internalFrame1;
     private widget.InternalFrame internalFrame2;
     private widget.InternalFrame internalFrame3;
@@ -972,6 +1040,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
     private widget.Label label38;
     private widget.Label label39;
     private widget.Label label40;
+    private widget.Label label41;
     private widget.panelGlass panelGlass1;
     private widget.panelisi panelisi1;
     private widget.panelisi panelisi2;
@@ -988,7 +1057,8 @@ public class DlgRunTeks extends javax.swing.JDialog {
 
     private void tampil() {
         String sql = "select ifnull(kode,'') kd, ifnull(url_video_player,'') player, "
-                + "ifnull(url_playlist,'') playlist, ifnull(kalimat,'') kalimat from antrian_informasi order by kode";
+                + "ifnull(url_playlist,'') playlist, ifnull(kalimat,'') kalimat, "
+                + "ifnull(shutdown_tv_antrian,'00:00:00') jamShutdown from antrian_informasi order by kode";
         prosesCari(sql);
     }
     
@@ -1003,7 +1073,13 @@ public class DlgRunTeks extends javax.swing.JDialog {
             java.sql.Statement stat = koneksi.createStatement();            
             ResultSet rs = stat.executeQuery(sql);
             while (rs.next()) {
-                Object[] data = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)};
+                Object[] data = {
+                    rs.getString(1), 
+                    rs.getString(2), 
+                    rs.getString(3), 
+                    rs.getString(4),
+                    rs.getString(5)
+                };
                 tabMode.addRow(data);
             }
         } catch (SQLException e) {
@@ -1063,6 +1139,9 @@ public class DlgRunTeks extends javax.swing.JDialog {
             urlVideoPlayer.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 1).toString());
             urlVideoPlaylist.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 2).toString());
             TTeks.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 3).toString());
+            cmbJam.setSelectedItem(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 4).toString().substring(0, 2));
+            cmbMnt.setSelectedItem(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 4).toString().substring(3, 5));
+            cmbDtk.setSelectedItem(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 4).toString().substring(6, 8));
 
             if (!kode.getText().equals("")) {
                 ChkTeks.setSelected(true);
@@ -1114,6 +1193,9 @@ public class DlgRunTeks extends javax.swing.JDialog {
         tglLibur.setDate(new Date());
         ketLibur.setText("");
         kode.setText("");
+        cmbJam.setSelectedIndex(0);
+        cmbMnt.setSelectedIndex(0);
+        cmbDtk.setSelectedIndex(0);
         TTeks.requestFocus();
         taun.setText(Sequel.cariIsi("SELECT YEAR(NOW())"));
         tampil();

@@ -11176,7 +11176,8 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         try {
             ps2 = koneksi.prepareStatement("select jenis_reset, nomor_terakhir, date_format(tgl_reset,'%Y-%m-%d') tgl, "
                     + "date_format(tgl_reset,'%H:%i:%s') jam, date_format(tgl_reset,'%d %b %Y, Pukul : %H:%i:%s') tgl_reset from antrian_history_reset where "
-                    + "date(tgl_reset) between '" + Valid.SetTgl(tglA.getSelectedItem() + "") + "' and '" + Valid.SetTgl(tglB.getSelectedItem() + "") + "' order by tgl_reset desc");
+                    + "date(tgl_reset) between '" + Valid.SetTgl(tglA.getSelectedItem() + "") + "' and '" + Valid.SetTgl(tglB.getSelectedItem() + "") + "' "
+                    + "and jenis_reset not like '%resep%' order by tgl_reset desc");
             try {
                 rs2 = ps2.executeQuery();
                 while (rs2.next()) {
