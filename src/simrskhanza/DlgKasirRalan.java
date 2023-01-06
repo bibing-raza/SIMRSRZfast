@@ -659,6 +659,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnKemenkes = new javax.swing.JMenu();
         MnTeridentifikasiTB = new javax.swing.JMenuItem();
         MnDataKanker = new javax.swing.JMenuItem();
+        MnNomorTB = new javax.swing.JMenuItem();
         ppProgramPRB = new javax.swing.JMenuItem();
         MnPemeriksaanKlinisLabHIV = new javax.swing.JMenuItem();
         MnTerapiAntiretroviralHIV = new javax.swing.JMenuItem();
@@ -1680,6 +1681,22 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnKemenkes.add(MnDataKanker);
 
         MnInputData.add(MnKemenkes);
+
+        MnNomorTB.setBackground(new java.awt.Color(255, 255, 255));
+        MnNomorTB.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnNomorTB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnNomorTB.setText("Nomor Registrasi TB");
+        MnNomorTB.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnNomorTB.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnNomorTB.setIconTextGap(5);
+        MnNomorTB.setName("MnNomorTB"); // NOI18N
+        MnNomorTB.setPreferredSize(new java.awt.Dimension(230, 26));
+        MnNomorTB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnNomorTBBtnPrintActionPerformed(evt);
+            }
+        });
+        MnInputData.add(MnNomorTB);
 
         ppProgramPRB.setBackground(new java.awt.Color(255, 255, 255));
         ppProgramPRB.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -6620,6 +6637,27 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }//GEN-LAST:event_MnPenilaianAwalMedisRalanGeriatriBtnPrintActionPerformed
 
+    private void MnNomorTBBtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnNomorTBBtnPrintActionPerformed
+        if (tabModekasir.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu dengan mengklik data pada tabel...!!!");
+            tbKasirRalan.requestFocus();
+        } else if (Sequel.cariInteger("select count(-1) from pasien_mati where no_rkm_medis='" + NoRM.getText() + "'") > 0) {
+            JOptionPane.showMessageDialog(null, "Pasien ini sudah berpulang ke rahmatullah, semoga Husnul Khotimah...!!!");
+            tbKasirRalan.requestFocus();
+        } else {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            DlgNomorTB form = new DlgNomorTB(null, false);
+            form.setData(NoRM.getText(), nmPasien.getText());
+            form.setSize(506, 170);
+            form.setLocationRelativeTo(internalFrame1);
+            form.setVisible(true);
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_MnNomorTBBtnPrintActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -6706,6 +6744,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnLembarStatusPasien;
     private javax.swing.JMenuItem MnLihatSEP;
     private javax.swing.JMenuItem MnNoResep;
+    private javax.swing.JMenuItem MnNomorTB;
     private javax.swing.JMenu MnObatRalan;
     private javax.swing.JMenuItem MnOperasi;
     private javax.swing.JMenuItem MnPemeriksaanKlinisLabHIV;

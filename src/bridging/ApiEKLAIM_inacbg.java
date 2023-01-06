@@ -30,14 +30,13 @@ import org.springframework.web.client.RestTemplate;
  * @author khanzasoft
  */
 public class ApiEKLAIM_inacbg {
-
     private Connection koneksi = koneksiDB.condb();
     private PreparedStatement ps;
     private ResultSet rs;
     private String URL = "", requestJson1 = "", requestJson2 = "", requestJson3 = "", requestJson4 = "",
             requestJson5 = "", requestJson6 = "", requestJson7 = "", requestJson8 = "", requestJson9 = "",
             requestJson10 = "", requestJson11 = "", requestJson12 = "", requestJson13 = "", requestJson14 = "",
-            stringbalik = "", requestJson15 = "";
+            stringbalik = "", requestJson15 = "", requestJson16 = "", requestJson17 = "";
     private HttpHeaders headers;
     private HttpEntity requestEntity;
     private JsonNode root;
@@ -450,6 +449,76 @@ public class ApiEKLAIM_inacbg {
                 JOptionPane.showMessageDialog(null, root.path("metadata").path("message").asText());
             } else {
                 JOptionPane.showMessageDialog(null, root.path("metadata").path("message").asText());
+            }
+        } catch (Exception erornya) {
+            System.out.println("Notifikasi : " + erornya);
+            if (erornya.toString().contains("UnknownHostException") || erornya.toString().contains("false")) {
+                JOptionPane.showMessageDialog(null, erornya);
+            }
+        }
+    }
+    
+    public void validasiNomorTB(String nosep, String nomorTB) {
+        try {
+            headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.add("Content-Type", "application/json;charset=UTF-8");
+            requestJson16
+                    = "{"
+                    + "\"metadata\": {"
+                    + "\"method\": \"sitb_validate\""
+                    + "},"
+                    + "\"data\": {"
+                    + "\"no_sep\": \"" + nosep + "\","
+                    + "\"nomor_register_sitb\": \"" + nomorTB + "\""
+                    + "}"
+                    + "}";
+
+            System.out.println("JSON : " + requestJson16);
+            requestEntity = new HttpEntity(requestJson16, headers);
+            stringbalik = getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody();
+            System.out.println("Output : " + stringbalik);
+            root = mapper.readTree(stringbalik);
+
+            if (root.path("metadata").path("code").asText().equals("200")) {
+                JOptionPane.showMessageDialog(null, root.path("response").path("detail").asText());
+            } else {
+                JOptionPane.showMessageDialog(null, root.path("response").path("detail").asText());
+            }
+        } catch (Exception erornya) {
+            System.out.println("Notifikasi : " + erornya);
+            if (erornya.toString().contains("UnknownHostException") || erornya.toString().contains("false")) {
+                JOptionPane.showMessageDialog(null, erornya);
+            }
+        }
+    }
+    
+    public void BatalvalidasiNomorTB(String nosep, String nomorTB) {
+        try {
+            headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.add("Content-Type", "application/json;charset=UTF-8");
+            requestJson17
+                    = "{"
+                    + "\"metadata\": {"
+                    + "\"method\": \"sitb_invalidate\""
+                    + "},"
+                    + "\"data\": {"
+                    + "\"no_sep\": \"" + nosep + "\","
+                    + "\"nomor_register_sitb\": \"" + nomorTB + "\""
+                    + "}"
+                    + "}";
+
+            System.out.println("JSON : " + requestJson17);
+            requestEntity = new HttpEntity(requestJson17, headers);
+            stringbalik = getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody();
+            System.out.println("Output : " + stringbalik);
+            root = mapper.readTree(stringbalik);
+
+            if (root.path("metadata").path("code").asText().equals("200")) {
+                JOptionPane.showMessageDialog(null, root.path("response").path("detail").asText());
+            } else {
+                JOptionPane.showMessageDialog(null, root.path("response").path("detail").asText());
             }
         } catch (Exception erornya) {
             System.out.println("Notifikasi : " + erornya);
