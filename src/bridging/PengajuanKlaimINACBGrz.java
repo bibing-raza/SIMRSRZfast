@@ -887,6 +887,12 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         internalFrame9 = new widget.InternalFrame();
         Scroll10 = new widget.ScrollPane();
         tbTindakanPasien2 = new widget.Table();
+        noregTB = new widget.TextBox();
+        BtnValidasiTB = new widget.Button();
+        cmbvalidTB = new widget.ComboBox();
+        jLabel106 = new widget.Label();
+        ChkpasienTB = new widget.CekBox();
+        stts_noreg = new widget.Label();
         internalFrame3 = new widget.InternalFrame();
         scrollInput1 = new widget.ScrollPane();
         FormInput2 = new widget.PanelBiasa();
@@ -1100,7 +1106,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         Popup1.add(ppDiagnosa);
 
         tglDiagnosa.setEditable(false);
-        tglDiagnosa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-02-2022" }));
+        tglDiagnosa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-01-2023" }));
         tglDiagnosa.setDisplayFormat("dd-MM-yyyy");
         tglDiagnosa.setName("tglDiagnosa"); // NOI18N
         tglDiagnosa.setOpaque(false);
@@ -1450,7 +1456,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         jLabel27.setText("hari");
         jLabel27.setName("jLabel27"); // NOI18N
         FormInput.add(jLabel27);
-        jLabel27.setBounds(160, 193, 40, 23);
+        jLabel27.setBounds(160, 193, 30, 23);
 
         jLabel28.setForeground(new java.awt.Color(0, 0, 0));
         jLabel28.setText("Berat Lahir : ");
@@ -1492,7 +1498,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         jLabel32.setText("Chronic : ");
         jLabel32.setName("jLabel32"); // NOI18N
         FormInput.add(jLabel32);
-        jLabel32.setBounds(226, 221, 60, 23);
+        jLabel32.setBounds(228, 221, 55, 23);
 
         kronik.setForeground(new java.awt.Color(0, 0, 0));
         kronik.setName("kronik"); // NOI18N
@@ -1502,7 +1508,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
             }
         });
         FormInput.add(kronik);
-        kronik.setBounds(290, 221, 40, 23);
+        kronik.setBounds(285, 221, 40, 23);
 
         jLabel33.setForeground(new java.awt.Color(0, 0, 0));
         jLabel33.setText("Cara Pulang : ");
@@ -2269,6 +2275,63 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
 
         FormInput.add(TabProsedur1);
         TabProsedur1.setBounds(690, 520, 510, 131);
+
+        noregTB.setForeground(new java.awt.Color(0, 0, 0));
+        noregTB.setName("noregTB"); // NOI18N
+        FormInput.add(noregTB);
+        noregTB.setBounds(285, 165, 260, 23);
+
+        BtnValidasiTB.setForeground(new java.awt.Color(0, 0, 0));
+        BtnValidasiTB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/42a.png"))); // NOI18N
+        BtnValidasiTB.setMnemonic('O');
+        BtnValidasiTB.setText("Di Proses");
+        BtnValidasiTB.setToolTipText("Alt+O");
+        BtnValidasiTB.setName("BtnValidasiTB"); // NOI18N
+        BtnValidasiTB.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnValidasiTB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnValidasiTBActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnValidasiTB);
+        BtnValidasiTB.setBounds(390, 193, 97, 23);
+
+        cmbvalidTB.setForeground(new java.awt.Color(0, 0, 0));
+        cmbvalidTB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Validasi", "Batal Validasi" }));
+        cmbvalidTB.setName("cmbvalidTB"); // NOI18N
+        cmbvalidTB.setOpaque(false);
+        FormInput.add(cmbvalidTB);
+        cmbvalidTB.setBounds(285, 193, 100, 23);
+
+        jLabel106.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel106.setText("No. Reg. TB : ");
+        jLabel106.setName("jLabel106"); // NOI18N
+        FormInput.add(jLabel106);
+        jLabel106.setBounds(200, 193, 83, 23);
+
+        ChkpasienTB.setBackground(new java.awt.Color(255, 255, 250));
+        ChkpasienTB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
+        ChkpasienTB.setForeground(new java.awt.Color(0, 0, 0));
+        ChkpasienTB.setText("Pasien TB : ");
+        ChkpasienTB.setBorderPainted(true);
+        ChkpasienTB.setBorderPaintedFlat(true);
+        ChkpasienTB.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ChkpasienTB.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ChkpasienTB.setName("ChkpasienTB"); // NOI18N
+        ChkpasienTB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkpasienTBActionPerformed(evt);
+            }
+        });
+        FormInput.add(ChkpasienTB);
+        ChkpasienTB.setBounds(200, 165, 83, 23);
+
+        stts_noreg.setForeground(new java.awt.Color(255, 0, 0));
+        stts_noreg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        stts_noreg.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        stts_noreg.setName("stts_noreg"); // NOI18N
+        FormInput.add(stts_noreg);
+        stts_noreg.setBounds(492, 193, 50, 23);
 
         scrollInput.setViewportView(FormInput);
 
@@ -3881,7 +3944,26 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     }//GEN-LAST:event_TabRawatMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-
+        emptnotb();
+        if (Sequel.cariIsi("select stts_validasi from eklaim_sitb_validasi where no_sep='" + noSEP.getText() + "'").equals("VALID")) {
+            ChkpasienTB.setSelected(true);
+            noregTB.setEnabled(true);
+            noregTB.setText(Sequel.cariIsi("select id_tb_03 from nomor_reg_tb where no_rkm_medis='" + norm.getText() + "'"));
+            stts_noreg.setText(Sequel.cariIsi("select stts_validasi from eklaim_sitb_validasi where no_sep='" + noSEP.getText() + "'"));
+            cmbvalidTB.setSelectedIndex(0); 
+            cmbvalidTB.setEnabled(true);
+            BtnValidasiTB.setEnabled(true);
+        } else if (Sequel.cariIsi("select stts_validasi from eklaim_sitb_validasi where no_sep='" + noSEP.getText() + "'").equals("INVALID")) {
+            ChkpasienTB.setSelected(true);
+            noregTB.setEnabled(true);
+            noregTB.setText(Sequel.cariIsi("select id_tb_03 from nomor_reg_tb where no_rkm_medis='" + norm.getText() + "'"));
+            stts_noreg.setText(Sequel.cariIsi("select stts_validasi from eklaim_sitb_validasi where no_sep='" + noSEP.getText() + "'"));
+            cmbvalidTB.setSelectedIndex(1);
+            cmbvalidTB.setEnabled(true);
+            BtnValidasiTB.setEnabled(true);
+        } else {
+            emptnotb();
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void cmbCOBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCOBMouseClicked
@@ -4183,6 +4265,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         dispose();
         emptTeksJKN();
         emptTeksLAINNYA();
+        emptnotb();
     }//GEN-LAST:event_BtnKeluarActionPerformed
 
     private void BtnKeluarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnKeluarKeyPressed
@@ -4812,6 +4895,41 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         tampilProsedur();
     }//GEN-LAST:event_TabProsedur2MouseClicked
 
+    private void BtnValidasiTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnValidasiTBActionPerformed
+        if (norawat.equals("") || noSEP.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Pilih dulu salah satu No. SEP...!!!!");
+        } else if (noregTB.getText().equals("") || noregTB.getText().length() < 3) {
+            JOptionPane.showMessageDialog(rootPane, "Isilah No. Registrasi Pasien TB dg. benar sesuai ketentuan...!!!!");
+            noregTB.requestFocus();
+        } else {
+            if (cmbvalidTB.getSelectedIndex() == 0) {
+                mbak_eka.validasiNomorTB(noSEP.getText(), noregTB.getText());
+                stts_noreg.setText(Sequel.cariIsi("select ifnull(stts_validasi,'') from eklaim_sitb_validasi where no_sep='" + noSEP.getText() + "'"));
+            } else if (cmbvalidTB.getSelectedIndex() == 1) {
+                mbak_eka.BatalvalidasiNomorTB(noSEP.getText(), noregTB.getText());
+                stts_noreg.setText(Sequel.cariIsi("select ifnull(stts_validasi,'') from eklaim_sitb_validasi where no_sep='" + noSEP.getText() + "'"));
+            }
+        }
+    }//GEN-LAST:event_BtnValidasiTBActionPerformed
+
+    private void ChkpasienTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkpasienTBActionPerformed
+        stts_noreg.setText(Sequel.cariIsi("select ifnull(stts_validasi,'') from eklaim_sitb_validasi where no_sep='" + noSEP.getText() + "'"));
+        
+        if (ChkpasienTB.isSelected() == true) {
+            noregTB.setEnabled(true);
+            cmbvalidTB.setEnabled(true);
+            noregTB.setText(Sequel.cariIsi("select ifnull(id_tb_03,'') from nomor_reg_tb where no_rkm_medis='" + norm.getText() + "'"));
+            cmbvalidTB.setSelectedIndex(0);
+            BtnValidasiTB.setEnabled(true);
+        } else if (ChkpasienTB.isSelected() == false) {
+            noregTB.setEnabled(false);
+            cmbvalidTB.setEnabled(false);
+            noregTB.setText("");
+            cmbvalidTB.setSelectedIndex(0);
+            BtnValidasiTB.setEnabled(false);
+        }
+    }//GEN-LAST:event_ChkpasienTBActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4847,6 +4965,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private widget.Button BtnRefres1;
     private widget.Button BtnUnggahDipilih;
     private widget.Button BtnUploadFile;
+    private widget.Button BtnValidasiTB;
     private widget.CekBox ChkAPTT;
     private widget.CekBox ChkAlbumin;
     private widget.CekBox ChkAnalisa;
@@ -4872,6 +4991,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private widget.CekBox ChkThorax;
     private widget.CekBox ChkTranspot;
     private widget.CekBox ChkWaktu;
+    private widget.CekBox ChkpasienTB;
     private widget.PanelBiasa FormInput;
     private widget.PanelBiasa FormInput2;
     private javax.swing.JPopupMenu Popup1;
@@ -4918,6 +5038,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private widget.ComboBox cmbUnggah;
     private widget.ComboBox cmbcrPulang;
     private widget.ComboBox cmbcrPulang1;
+    private widget.ComboBox cmbvalidTB;
     private widget.Label dpjp;
     private widget.Label dpjp1;
     private widget.TextBox hari;
@@ -4938,6 +5059,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private widget.Label jLabel102;
     private widget.Label jLabel103;
     private widget.Label jLabel104;
+    private widget.Label jLabel106;
     private widget.Label jLabel11;
     private widget.Label jLabel110;
     private widget.Label jLabel12;
@@ -5106,6 +5228,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private widget.TextBox noKlaim;
     private widget.Label noPeserta;
     private widget.TextBox noSEP;
+    private widget.TextBox noregTB;
     private widget.Label norm;
     private widget.Label norm1;
     private widget.Label obat;
@@ -5138,6 +5261,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private widget.ScrollPane scrollInput1;
     private javax.swing.JSeparator separatHasil;
     private javax.swing.JSeparator separatHasil1;
+    private widget.Label stts_noreg;
     private widget.TextBox subakut;
     private widget.TextBox subakut1;
     private widget.Label ta;
@@ -8440,5 +8564,15 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 }
             }
         }
+    }
+    
+    private void emptnotb() {
+        ChkpasienTB.setSelected(false);
+        noregTB.setEnabled(false);
+        noregTB.setText("");
+        stts_noreg.setText("");
+        cmbvalidTB.setSelectedIndex(0);
+        cmbvalidTB.setEnabled(false);
+        BtnValidasiTB.setEnabled(false);
     }
 }

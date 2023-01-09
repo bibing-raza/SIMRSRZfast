@@ -469,7 +469,7 @@ public class ApiEKLAIM_inacbg {
                     + "\"method\": \"sitb_validate\""
                     + "},"
                     + "\"data\": {"
-                    + "\"no_sep\": \"" + nosep + "\","
+                    + "\"nomor_sep\": \"" + nosep + "\","
                     + "\"nomor_register_sitb\": \"" + nomorTB + "\""
                     + "}"
                     + "}";
@@ -481,9 +481,9 @@ public class ApiEKLAIM_inacbg {
             root = mapper.readTree(stringbalik);
 
             if (root.path("metadata").path("code").asText().equals("200")) {
-                JOptionPane.showMessageDialog(null, root.path("response").path("detail").asText());
+                JOptionPane.showMessageDialog(null, root.path("metadata").path("message").asText());
             } else {
-                JOptionPane.showMessageDialog(null, root.path("response").path("detail").asText());
+                JOptionPane.showMessageDialog(null, root.path("metadata").path("message").asText());
             }
         } catch (Exception erornya) {
             System.out.println("Notifikasi : " + erornya);
@@ -504,7 +504,7 @@ public class ApiEKLAIM_inacbg {
                     + "\"method\": \"sitb_invalidate\""
                     + "},"
                     + "\"data\": {"
-                    + "\"no_sep\": \"" + nosep + "\","
+                    + "\"nomor_sep\": \"" + nosep + "\","
                     + "\"nomor_register_sitb\": \"" + nomorTB + "\""
                     + "}"
                     + "}";
@@ -515,10 +515,15 @@ public class ApiEKLAIM_inacbg {
             System.out.println("Output : " + stringbalik);
             root = mapper.readTree(stringbalik);
 
-            if (root.path("metadata").path("code").asText().equals("200")) {
-                JOptionPane.showMessageDialog(null, root.path("response").path("detail").asText());
+            if (root.path("metadata").path("code").asText().equals("200")) {                
+                if (root.path("metadata").path("message").asText().equals("null")) {
+                    JOptionPane.showMessageDialog(null, "Data belum divalidasi sebelumnya,..!!!");
+                } else {
+                    JOptionPane.showMessageDialog(null, root.path("metadata").path("message").asText());
+                }
+
             } else {
-                JOptionPane.showMessageDialog(null, root.path("response").path("detail").asText());
+                JOptionPane.showMessageDialog(null, root.path("metadata").path("message").asText());
             }
         } catch (Exception erornya) {
             System.out.println("Notifikasi : " + erornya);
